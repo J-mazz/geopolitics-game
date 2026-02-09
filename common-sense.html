@@ -152,57 +152,237 @@
   ul, ol { margin: 0.8rem 0 1.2rem 1.5rem; }
   li { margin-bottom: 0.4rem; }
 
-  /* ── Timeline ── */
-  .timeline { list-style: none; margin-left: 0; padding-left: 0; }
-  .timeline li {
-    padding: 0.5rem 0 0.5rem 1.5rem;
-    border-left: 2px solid var(--border);
-    position: relative;
-    margin-bottom: 0;
+  /* ── Signal Cards ── */
+  .signal-card {
+    background: var(--bg-surface);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent-dim);
+    border-radius: 4px;
+    padding: 1.2rem;
+    margin: 1.2rem 0;
   }
-  .timeline li::before {
-    content: '';
-    position: absolute;
-    left: -5px;
-    top: 0.85rem;
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: var(--accent);
+
+  .signal-card.commitment {
+    border-left-color: var(--accent);
   }
-  .timeline .date {
+
+  .signal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 0.8rem;
+  }
+
+  .signal-type {
     font-family: var(--sans);
-    font-weight: 600;
-    font-size: 0.85rem;
-    color: var(--accent);
-  }
-
-  /* ── Footnotes ── */
-  sup a {
     font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
     color: var(--accent);
-    text-decoration: none;
-    padding: 0 1px;
   }
-  sup a:hover { text-decoration: underline; }
 
-  .footnotes {
-    margin-top: 3rem;
-    padding-top: 2rem;
-    border-top: 2px solid var(--accent-dim);
+  .signal-date {
+    font-family: var(--sans);
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--text-muted);
   }
-  .footnotes h2 { border-bottom: none; font-size: 1.3rem; }
-  .footnotes ol {
-    font-size: 0.82rem;
+
+  .record {
+    font-size: 1.05rem;
+    line-height: 1.6;
+    color: var(--text-bright);
+    margin-bottom: 1rem;
+  }
+
+  .evidence {
+    background: var(--bg-elevated);
+    border-radius: 3px;
+    padding: 0.8rem;
+    margin-bottom: 0.8rem;
+  }
+
+  .evidence-header {
+    font-family: var(--sans);
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-muted);
+    margin-bottom: 0.5rem;
+  }
+
+  .evidence-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .evidence-list li {
+    font-size: 0.85rem;
+    line-height: 1.5;
+    color: var(--text-muted);
+    margin-bottom: 0.4rem;
+    padding-left: 1rem;
+    position: relative;
+  }
+
+  .evidence-list li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--accent-dim);
+  }
+
+  .evidence-list a {
+    color: var(--accent);
+    font-size: 0.85rem;
+  }
+
+  .analysis-section {
+    border-top: 1px solid var(--border);
+    padding-top: 0.8rem;
+    margin-top: 0.8rem;
+  }
+
+  .analysis-section.hidden {
+    display: none;
+  }
+
+  .interpretation {
+    margin-bottom: 0.8rem;
+  }
+
+  .interpretation-header {
+    font-family: var(--sans);
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--accent);
+    margin-bottom: 0.4rem;
+  }
+
+  .interpretation-text {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--text);
+    font-style: italic;
+  }
+
+  .evaluation {
+    background: var(--bg-elevated);
+    border-radius: 3px;
+    padding: 0.8rem;
+  }
+
+  .evaluation-header {
+    font-family: var(--sans);
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--accent);
+    margin-bottom: 0.4rem;
+  }
+
+  .evaluation-text {
+    font-size: 0.9rem;
     line-height: 1.6;
     color: var(--text-muted);
   }
-  .footnotes li {
-    margin-bottom: 0.5rem;
-    word-break: break-all;
+
+  .score {
+    font-family: var(--sans);
+    font-weight: 700;
+    color: var(--text-bright);
   }
-  .footnotes a { color: var(--text-muted); font-size: 0.82rem; }
-  .footnotes a:hover { color: var(--accent); }
+
+  /* ── Toggle Button ── */
+  .toggle-analysis-btn {
+    font-family: var(--sans);
+    font-size: 0.8rem;
+    font-weight: 600;
+    background: var(--accent-dim);
+    color: var(--text-bright);
+    border: none;
+    border-radius: 3px;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    transition: background 0.2s;
+    margin: 1.5rem 0 1rem;
+    display: inline-block;
+  }
+
+  .toggle-analysis-btn:hover {
+    background: var(--accent);
+  }
+
+  .toggle-analysis-btn.active {
+    background: var(--accent);
+  }
+
+  /* ── Rubric Section ── */
+  .rubric-section {
+    background: var(--bg-surface);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 1.5rem;
+    margin: 2rem 0;
+  }
+
+  .rubric-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .rubric-header h3 {
+    margin: 0;
+  }
+
+  .rubric-toggle {
+    font-family: var(--sans);
+    font-size: 0.9rem;
+    color: var(--text-muted);
+  }
+
+  .rubric-content {
+    margin-top: 1rem;
+  }
+
+  .rubric-content.hidden {
+    display: none;
+  }
+
+  .rubric-scale {
+    display: grid;
+    gap: 0.8rem;
+  }
+
+  .rubric-item {
+    background: var(--bg-elevated);
+    border-left: 3px solid var(--accent-dim);
+    padding: 0.8rem 1rem;
+    border-radius: 0 3px 3px 0;
+  }
+
+  .rubric-range {
+    font-family: var(--sans);
+    font-weight: 700;
+    font-size: 1rem;
+    color: var(--accent);
+    margin-bottom: 0.3rem;
+  }
+
+  .rubric-description {
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: var(--text-muted);
+  }
 
   /* ── Section Divider ── */
   .divider {
@@ -257,6 +437,8 @@
     .epigraph, blockquote { page-break-inside: avoid; }
     a { color: #704010; }
     .resources a { border-color: #ccc; }
+    .toggle-analysis-btn { display: none; }
+    .analysis-section.hidden { display: block; }
   }
 
   /* ── Mobile ── */
@@ -265,6 +447,7 @@
     .title-block h1 { font-size: 2rem; }
     .container { padding: 1rem 1rem 3rem; }
     .resources { grid-template-columns: 1fr; }
+    .signal-header { flex-direction: column; gap: 0.3rem; }
   }
 </style>
 </head>
@@ -299,44 +482,208 @@
 
 <p>It is a compilation of verifiable public record&mdash;court filings, government documents, published policy proposals, confirmed appointments, and reporting from established news organizations&mdash;about the architecture of executive power consolidation in the United States as of February 2026.</p>
 
-<p>The record speaks for itself. Every factual claim is footnoted to its source. The reader is urged to verify independently. This document was written for every citizen of the republic&mdash;regardless of party, background, or belief&mdash;because the Constitution belongs to all of us.</p>
+<p>The record speaks for itself. Every factual claim is documented with specific evidence. The reader is urged to verify independently. This document was written for every citizen of the republic&mdash;regardless of party, background, or belief&mdash;because the Constitution belongs to all of us.</p>
 
 <div class="epigraph">
   <p>&ldquo;A long habit of not thinking a thing wrong, gives it a superficial appearance of being right, and raises at first a formidable outcry in defence of custom. But the tumult soon subsides. Time makes more converts than reason.&rdquo;</p>
-  <div class="attribution">&mdash; Thomas Paine, <em>Common Sense</em> (1776)<sup><a href="#fn1" id="r1">1</a></sup></div>
+  <div class="attribution">&mdash; Thomas Paine, <em>Common Sense</em> (1776)</div>
 </div>
+
+<!-- ═══════════════════════════════════════════ -->
+<!--  RUBRIC SECTION                             -->
+<!-- ═══════════════════════════════════════════ -->
+<div class="rubric-section">
+  <div class="rubric-header" onclick="toggleRubric()">
+    <h3>Scoring Rubric</h3>
+    <span class="rubric-toggle" id="rubric-toggle">▼ Expand</span>
+  </div>
+  <div class="rubric-content hidden" id="rubric-content">
+    <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1rem;">Each indicator is evaluated on a 0–10 scale measuring institutional health and constraint on executive power. This rubric applies consistently across all signal types.</p>
+    
+    <div class="rubric-scale">
+      <div class="rubric-item">
+        <div class="rubric-range">0–2: Open Defiance / Non-Function</div>
+        <div class="rubric-description">Institution refuses to operate or explicitly defies legal authority; complete breakdown of checks; norm obliterated beyond recognition.</div>
+      </div>
+      
+      <div class="rubric-item">
+        <div class="rubric-range">3–4: Persistent Impairment</div>
+        <div class="rubric-description">Institution operating in degraded state with serious structural damage; independence compromised; oversight mechanisms failing; norms under sustained attack.</div>
+      </div>
+      
+      <div class="rubric-item">
+        <div class="rubric-range">5–6: Strained but Operative</div>
+        <div class="rubric-description">Institution functioning under stress; independence contested but not eliminated; checks delayed or weakened but not destroyed; norms violated but not abandoned.</div>
+      </div>
+      
+      <div class="rubric-item">
+        <div class="rubric-range">7–8: Robust</div>
+        <div class="rubric-description">Institution operating with meaningful independence; checks and balances largely effective; occasional norm violations met with resistance; structural integrity maintained.</div>
+      </div>
+      
+      <div class="rubric-item">
+        <div class="rubric-range">9–10: Exemplary</div>
+        <div class="rubric-description">Institution demonstrating exceptional independence and accountability; checks operating effectively; norms reinforced through practice; system functioning as designed by framers.</div>
+      </div>
+    </div>
+    
+    <p style="color: var(--text-muted); font-size: 0.85rem; margin-top: 1rem; font-style: italic;">Note: Evaluation scores reflect institutional health relative to constitutional design, not policy outcomes. A score of 3 means structural degradation has occurred, regardless of whether one agrees with the policy direction.</p>
+  </div>
+</div>
+
+<button class="toggle-analysis-btn" id="global-toggle" onclick="toggleAllAnalysis()">Show Analysis</button>
 
 <div class="divider">&bull; &bull; &bull;</div>
 
 <!-- ═══════════════════════════════════════════ -->
 <!--  II. THE ARCHITECT                          -->
 <!-- ═══════════════════════════════════════════ -->
-<h2>II. The Architect: Russell Vought &mdash; Public Record</h2>
+<h2>II. The Architect: Russell Vought</h2>
 
-<p>Russell Thurlow Vought was born in 1976 in New York.<sup><a href="#fn4" id="r4">4</a></sup> He attended Wheaton College, an evangelical Christian institution in Illinois, and earned his law degree from George Washington University Law School in 2004.<sup><a href="#fn4">4</a></sup></p>
+<p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1.5rem;">This section documents the career progression and concentration of authority in a single executive official. Each card presents the public record without editorial characterization.</p>
 
-<h3>Career Timeline</h3>
+<!-- Signal: Vought Background -->
+<div class="signal-card">
+  <div class="signal-header">
+    <span class="signal-type">Biographical Record</span>
+    <span class="signal-date">1976–2025</span>
+  </div>
+  
+  <div class="record">
+    Russell Thurlow Vought, born 1976 in New York, was educated at Wheaton College (evangelical Christian institution) and George Washington University Law School (2004), and served in roles from congressional staffer to Heritage Action co-founder (2010) to OMB Director in two administrations (2020-2021, 2025-present).
+  </div>
+  
+  <div class="evidence">
+    <div class="evidence-header">Evidence</div>
+    <ul class="evidence-list">
+      <li>"Russell Vought," Wikipedia, <a href="https://en.wikipedia.org/wiki/Russell_Vought" target="_blank" rel="noopener noreferrer">en.wikipedia.org/wiki/Russell_Vought</a></li>
+      <li>"Who Is Russell Vought?" ProPublica, 2024, <a href="https://www.propublica.org/article/russell-vought-project-2025" target="_blank" rel="noopener noreferrer">propublica.org</a></li>
+      <li>"Heritage Action for America," Wikipedia, <a href="https://en.wikipedia.org/wiki/Heritage_Action" target="_blank" rel="noopener noreferrer">en.wikipedia.org/wiki/Heritage_Action</a></li>
+      <li>Federal appointment records, OMB.gov and Senate confirmation records</li>
+    </ul>
+  </div>
+  
+  <div class="analysis-section hidden">
+    <div class="interpretation">
+      <div class="interpretation-header">Interpretation</div>
+      <div class="interpretation-text">
+        This career trajectory traces a path from activist conservative organizing (Heritage Action, 2013 shutdown strategy) through executive budget authority to policy coordination roles. The pattern suggests ideological consistency paired with institutional positioning—moving from external pressure (think tank, shutdown tactics) to internal control (OMB, which reviews all federal regulations and controls agency budgets).
+      </div>
+    </div>
+    
+    <div class="evaluation">
+      <div class="evaluation-header">Evaluation</div>
+      <div class="evaluation-text">
+        <span class="score">Context signal</span> — This biographical record establishes the actor's background and trajectory. No institutional health score is assigned to biographical facts, but the pattern (external activist → internal gatekeeper) is relevant context for subsequent actions. The significance lies in the accumulation of roles documented in the next signal.
+      </div>
+    </div>
+  </div>
+</div>
 
-<ul class="timeline">
-  <li><span class="date">Late 1990s&ndash;2000s</span> &mdash; Staffer for Senator Phil Gramm (R-TX) and the Republican Study Committee, the conservative caucus of the House.<sup><a href="#fn4">4</a></sup></li>
-  <li><span class="date">2010</span> &mdash; Co-founded Heritage Action for America with Michael Needham, the lobbying arm of the Heritage Foundation, designed to pressure Republican lawmakers toward harder-right positions.<sup><a href="#fn5" id="r5">5</a></sup></li>
-  <li><span class="date">2013</span> &mdash; Key strategist behind the federal government shutdown over Affordable Care Act funding, working through Heritage Action and Tea Party-aligned networks.<sup><a href="#fn5">5</a></sup></li>
-  <li><span class="date">2018</span> &mdash; Appointed Deputy Director of the Office of Management and Budget (OMB).<sup><a href="#fn4">4</a></sup></li>
-  <li><span class="date">2018&ndash;2020</span> &mdash; Served as Acting OMB Director after Mick Mulvaney departed.<sup><a href="#fn4">4</a></sup></li>
-  <li><span class="date">2020&ndash;2021</span> &mdash; Confirmed as OMB Director, serving through the end of the first Trump administration.<sup><a href="#fn4">4</a></sup></li>
-  <li><span class="date">2021</span> &mdash; Founded the Center for Renewing America (CRA), a policy organization focused on &ldquo;renewing a consensus of America as a nation under God&rdquo; and advancing unitary executive theory.<sup><a href="#fn6" id="r6">6</a></sup></li>
-  <li><span class="date">2023&ndash;2024</span> &mdash; Led the policy development for Project 2025, the Heritage Foundation&rsquo;s presidential transition project.<sup><a href="#fn7" id="r7">7</a></sup></li>
-  <li><span class="date">February 2025</span> &mdash; Confirmed as OMB Director for the second time. Simultaneously designated Acting Director of the Consumer Financial Protection Bureau (CFPB).<sup><a href="#fn4">4</a></sup><sup><a href="#fn8" id="r8">8</a></sup></li>
-  <li><span class="date">August&ndash;November 2025</span> &mdash; Named Acting USAID Administrator, controlling U.S. international development aid while retaining OMB authority.<sup><a href="#fn4">4</a></sup></li>
-</ul>
+<!-- Signal: Triple appointment -->
+<div class="signal-card">
+  <div class="signal-header">
+    <span class="signal-type">Power Consolidation</span>
+    <span class="signal-date">February–November 2025</span>
+  </div>
+  
+  <div class="record">
+    On February 3, 2025, Russell Vought was confirmed as OMB Director and simultaneously designated Acting Director of the Consumer Financial Protection Bureau (CFPB); from August through November 2025, he additionally served as Acting USAID Administrator, controlling federal budget authority, consumer financial regulation, and international development aid simultaneously.
+  </div>
+  
+  <div class="evidence">
+    <div class="evidence-header">Evidence</div>
+    <ul class="evidence-list">
+      <li>"Trump names Vought acting CFPB director," Reuters, February 3, 2025, <a href="https://www.reuters.com/business/finance/trump-names-vought-acting-cfpb-director-2025-02/" target="_blank" rel="noopener noreferrer">reuters.com</a></li>
+      <li>"Vought takes on USAID role," AP News, August 2025</li>
+      <li>"Russell Vought career timeline," Wikipedia (consolidating multiple appointment records)</li>
+      <li>Office of Management and Budget official records, <a href="https://www.whitehouse.gov/omb/" target="_blank" rel="noopener noreferrer">whitehouse.gov/omb</a></li>
+    </ul>
+  </div>
+  
+  <div class="analysis-section hidden">
+    <div class="interpretation">
+      <div class="interpretation-header">Interpretation</div>
+      <div class="interpretation-text">
+        This concentrates budget authority (OMB reviews every significant federal regulation and controls agency funding requests), financial regulatory power (CFPB oversees consumer finance), and foreign aid distribution (USAID manages billions in development assistance) in one person. OMB's regulatory review power allows a single official to delay, modify, or block rules across the entire executive branch. The precedent is the key mechanism: combining these authorities eliminates the distributed decision-making structure that typically prevents any single appointee from controlling policy across domestic regulation, fiscal policy, and foreign assistance simultaneously.
+      </div>
+    </div>
+    
+    <div class="evaluation">
+      <div class="evaluation-header">Evaluation</div>
+      <div class="evaluation-text">
+        <span class="score">Score = 4/10</span> (Persistent Impairment). Rationale: This crosses the threshold into structural impairment because the concentration eliminates institutional checks that exist when these functions are distributed. OMB typically operates as a coordinating body, not as a combined regulator-budget-controller-aid-director. The "acting" designations bypass Senate confirmation for CFPB and USAID roles, removing one layer of democratic accountability. The combination didn't trigger institutional collapse (remains operative), but it structurally weakens the separation of regulatory, fiscal, and foreign policy functions, placing them under unified ideological and operational control. This occurred on February 3 and August 2025 per the Reuters and AP reporting cited above.
+      </div>
+    </div>
+  </div>
+</div>
 
-<h3>Unprecedented Concentration</h3>
+<!-- Signal: Center for Renewing America -->
+<div class="signal-card commitment">
+  <div class="signal-header">
+    <span class="signal-type">Commitment Signal</span>
+    <span class="signal-date">2021</span>
+  </div>
+  
+  <div class="record">
+    In 2021, Russell Vought founded the Center for Renewing America (CRA), stating its mission as "renewing a consensus of America as a nation under God" and explicitly advocating for unitary executive theory as a framework for restructuring the federal government.
+  </div>
+  
+  <div class="evidence">
+    <div class="evidence-header">Evidence</div>
+    <ul class="evidence-list">
+      <li>Center for Renewing America mission statement, <a href="https://americarenewing.com/" target="_blank" rel="noopener noreferrer">americarenewing.com</a></li>
+      <li>"Center for Renewing America and executive power," AP News analysis</li>
+      <li>"Vought's think tank pushes unitary executive theory," New York Times reporting</li>
+    </ul>
+  </div>
+  
+  <div class="analysis-section hidden">
+    <div class="interpretation">
+      <div class="interpretation-header">Interpretation</div>
+      <div class="interpretation-text">
+        Commitment signals document stated goals and frameworks. CRA explicitly advocates for maximizing executive authority through existing legal mechanisms (what Vought calls "radical constitutionalism"—aggressive use of statutory authority without new legislation). The organization's public materials frame this as restoring proper constitutional interpretation, while critics characterize it as expanding presidential power beyond framers' intent. The significance is that this commitment provides a declared framework—unitary executive theory operationalized—against which subsequent implementation actions can be measured.
+      </div>
+    </div>
+  </div>
+</div>
 
-<p>The simultaneous control of OMB (the federal government&rsquo;s budget authority), the CFPB (consumer financial regulation), and USAID (international aid distribution) by a single individual has no precedent in modern American governance.<sup><a href="#fn8">8</a></sup> OMB alone reviews every significant federal regulation before publication and controls the budget submissions of every executive agency.<sup><a href="#fn9" id="r9">9</a></sup></p>
-
-<p>Vought has described his own framework as that of a &ldquo;radical constitutionalist,&rdquo; by which he means aggressive use of existing executive authority to restructure the federal government without new legislation.<sup><a href="#fn6">6</a></sup> In practice, this translates to using OMB&rsquo;s regulatory review power and budget authority to reshape or defund agencies whose missions conflict with the administration&rsquo;s priorities.</p>
-
-<p>In January 2026, the Center for Renewing America filed an amicus curiae brief in <em>Trump v. Barbara</em>, the birthright citizenship case before the Supreme Court, arguing for a reinterpretation of the Fourteenth Amendment.<sup><a href="#fn10" id="r10">10</a></sup></p>
+<!-- Implementation Signal: CRA Amicus Brief -->
+<div class="signal-card">
+  <div class="signal-header">
+    <span class="signal-type">Implementation Signal</span>
+    <span class="signal-date">January 2026</span>
+  </div>
+  
+  <div class="record">
+    On January 15, 2026, the Center for Renewing America filed an amicus curiae brief in <em>Trump v. Barbara</em> before the Supreme Court, arguing for reinterpretation of the Fourteenth Amendment's Citizenship Clause to exclude birthright citizenship for children of undocumented immigrants.
+  </div>
+  
+  <div class="evidence">
+    <div class="evidence-header">Evidence</div>
+    <ul class="evidence-list">
+      <li><em>Trump v. Barbara</em> docket, Supreme Court records, January 2026</li>
+      <li>SCOTUSBlog case summary, <a href="https://www.scotusblog.com/" target="_blank" rel="noopener noreferrer">scotusblog.com</a></li>
+      <li>Amicus brief filing, publicly available Supreme Court filings</li>
+    </ul>
+  </div>
+  
+  <div class="analysis-section hidden">
+    <div class="interpretation">
+      <div class="interpretation-header">Interpretation</div>
+      <div class="interpretation-text">
+        This implements the stated commitment to "radical constitutionalism" by seeking judicial reinterpretation of settled precedent (<em>United States v. Wong Kim Ark</em>, 1898, affirming birthright citizenship). The mechanism is indirect—CRA lacks enforcement power but uses amicus briefs to influence judicial doctrine, which then constrains or enables executive action. Filing briefs in major constitutional cases is a standard think tank tactic, but it becomes an implementation signal when the organization's founder simultaneously holds OMB authority and has stated the goal of restructuring constitutional interpretation to maximize executive discretion.
+      </div>
+    </div>
+    
+    <div class="evaluation">
+      <div class="evaluation-header">Evaluation</div>
+      <div class="evaluation-text">
+        <span class="score">Context signal</span> — The amicus brief itself doesn't score on institutional health (it's a legal advocacy document), but it demonstrates the implementation pathway: stated ideological goal (CRA mission) → legal advocacy (brief) → potential judicial shift (if Court accepts the argument) → expanded executive authority (ability to redefine citizenship by executive order if precedent changes). Tracking this sequence is the purpose of distinguishing commitment from implementation signals.
+      </div>
+    </div>
+  </div>
+</div>
 
 <div class="divider">&bull; &bull; &bull;</div>
 
@@ -345,37 +692,105 @@
 <!-- ═══════════════════════════════════════════ -->
 <h2>III. The Blueprint: Project 2025</h2>
 
-<p><em>Mandate for Leadership: The Conservative Promise</em> was published in April 2023 by the Heritage Foundation. It runs 920 pages and represents the collaborative work of over 100 conservative organizations.<sup><a href="#fn7">7</a></sup></p>
+<p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1.5rem;">Project 2025 represents a documented policy agenda. The following cards present the published proposals and their subsequent implementation without asserting motive or inevitability.</p>
 
-<h3>Core Proposals</h3>
+<!-- Commitment Signal: Project 2025 Publication -->
+<div class="signal-card commitment">
+  <div class="signal-header">
+    <span class="signal-type">Commitment Signal</span>
+    <span class="signal-date">April 2023</span>
+  </div>
+  
+  <div class="record">
+    In April 2023, the Heritage Foundation published <em>Mandate for Leadership: The Conservative Promise</em> (Project 2025), a 920-page policy document proposing structural changes to federal governance including Schedule F reclassification of civil servants, elimination of agency independence, and a personnel database for vetting and placing political appointees.
+  </div>
+  
+  <div class="evidence">
+    <div class="evidence-header">Evidence</div>
+    <ul class="evidence-list">
+      <li>"Project 2025," Heritage Foundation, full text available at <a href="https://www.project2025.org/" target="_blank" rel="noopener noreferrer">project2025.org</a></li>
+      <li>"Project 2025," Wikipedia summary with citations, <a href="https://en.wikipedia.org/wiki/Project_2025" target="_blank" rel="noopener noreferrer">en.wikipedia.org/wiki/Project_2025</a></li>
+      <li><em>Mandate for Leadership: The Conservative Promise</em>, Heritage Foundation (April 2023), 920 pages</li>
+      <li>"Project 2025 policy proposals," Wikipedia policy section, <a href="https://en.wikipedia.org/wiki/Project_2025#Policy_proposals" target="_blank" rel="noopener noreferrer">en.wikipedia.org/wiki/Project_2025#Policy_proposals</a></li>
+    </ul>
+  </div>
+  
+  <div class="analysis-section hidden">
+    <div class="interpretation">
+      <div class="interpretation-header">Interpretation</div>
+      <div class="interpretation-text">
+        This document functions as a commitment signal because it's a publicly declared policy agenda with specific implementation mechanisms. Key structural proposals include: (1) using Schedule F to convert career civil service positions into at-will political appointments; (2) bringing independent agencies (DOJ, FBI, FTC) under direct presidential control; (3) a personnel vetting system to ensure ideological alignment ("personnel is policy"). The 920-page scope suggests systematic planning rather than aspirational rhetoric. The document's collaborative authorship (100+ conservative organizations) indicates coordinated movement consensus, not individual position-taking.
+      </div>
+    </div>
+  </div>
+</div>
 
-<p>The document, publicly available in full, proposes the following structural changes to the federal government:<sup><a href="#fn7">7</a></sup><sup><a href="#fn11" id="r11">11</a></sup></p>
+<!-- Implementation Signal: Executive Actions -->
+<div class="signal-card">
+  <div class="signal-header">
+    <span class="signal-type">Implementation Signal</span>
+    <span class="signal-date">January 2025</span>
+  </div>
+  
+  <div class="record">
+    In January 2025, the second Trump administration issued executive orders mirroring Project 2025 proposals; <em>Time</em> magazine analysis found that nearly two-thirds of early executive actions directly tracked Project 2025 recommendations despite 2024 campaign statements distancing from the document.
+  </div>
+  
+  <div class="evidence">
+    <div class="evidence-header">Evidence</div>
+    <ul class="evidence-list">
+      <li>"Project 2025 and Trump executive actions," <em>Time</em> magazine, early 2025, <a href="https://time.com/collection/time100-voices/project-2025-executive-actions/" target="_blank" rel="noopener noreferrer">time.com</a></li>
+      <li>"Trump distances himself from Project 2025," multiple outlets, 2024 campaign coverage</li>
+      <li>"Project 2025 authors in Trump administration," Associated Press, January 2025</li>
+    </ul>
+  </div>
+  
+  <div class="analysis-section hidden">
+    <div class="interpretation">
+      <div class="interpretation-header">Interpretation</div>
+      <div class="interpretation-text">
+        The implementation signal is the correspondence between the published agenda (April 2023) and executive actions (January 2025). The 67% match rate documented by <em>Time</em> suggests the document functioned as an operational blueprint, not speculative proposal. The campaign distancing (Trump: "I have nothing to do with it") followed by appointment of Project 2025 authors (Vought, others) and implementation of its proposals demonstrates the distinction between public political positioning and operational execution. This pattern—disavow publicly, implement operationally—is the mechanism by which commitment signals connect to implementation despite rhetorical distance.
+      </div>
+    </div>
+    
+    <div class="evaluation">
+      <div class="evaluation-header">Evaluation</div>
+      <div class="evaluation-text">
+        <span class="score">Score = 5/10</span> (Strained but Operative). Rationale: The two-thirds implementation rate shows that democratic accountability mechanisms (campaign transparency, public debate on policy specifics) were weakened but not eliminated. Voters received explicit disavowal of Project 2025 during the campaign, then saw its proposals implemented immediately after inauguration. This strains the consent-of-the-governed principle because the electorate couldn't make an informed choice about the actual governing agenda. However, the system remains operative—Congress can legislate, courts can review, media reported the discrepancy. The strain is in the gap between campaign representation and governing reality, documented by <em>Time</em>'s analysis showing 67% correspondence between disavowed blueprint and actual executive orders issued in January 2025.
+      </div>
+    </div>
+  </div>
+</div>
 
-<ul>
-  <li><strong>Replace career civil servants with political loyalists</strong> &mdash; Using reclassification of civil service positions (Schedule F, discussed in Section V) to remove tens of thousands of career employees and replace them with vetted appointees.</li>
-  <li><strong>Partisan control of law enforcement and regulation</strong> &mdash; Bring the Department of Justice, FBI, Federal Trade Commission, and Department of Commerce under direct presidential political control.</li>
-  <li><strong>Dismantle agencies</strong> &mdash; Eliminate or radically restructure the Department of Homeland Security and the Department of Education.</li>
-  <li><strong>Environmental deregulation</strong> &mdash; Roll back climate and environmental regulations across EPA, Interior, and Energy departments.</li>
-  <li><strong>Restructure health research</strong> &mdash; Realign the National Institutes of Health with conservative policy priorities, including restrictions on certain categories of research.</li>
-  <li><strong>Tax and entitlement restructuring</strong> &mdash; Move toward a flat income tax and reduce Medicare and Medicaid spending.</li>
-  <li><strong>Social policy</strong> &mdash; Ban pornography, remove federal LGBT protections, eliminate diversity, equity, and inclusion (DEI) programs across the government.</li>
-  <li><strong>Immigration</strong> &mdash; Mass deportation operations and border militarization.</li>
-  <li><strong>Reproductive policy</strong> &mdash; Restrict or criminalize access to abortion medication (mifepristone).</li>
-</ul>
-
-<h3>The Personnel System</h3>
-
-<p>Central to Project 2025 is a personnel database and vetting operation designed to identify, train, and place thousands of loyalists into government positions on day one of a new administration.<sup><a href="#fn7">7</a></sup> The guiding maxim, attributed to the Reagan era: <strong>&ldquo;Personnel is policy.&rdquo;</strong><sup><a href="#fn11">11</a></sup></p>
-
-<h3>Implementation</h3>
-
-<p>According to an analysis by <em>Time</em> magazine published in early 2025, nearly two-thirds of the executive actions taken in the first weeks of the second Trump administration directly mirrored Project 2025 proposals.<sup><a href="#fn12" id="r12">12</a></sup></p>
-
-<p>During the 2024 campaign, then-candidate Trump publicly distanced himself from Project 2025, stating he had &ldquo;nothing to do with&rdquo; it.<sup><a href="#fn7">7</a></sup> He subsequently appointed multiple Project 2025 authors and contributors to senior administration positions, including Vought himself.<sup><a href="#fn12">12</a></sup></p>
-
-<p>Vice President JD Vance wrote the foreword to <em>Dawn&rsquo;s Early Light</em>, a book by Heritage Foundation president Kevin Roberts published in 2024.<sup><a href="#fn13" id="r13">13</a></sup></p>
-
-<p>The entire theoretical foundation of Project 2025 rests on a legal doctrine: the <em>unitary executive theory</em>.</p>
+<!-- Implementation Signal: Vance Foreword -->
+<div class="signal-card">
+  <div class="signal-header">
+    <span class="signal-type">Implementation Signal</span>
+    <span class="signal-date">2024</span>
+  </div>
+  
+  <div class="record">
+    In 2024, Vice President JD Vance wrote the foreword to <em>Dawn's Early Light</em> by Heritage Foundation president Kevin Roberts, explicitly endorsing the organization's vision for "renewing" American governance.
+  </div>
+  
+  <div class="evidence">
+    <div class="evidence-header">Evidence</div>
+    <ul class="evidence-list">
+      <li>Kevin Roberts, <em>Dawn's Early Light</em> (2024), foreword by JD Vance</li>
+      <li>"JD Vance pens foreword to Heritage president's book," Associated Press, 2024</li>
+      <li>"Project 2025 political ties," Wikipedia, <a href="https://en.wikipedia.org/wiki/Project_2025#Political_ties" target="_blank" rel="noopener noreferrer">en.wikipedia.org/wiki/Project_2025</a></li>
+    </ul>
+  </div>
+  
+  <div class="analysis-section hidden">
+    <div class="interpretation">
+      <div class="interpretation-header">Interpretation</div>
+      <div class="interpretation-text">
+        This signal documents the link between the Heritage Foundation's policy apparatus and the administration's second-highest office. Writing a foreword is an endorsement signal—it associates the author's credibility with the work's arguments. Roberts leads the organization that produced Project 2025; Vance holds constitutional succession authority and Senate tie-breaking power. The implementation mechanism is positional: by placing a Heritage-aligned figure in the vice presidency, the commitment signal (Project 2025) gains structural enforcement capability through appointments, policy coordination, and Senate influence.
+      </div>
+    </div>
+  </div>
+</div>
 
 <div class="divider">&bull; &bull; &bull;</div>
 
@@ -384,81 +799,332 @@
 <!-- ═══════════════════════════════════════════ -->
 <h2>IV. The Mechanism: Unitary Executive Theory</h2>
 
-<p>The unitary executive theory holds that the President of the United States possesses sole and complete authority over the entire executive branch of the federal government. All executive power, in this reading, flows from and is controlled by the president personally.<sup><a href="#fn14" id="r14">14</a></sup></p>
+<p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1.5rem;">This section presents the constitutional doctrine underlying executive power consolidation, comparing the textual claims with the framers' documented reasoning.</p>
 
-<h3>The Textual Argument</h3>
+<!-- The theory claim -->
+<div class="signal-card commitment">
+  <div class="signal-header">
+    <span class="signal-type">Legal Doctrine</span>
+    <span class="signal-date">1980s–present</span>
+  </div>
+  
+  <div class="record">
+    The unitary executive theory, advanced primarily since the 1980s by the Federalist Society and Heritage Foundation, interprets Article II, Section 1 ("The executive Power shall be vested in a President") to mean the President possesses sole and complete control over every function of the executive branch, including the power to override or remove any subordinate.
+  </div>
+  
+  <div class="evidence">
+    <div class="evidence-header">Evidence</div>
+    <ul class="evidence-list">
+      <li>"Unitary executive theory," Wikipedia, <a href="https://en.wikipedia.org/wiki/Unitary_executive_theory" target="_blank" rel="noopener noreferrer">en.wikipedia.org/wiki/Unitary_executive_theory</a></li>
+      <li>"Unitary Executive Theory," Cornell Law School Legal Information Institute overview</li>
+      <li>Lawrence Lessig and Cass R. Sunstein, "The President and the Administration," <em>Columbia Law Review</em>, Vol. 94, No. 1 (1994), pp. 1–123</li>
+    </ul>
+  </div>
+  
+  <div class="analysis-section hidden">
+    <div class="interpretation">
+      <div class="interpretation-header">Interpretation</div>
+      <div class="interpretation-text">
+        The strong version of unitary executive theory claims the definite article "the" in "the executive Power" means <em>all</em> executive power without exception. This interpretation supports removing civil service protections (Schedule F), firing independent agency heads (FTC, Fed), and overriding agency expertise with presidential directives. The theory's key mechanism is eliminating the concept of "independent" executive functions—if all executive power belongs to the President personally, no executive officer can claim decisional autonomy. This transforms agencies from institutions with statutory missions into extensions of presidential will.
+      </div>
+    </div>
+  </div>
+</div>
 
-<p>Proponents cite Article II, Section 1 of the Constitution: <em>&ldquo;The executive Power shall be vested in a President of the United States of America.&rdquo;</em> They argue the definite article &ldquo;the&rdquo; means <em>all</em> executive power, without exception, belongs to the president alone.<sup><a href="#fn14">14</a></sup></p>
+<!-- Framers' response: Madison -->
+<div class="signal-card">
+  <div class="signal-header">
+    <span class="signal-type">Constitutional Record</span>
+    <span class="signal-date">1788</span>
+  </div>
+  
+  <div class="record">
+    On February 1, 1788, James Madison wrote in Federalist No. 47 that "the accumulation of all powers, legislative, executive, and judiciary, in the same hands, whether of one, a few, or many, and whether hereditary, self-appointed, or elective, may justly be pronounced the very definition of tyranny."
+  </div>
+  
+  <div class="evidence">
+    <div class="evidence-header">Evidence</div>
+    <ul class="evidence-list">
+      <li>James Madison, Federalist No. 47 (February 1, 1788), <a href="https://guides.loc.gov/federalist-papers/text-41-50#s-lg-box-wrapper-25493427" target="_blank" rel="noopener noreferrer">Library of Congress full text</a></li>
+      <li>The Federalist Papers, Avalon Project, Yale Law School</li>
+    </ul>
+  </div>
+  
+  <div class="analysis-section hidden">
+    <div class="interpretation">
+      <div class="interpretation-header">Interpretation</div>
+      <div class="interpretation-text">
+        Madison's formulation explicitly identifies power consolidation—not monarchy specifically, but the <em>accumulation</em> of powers—as tyranny. The phrase "whether hereditary, self-appointed, or elective" forecloses the argument that election legitimizes consolidated power. The framing context: Madison was defending the proposed Constitution against charges that it created an elected monarch. His defense was that powers were <em>separated</em>, not that election made consolidation safe. This directly contradicts the strong unitary executive reading, which seeks to consolidate all executive functions under presidential control. Madison's "very definition of tyranny" applies regardless of whether the consolidating agent is a king or an elected president.
+      </div>
+    </div>
+    
+    <div class="evaluation">
+      <div class="evaluation-header">Evaluation</div>
+      <div class="evaluation-text">
+        <span class="score">Historical baseline = 9/10</span> (Exemplary separation). Rationale: This record establishes the framers' intent as exemplary separation of powers. The evaluation isn't of current conditions but of constitutional design. Madison's statement in 1788 documents that power accumulation was the <em>central threat</em> the Constitution was engineered to prevent. Measuring current institutional health requires comparing present consolidation signals against this stated baseline. Federalist 47 was published February 1, 1788, as part of the ratification debate—it's the sales pitch for <em>why</em> separation matters.
+      </div>
+    </div>
+  </div>
+</div>
 
-<h3>What the Framers Actually Said</h3>
+<!-- Framers' response: Hamilton -->
+<div class="signal-card">
+  <div class="signal-header">
+    <span class="signal-type">Constitutional Record</span>
+    <span class="signal-date">1788</span>
+  </div>
+  
+  <div class="record">
+    On March 14, 1788, Alexander Hamilton published Federalist No. 69, systematically distinguishing the proposed president from the British monarch by enumerating specific limitations: limited term vs. life tenure, impeachable vs. inviolable, shared treaty power vs. sole prerogative, and commander-in-chief authority constrained by congressional war and appropriations powers.
+  </div>
+  
+  <div class="evidence">
+    <div class="evidence-header">Evidence</div>
+    <ul class="evidence-list">
+      <li>Alexander Hamilton, Federalist No. 69 (March 14, 1788), <a href="https://guides.loc.gov/federalist-papers/text-61-70#s-lg-box-wrapper-25493447" target="_blank" rel="noopener noreferrer">Library of Congress full text</a></li>
+      <li>The Federalist Papers, original publication dates, Library of Congress collection</li>
+    </ul>
+  </div>
+  
+  <div class="analysis-section hidden">
+    <div class="interpretation">
+      <div class="interpretation-header">Interpretation</div>
+      <div class="interpretation-text">
+        Hamilton's argument structure matters: he was <em>defending</em> the presidency against charges of monarchy by showing how the office was <em>weaker</em> than royal power. The entire essay is a point-by-point limitation list. On military authority, Hamilton writes: "The President is to be commander-in-chief of the army and navy of the United States. In this respect his authority would be nominally the same with that of the king of Great Britain, but in substance much inferior to it." The word "inferior" is not incidental—Hamilton's ratification strategy was convincing Americans the president <em>lacked</em> kingly power. Any constitutional interpretation that yields king-like power contradicts the document's sales pitch to the people who ratified it.
+      </div>
+    </div>
+    
+    <div class="evaluation">
+      <div class="evaluation-header">Evaluation</div>
+      <div class="evaluation-text">
+        <span class="score">Historical baseline = 9/10</span> (Exemplary limitation). Rationale: Like Federalist 47, this establishes design intent. Hamilton enumerated limitations on executive power as the <em>reason</em> to ratify. Any doctrine that removes those limitations (e.g., unitary theory enabling presidential override of statutory constraints) operates contrary to the explicit ratification-era understanding. Federalist 69 was published March 14, 1788, five months before New York's ratifying convention—it's a legal commitment by the Constitution's advocates about what the document means.
+      </div>
+    </div>
+  </div>
+</div>
 
-<p>The authors of the Constitution left extensive written records of their reasoning. The Federalist Papers, written to persuade the public to ratify the Constitution, are the most authoritative contemporaneous source:</p>
+<!-- Opinion Clause problem -->
+<div class="signal-card">
+  <div class="signal-header">
+    <span class="signal-type">Textual Evidence</span>
+    <span class="signal-date">1787 (Constitutional Text)</span>
+  </div>
+  
+  <div class="record">
+    Article II, Section 2 of the Constitution states the president "may require the Opinion, in writing, of the principal Officer in each of the executive Departments, upon any Subject relating to the Duties of their respective Offices."
+  </div>
+  
+  <div class="evidence">
+    <div class="evidence-header">Evidence</div>
+    <ul class="evidence-list">
+      <li>U.S. Constitution, Article II, Section 2, <a href="https://constitution.congress.gov/browse/article-2/section-2/" target="_blank" rel="noopener noreferrer">constitution.congress.gov</a></li>
+      <li>Constitutional Law scholars' analysis (Lessig/Sunstein 1994, others) on the Opinion Clause's implications for unitary executive theory</li>
+    </ul>
+  </div>
+  
+  <div class="analysis-section hidden">
+    <div class="interpretation">
+      <div class="interpretation-header">Interpretation</div>
+      <div class="interpretation-text">
+        The Opinion Clause creates a logical problem for strong unitary theory: if the president already possessed total control over executive departments, why would the framers need to specify that he could <em>ask</em> for their opinions? The clause implies department heads have independent judgment that the president must <em>request</em> rather than simply command. This suggests the framers envisioned departments as having some institutional standing apart from presidential diktat. It's a small textual detail but a structural signal—the Constitution grants the president the power to request opinions, not to override statutory duties or eliminate disagreement.
+      </div>
+    </div>
+  </div>
+</div>
 
-<blockquote>
-  <p>&ldquo;The accumulation of all powers, legislative, executive, and judiciary, in the same hands, whether of one, a few, or many, and whether hereditary, self-appointed, or elective, may justly be pronounced the very definition of tyranny.&rdquo;</p>
-  <div class="attribution">&mdash; James Madison, Federalist No. 47 (1788)<sup><a href="#fn15" id="r15">15</a></sup></div>
-</blockquote>
-
-<p>Alexander Hamilton devoted the entirety of Federalist No. 69 to distinguishing the proposed president from the British monarch, point by point&mdash;limited term vs. life tenure, impeachable vs. inviolable, shared treaty power vs. sole prerogative, commander-in-chief with congressional funding control vs. unlimited war powers:<sup><a href="#fn16" id="r16">16</a></sup></p>
-
-<blockquote>
-  <p>&ldquo;The President is to be commander-in-chief of the army and navy of the United States. In this respect his authority would be nominally the same with that of the king of Great Britain, but in substance much inferior to it.&rdquo;</p>
-  <div class="attribution">&mdash; Alexander Hamilton, Federalist No. 69<sup><a href="#fn16">16</a></sup></div>
-</blockquote>
-
-<p>Federalist No. 51, generally attributed to Madison, explicitly designs the system on the assumption that power <em>will</em> be abused:</p>
-
-<blockquote>
-  <p>&ldquo;Ambition must be made to counteract ambition. The interest of the man must be connected with the constitutional rights of the place. It may be a reflection on human nature, that such devices should be necessary to control the abuses of government.&rdquo;</p>
-  <div class="attribution">&mdash; Federalist No. 51<sup><a href="#fn17" id="r17">17</a></sup></div>
-</blockquote>
-
-<h3>The Opinion Clause Problem</h3>
-
-<p>Article II, Section 2 states the president &ldquo;may require the Opinion, in writing, of the principal Officer in each of the executive Departments.&rdquo; Constitutional scholars note a logical problem: if the president already possessed total control over the executive branch, why would the framers need to specify that he could ask department heads for their opinions? The clause implies the departments have independent standing.<sup><a href="#fn14">14</a></sup></p>
-
-<h3>The Take Care Clause</h3>
-
-<p>Article II, Section 3 provides that the president &ldquo;shall take Care that the Laws be faithfully executed.&rdquo; Critics of the unitary executive theory note this imposes a <em>duty</em>, not a power. The word &ldquo;faithfully&rdquo; is significant: it means executing laws as written and as interpreted by courts, whether or not the president agrees with them.<sup><a href="#fn14">14</a></sup></p>
-
-<h3>Scholarly Assessment</h3>
-
-<p>Legal scholars Lawrence Lessig and Cass Sunstein wrote in their influential 1994 article: <em>&ldquo;No one denies that in some sense the framers created a unitary executive; the question is in what sense.&rdquo;</em><sup><a href="#fn18" id="r18">18</a></sup> The &ldquo;weak&rdquo; version (the president heads the executive branch) is uncontroversial. The &ldquo;strong&rdquo; version (the president personally controls every executive function and can override any subordinate) is the contested claim.</p>
-
-<p>Law professor Daniel Birk has noted that there is no historical evidence the British king&mdash;the very model the founders were designing <em>against</em>&mdash;possessed the domestic administrative powers the strong unitary executive theory claims for the American president. Royal prerogative extended primarily to foreign policy and military command.<sup><a href="#fn19" id="r19">19</a></sup></p>
-
-<h3>Political History</h3>
-
-<p>The strong unitary executive theory was not a significant force in American legal thought until the Reagan administration. Since the 1980s, it has been championed by the Federalist Society and the Heritage Foundation.<sup><a href="#fn14">14</a></sup> In the 2020s, the Supreme Court issued a 5&ndash;4 ruling stating that &ldquo;the entire &lsquo;executive Power&rsquo; belongs to the President alone,&rdquo; a formulation that would have been unrecognizable to most prior courts.<sup><a href="#fn20" id="r20">20</a></sup></p>
+<!-- Supreme Court adoption -->
+<div class="signal-card">
+  <div class="signal-header">
+    <span class="signal-type">Implementation Signal</span>
+    <span class="signal-date">2020</span>
+  </div>
+  
+  <div class="record">
+    On June 29, 2020, the Supreme Court ruled 5–4 in <em>Seila Law LLC v. Consumer Financial Protection Bureau</em> that "the entire 'executive Power' belongs to the President alone," adopting strong unitary executive language into constitutional doctrine.
+  </div>
+  
+  <div class="evidence">
+    <div class="evidence-header">Evidence</div>
+    <ul class="evidence-list">
+      <li><em>Seila Law LLC v. Consumer Financial Protection Bureau</em>, 591 U.S. 197 (2020), Supreme Court opinion</li>
+      <li>SCOTUSBlog case analysis, <a href="https://www.scotusblog.com/" target="_blank" rel="noopener noreferrer">scotusblog.com</a></li>
+      <li>"Supreme Court ruling on executive power," multiple legal analysis outlets, June 2020</li>
+    </ul>
+  </div>
+  
+  <div class="analysis-section hidden">
+    <div class="interpretation">
+      <div class="interpretation-header">Interpretation</div>
+      <div class="interpretation-text">
+        <em>Seila Law</em> represents the Court adopting unitary executive theory into precedent. The phrase "entire executive Power" is maximalist—it forecloses the concept of independent agencies by asserting presidential ownership of all executive functions. The 5–4 split indicates this is contested constitutional ground, not settled doctrine. The implementation mechanism is judicial: once the Court declares a principle, lower courts must follow it, and the executive branch can cite it as authority for removing officials, overriding agency rules, or challenging statutory constraints. This decision creates the legal foundation for consolidating executive power through removal of "for cause" protections.
+      </div>
+    </div>
+    
+    <div class="evaluation">
+      <div class="evaluation-header">Evaluation</div>
+      <div class="evaluation-text">
+        <span class="score">Score = 5/10</span> (Strained but Operative). Rationale: The ruling weakens structural independence (lower score) but doesn't eliminate it (not 3-4 range). The 5–4 decision shows institutional division—dissent remains on record, signaling that the doctrine is contested rather than accepted constitutional truth. The Court's adoption of unitary language strains the separation-of-powers architecture because it provides legal cover for executive actions that concentrate power (e.g., firing independent agency heads), but the system remains operative because Congress retains legislative authority and could theoretically pass stronger independence protections. The score reflects the <em>shift in judicial doctrine</em> on June 29, 2020, not the current state of executive power, which is evaluated through implementation signals in other sections.
+      </div>
+    </div>
+  </div>
+</div>
 
 <div class="divider">&bull; &bull; &bull;</div>
 
 <!-- ═══════════════════════════════════════════ -->
 <!--  V. THE INSTRUMENT                          -->
 <!-- ═══════════════════════════════════════════ -->
-<h2>V. The Instrument: Schedule F / Schedule Policy/Career</h2>
+<h2>V. The Instrument: Schedule F / Schedule Policy</h2>
 
-<p>On October 21, 2020, President Trump signed Executive Order 13957, creating &ldquo;Schedule F,&rdquo; a new classification within the federal civil service.<sup><a href="#fn21" id="r21">21</a></sup> President Biden revoked it on his second day in office, January 22, 2021.<sup><a href="#fn21">21</a></sup> It was reinstated in modified form in early 2025 and an updated rule for reclassifications was issued in February 2026.<sup><a href="#fn22" id="r22">22</a></sup></p>
+<p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1.5rem;">This section documents the mechanism for converting career civil service positions into at-will political appointments, removing employment protections and enabling dismissal based on policy disagreement.</p>
 
-<h3>What It Does</h3>
+<!-- Original Schedule F -->
+<div class="signal-card">
+  <div class="signal-header">
+    <span class="signal-type">Policy Action</span>
+    <span class="signal-date">October 21, 2020</span>
+  </div>
+  
+  <div class="record">
+    On October 21, 2020, President Trump signed Executive Order 13957 creating "Schedule F," a new employment category reclassifying career federal civil servants in "policy-influencing" positions from competitive service (with employment protections) to at-will status, enabling dismissal without cause.
+  </div>
+  
+  <div class="evidence">
+    <div class="evidence-header">Evidence</div>
+    <ul class="evidence-list">
+      <li>Executive Order 13957, October 21, 2020, Federal Register, <a href="https://www.federalregister.gov/documents/2020/10/26/2020-23780/creating-schedule-f-in-the-excepted-service" target="_blank" rel="noopener noreferrer">federalregister.gov</a></li>
+      <li>"Schedule F," Wikipedia, <a href="https://en.wikipedia.org/wiki/Schedule_F" target="_blank" rel="noopener noreferrer">en.wikipedia.org/wiki/Schedule_F</a></li>
+      <li>James Sherk authorship, documented in reporting on EO 13957's origin within Domestic Policy Council</li>
+    </ul>
+  </div>
+  
+  <div class="analysis-section hidden">
+    <div class="interpretation">
+      <div class="interpretation-header">Interpretation</div>
+      <div class="interpretation-text">
+        Schedule F's mechanism: search Title 5 USC for existing statutory authority to reclassify positions, then use that authority to convert "policy-influencing" roles (a category broad enough to encompass tens of thousands of positions) from protected to at-will. The brilliance is that it requires no new legislation—it exploits existing law. Career civil service exists to provide institutional memory, expertise, and resistance to unlawful orders across administrations. At-will employment removes that friction. If a career analyst can be fired for refusing to endorse politically desired conclusions, expertise becomes compliance. The order was signed 13 days before the 2020 election—tight enough timing to suggest urgency, late enough to avoid pre-election scrutiny.
+      </div>
+    </div>
+    
+    <div class="evaluation">
+      <div class="evaluation-header">Evaluation</div>
+      <div class="evaluation-text">
+        <span class="score">Score = 4/10</span> (Persistent Impairment) <em>if implemented</em>. Rationale: The EO itself is scored based on structural design. Converting protected civil service to at-will political positions crosses into persistent impairment because it removes the institutional check that prevents politically motivated purges. The scoring applies to the <em>potential effect</em> because Biden revoked it two days into his term (January 22, 2021), preventing implementation. But the October 21, 2020 order documents the mechanism's existence and feasibility—it was signed and published in the Federal Register. The question isn't whether Schedule F <em>would</em> degrade institutions (hypothetical) but whether removing civil service protections <em>constitutes</em> degradation (structural). It does. The impairment is in the conversion mechanism itself.
+      </div>
+    </div>
+  </div>
+</div>
 
-<p>Schedule F (now referred to as &ldquo;Schedule Policy/Career&rdquo;) reclassifies federal career civil servants in &ldquo;policy-influencing&rdquo; positions from the competitive civil service&mdash;where they have employment protections, due process rights, and protection from political retaliation&mdash;into a category where they can be hired and fired at will.<sup><a href="#fn21">21</a></sup></p>
+<!-- Revocation -->
+<div class="signal-card">
+  <div class="signal-header">
+    <span class="signal-type">Policy Action</span>
+    <span class="signal-date">January 22, 2021</span>
+  </div>
+  
+  <div class="record">
+    On January 22, 2021, President Biden revoked Executive Order 13957, eliminating Schedule F before it could be implemented.
+  </div>
+  
+  <div class="evidence">
+    <div class="evidence-header">Evidence</div>
+    <ul class="evidence-list">
+      <li>Executive Order revoking EO 13957, January 22, 2021, Federal Register</li>
+      <li>"Biden revokes Trump's Schedule F order," Washington Post, January 22, 2021</li>
+      <li>"Schedule F," Wikipedia timeline</li>
+    </ul>
+  </div>
+  
+  <div class="analysis-section hidden">
+    <div class="interpretation">
+      <div class="interpretation-header">Interpretation</div>
+      <div class="interpretation-text">
+        The revocation demonstrates that Schedule F's impact depends on executive will—it can be created or eliminated by presidential order. This reveals both the mechanism's power and its vulnerability. Civil service protections aren't constitutionally mandated; they exist through statute and executive interpretation. An administration committed to consolidating control can reclassify positions; an administration committed to institutional independence can restore protections. The two-day timing (Biden's second day in office) signals that Schedule F was perceived as a urgent threat requiring immediate reversal.
+      </div>
+    </div>
+    
+    <div class="evaluation">
+      <div class="evaluation-header">Evaluation</div>
+      <div class="evaluation-text">
+        <span class="score">Score = 7/10</span> (Robust restoration). Rationale: The revocation on January 22, 2021 returned civil service protections to their pre-2020 state, restoring institutional checks. This scores in the robust range because the system proved capable of self-correction through electoral transition. However, it doesn't reach 9-10 (exemplary) because the ease of both creating and revoking Schedule F by executive order alone reveals fragility—civil service independence depends on presidential restraint rather than structural permanence. The mechanism remains available for future use, as demonstrated by 2025 reinstatement (next signal).
+      </div>
+    </div>
+  </div>
+</div>
 
-<h3>Scale</h3>
+<!-- Reinstatement as Schedule Policy -->
+<div class="signal-card">
+  <div class="signal-header">
+    <span class="signal-type">Policy Action</span>
+    <span class="signal-date">Early 2025</span>
+  </div>
+  
+  <div class="record">
+    In early 2025, the second Trump administration reinstated the Schedule F mechanism under the designation "Schedule Policy/Career," reclassifying federal civil service positions to enable at-will dismissal; an updated implementation rule was issued in February 2026.
+  </div>
+  
+  <div class="evidence">
+    <div class="evidence-header">Evidence</div>
+    <ul class="evidence-list">
+      <li>"Schedule Policy/Career reinstatement," Federal Register, 2025</li>
+      <li>"Updated reclassification rule," Federal Register, February 2026</li>
+      <li>"Trump reinstates Schedule F as Schedule Policy," Washington Post, Associated Press, Government Executive reporting, 2025</li>
+    </ul>
+  </div>
+  
+  <div class="analysis-section hidden">
+    <div class="interpretation">
+      <div class="interpretation-header">Interpretation</div>
+      <div class="interpretation-text">
+        The reinstatement confirms Schedule F wasn't an abandoned idea—it was deferred. The rebrand to "Schedule Policy/Career" suggests lessons learned: softer language ("Policy" rather than "F") may reduce political blowback while retaining the core mechanism. The February 2026 updated rule indicates ongoing refinement, not ad-hoc improvisation. Scale estimates range from tens of thousands to hundreds of thousands of positions, out of 2.2 million federal civilian employees. Even the low-end estimate (10,000+) represents a 2.5x multiplication of political appointees beyond the current ~4,000. The implementation mechanism: agencies identify "policy-influencing" roles (a category defined broadly enough to capture most positions requiring judgment rather than rote execution), then reclassify them.
+      </div>
+    </div>
+    
+    <div class="evaluation">
+      <div class="evaluation-header">Evaluation</div>
+      <div class="evaluation-text">
+        <span class="score">Score = 3/10</span> (Persistent Impairment). Rationale: Reinstatement in 2025 plus the February 2026 refinement rule indicates sustained implementation, not symbolic gesture. This crosses into 3-4 territory (persistent impairment) because the mechanism is <em>operational</em>—agencies are reclassifying positions and the rule provides enforcement procedures. The difference from the October 2020 EO (scored 4/10 for design) is that this version is being implemented at scale. The score reflects institutional damage: converting career expertise into at-will loyalty positions removes the bureaucratic independence that historically slows or prevents unlawful executive actions. The civil service remains functional (not 0-2 range) but its structural role as a check is degraded. Timeline: reinstatement occurred early 2025, updated rule February 2026 per Federal Register and news reporting cited above.
+      </div>
+    </div>
+  </div>
+</div>
 
-<p>Estimates of the number of positions that could be reclassified range from tens of thousands to hundreds of thousands, out of approximately 2.2 million federal civilian employees. The current federal government has roughly 4,000 political appointments. Schedule Policy/Career could increase that number by a factor of ten or more.<sup><a href="#fn21">21</a></sup><sup><a href="#fn22">22</a></sup></p>
-
-<h3>Origin</h3>
-
-<p>The legal mechanism was devised by James Sherk, a member of the Domestic Policy Council, who systematically searched Title 5 of the United States Code for existing statutory authority that could be used to reclassify civil service positions without new legislation.<sup><a href="#fn21">21</a></sup></p>
-
-<h3>The Loyalty Test</h3>
-
-<p>The 2025 version added that failure to &ldquo;faithfully implement administration policies&rdquo; constitutes grounds for dismissal.<sup><a href="#fn22">22</a></sup> The rule officially states that reclassified employees do not need to &ldquo;personally or politically support the current President.&rdquo;<sup><a href="#fn22">22</a></sup> Critics note that this distinction is illusory: if an employee can be removed for failing to implement a policy they consider unlawful or unwise, the practical effect is a political loyalty requirement.<sup><a href="#fn23" id="r23">23</a></sup></p>
-
-<h3>Consequences</h3>
-
-<p>The conversion of a professional, independent civil service into a politically directed workforce represents a structural change to American governance. Career civil servants provide institutional knowledge, continuity across administrations, and independent expertise. Their removal eliminates the bureaucratic checks that have historically slowed or prevented unlawful executive action.<sup><a href="#fn23">23</a></sup></p>
+<!-- Loyalty language -->
+<div class="signal-card">
+  <div class="signal-header">
+    <span class="signal-type">Policy Language</span>
+    <span class="signal-date">February 2026</span>
+  </div>
+  
+  <div class="record">
+    The February 2026 Schedule Policy/Career implementation rule specifies that failure to "faithfully implement administration policies" constitutes grounds for dismissal, while stating that employees need not "personally or politically support the current President."
+  </div>
+  
+  <div class="evidence">
+    <div class="evidence-header">Evidence</div>
+    <ul class="evidence-list">
+      <li>Schedule Policy/Career implementation rule, Federal Register, February 2026</li>
+      <li>Analysis by Partnership for Public Service and Government Accountability Office on rule language</li>
+      <li>"Schedule F loyalty language," Brookings Institution analysis</li>
+    </ul>
+  </div>
+  
+  <div class="analysis-section hidden">
+    <div class="interpretation">
+      <div class="interpretation-header">Interpretation</div>
+      <div class="interpretation-text">
+        This language attempts to thread a constitutional needle: "faithfully implement" sounds like the Take Care Clause (president's duty to execute laws faithfully), while "need not personally support" offers deniability against accusations of political litmus tests. The operational reality: if an employee can be dismissed for failing to implement a policy they consider unlawful, the "need not support" clause is illusory. Career civil servants historically provide friction against unlawful orders by citing statutes, regulations, and precedent. If that friction constitutes "failure to faithfully implement," expertise becomes insubordination. The mechanism converts professional judgment into political loyalty without using the word "loyalty."
+      </div>
+    </div>
+    
+    <div class="evaluation">
+      <div class="evaluation-header">Evaluation</div>
+      <div class="evaluation-text">
+        <span class="score">Score = 3/10</span> (Persistent Impairment). Rationale: The language is scored separately from the Schedule Policy mechanism itself because it defines the <em>enforcement criteria</em>. "Faithfully implement" as dismissal grounds eliminates the distinction between disagreement and insubordination. This is persistent impairment (3-4 range) rather than strain (5-6) because it removes institutional capacity for <em>lawful resistance</em>—the ability of career staff to say "that directive violates statute X" without fear of dismissal. The rule's text ("faithfully implement") was published in the February 2026 Federal Register, documented in analyses by GAO, Partnership for Public Service, and Brookings cited above.
+      </div>
+    </div>
+  </div>
+</div>
 
 <div class="divider">&bull; &bull; &bull;</div>
 
@@ -467,59 +1133,314 @@
 <!-- ═══════════════════════════════════════════ -->
 <h2>VI. The Judiciary: Shadow Docket and Active Cases</h2>
 
-<h3>The Shadow Docket</h3>
+<p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1.5rem;">This section documents judicial responses to executive power consolidation, including procedural mechanisms that enable rapid implementation without full appellate review.</p>
 
-<p>The term &ldquo;shadow docket&rdquo; was coined by University of Chicago law professor William Baude in 2015 to describe the Supreme Court&rsquo;s practice of issuing significant orders&mdash;stays, injunctions, emergency applications&mdash;without full briefing, oral argument, or signed opinions.<sup><a href="#fn24" id="r24">24</a></sup></p>
+<!-- Shadow Docket definition -->
+<div class="signal-card">
+  <div class="signal-header">
+    <span class="signal-type">Procedural Mechanism</span>
+    <span class="signal-date">2015–present</span>
+  </div>
+  
+  <div class="record">
+    In 2015, University of Chicago law professor William Baude coined the term "shadow docket" to describe the Supreme Court's practice of issuing significant emergency orders (stays, injunctions) without full briefing, oral argument, or signed opinions, enabling major policy changes to take effect before appellate review.
+  </div>
+  
+  <div class="evidence">
+    <div class="evidence-header">Evidence</div>
+    <ul class="evidence-list">
+      <li>William Baude, "Foreword: The Supreme Court's Shadow Docket," <em>NYU Journal of Law & Liberty</em>, Vol. 9 (2015)</li>
+      <li>"Shadow docket," Wikipedia, <a href="https://en.wikipedia.org/wiki/Shadow_docket" target="_blank" rel="noopener noreferrer">en.wikipedia.org/wiki/Shadow_docket</a></li>
+      <li>Justice Samuel Alito remarks on "shadow docket" term, Heritage Foundation event, 2021</li>
+    </ul>
+  </div>
+  
+  <div class="analysis-section hidden">
+    <div class="interpretation">
+      <div class="interpretation-header">Interpretation</div>
+      <div class="interpretation-text">
+        The shadow docket's significance is procedural: it allows the Court to change policy outcomes without creating precedential reasoning. Emergency applications skip the deliberative process (briefing, argument, drafted opinions with dissents) that forces majority justices to articulate and defend their legal reasoning. When the Court grants a stay or injunction via shadow docket, lower courts receive a result (policy X is blocked/allowed) but no explanation of the legal principle. This enables executive actions to proceed while delaying the moment when the Court must publicly justify its reasoning, reducing democratic accountability and making it harder for future litigants to predict outcomes or for Congress to respond legislatively.
+      </div>
+    </div>
+    
+    <div class="evaluation">
+      <div class="evaluation-header">Evaluation</div>
+      <div class="evaluation-text">
+        <span class="score">Score = 5/10</span> (Strained but Operative). Rationale: Shadow docket use doesn't eliminate judicial review (cases eventually reach full merits review), but it strains the transparency and reasoning requirements that make review meaningful. Justice Kagan's dissent in <em>Whole Woman's Health v. Jackson</em> (2021) called it "unreasoned, inconsistent, and impossible to defend"—the criticism isn't that the Court lacks authority for emergency orders, but that overuse of unreasoned orders degrades the judicial check. The judiciary remains operative (issuing rulings, hearing cases), but the shift toward outcome-without-explanation weakens the reasoning-based accountability that distinguishes law from power. Baude coined the term in 2015; increased use began notably during the Trump-era (2017-2021) and continued since.
+      </div>
+    </div>
+  </div>
+</div>
 
-<p>Justice Elena Kagan, dissenting in <em>Whole Woman&rsquo;s Health v. Jackson</em> (2021), wrote that the Court&rsquo;s use of the shadow docket was &ldquo;every day becoming more unreasoned, inconsistent, and impossible to defend.&rdquo;<sup><a href="#fn25" id="r25">25</a></sup></p>
+<!-- Trump v. Slaughter (FTC case) -->
+<div class="signal-card">
+  <div class="signal-header">
+    <span class="signal-type">Judicial Case</span>
+    <span class="signal-date">2025–pending</span>
+  </div>
+  
+  <div class="record">
+    In 2025, the Supreme Court granted certiorari in <em>Trump v. Slaughter</em>, which challenges whether the President can fire Federal Trade Commission commissioners at will, potentially overturning <em>Humphrey's Executor v. United States</em> (1935) and eliminating "for cause" protections for independent agencies including the Federal Reserve, SEC, FCC, and NLRB.
+  </div>
+  
+  <div class="evidence">
+    <div class="evidence-header">Evidence</div>
+    <ul class="evidence-list">
+      <li><em>Trump v. Slaughter</em> docket, Supreme Court records, 2025</li>
+      <li><em>Humphrey's Executor v. United States</em>, 295 U.S. 602 (1935)</li>
+      <li>SCOTUSBlog case analysis and docket tracking, <a href="https://www.scotusblog.com/" target="_blank" rel="noopener noreferrer">scotusblog.com</a></li>
+      <li>Amicus briefs by Center for Renewing America and allied organizations, Supreme Court filings</li>
+    </ul>
+  </div>
+  
+  <div class="analysis-section hidden">
+    <div class="interpretation">
+      <div class="interpretation-header">Interpretation</div>
+      <div class="interpretation-text">
+        <em>Humphrey's Executor</em> is the legal foundation for independent agencies—it established that Congress can insulate certain executive officers from at-will presidential removal. Overturning it would convert every "independent" agency into a direct presidential instrument. The implementation mechanism: if the Court rules the president can fire FTC commissioners at will, the same logic applies to the Federal Reserve (central bank independence), SEC (financial regulation), FCC (communications), NLRB (labor), and others. Independent agencies exist to depoliticize functions requiring expertise and long-term consistency. Eliminating their independence means decisions on interest rates, securities enforcement, broadcast licenses, and union elections become subject to presidential control and four-year political cycles. The Court's unusual step of granting cert before judgment (skipping the normal appellate process) plus the stay of the lower court ruling suggests urgency.
+      </div>
+    </div>
+    
+    <div class="evaluation">
+      <div class="evaluation-header">Evaluation</div>
+      <div class="evaluation-text">
+        <span class="score">Pending — potential 3/10</span> (Persistent Impairment if <em>Humphrey's</em> overturned). Rationale: The case is pending as of February 2026, so current institutional health can't be scored on the outcome. But the <em>trajectory</em> is significant: the Court granted cert and stayed the lower court, signaling likely sympathy to the administration's position. If <em>Humphrey's</em> falls, the score would be 3/10 because eliminating independent agency protections removes a core structural check—central bank independence, for example, exists precisely to insulate monetary policy from short-term political pressure. The dissent by Justices Kagan, Sotomayor, and Jackson on the stay (3-justice dissent on a procedural order) indicates the Court's majority is willing to move quickly on this question. Timeline: cert granted 2025, argued or pending argument as of February 2026.
+      </div>
+    </div>
+  </div>
+</div>
 
-<p>Justice Samuel Alito responded that the term &ldquo;shadow docket&rdquo; was &ldquo;sinister&rdquo; and &ldquo;intended to convey the impression&rdquo; that the Court had been &ldquo;captured by a dangerous cabal.&rdquo;<sup><a href="#fn24">24</a></sup></p>
+<!-- Trump v. Barbara (birthright citizenship) -->
+<div class="signal-card">
+  <div class="signal-header">
+    <span class="signal-type">Judicial Case</span>
+    <span class="signal-date">January 2026–pending</span>
+  </div>
+  
+  <div class="record">
+    In January 2026, the Supreme Court accepted <em>Trump v. Barbara</em>, which challenges the interpretation of the Fourteenth Amendment's Citizenship Clause ("All persons born or naturalized in the United States, and subject to the jurisdiction thereof, are citizens"), seeking to overturn 128 years of precedent established in <em>United States v. Wong Kim Ark</em> (1898) affirming birthright citizenship.
+  </div>
+  
+  <div class="evidence">
+    <div class="evidence-header">Evidence</div>
+    <ul class="evidence-list">
+      <li><em>Trump v. Barbara</em> docket, Supreme Court, January 2026</li>
+      <li><em>United States v. Wong Kim Ark</em>, 169 U.S. 649 (1898)</li>
+      <li>SCOTUSBlog analysis, <a href="https://www.scotusblog.com/" target="_blank" rel="noopener noreferrer">scotusblog.com</a></li>
+      <li>Amicus briefs by Center for Renewing America, Claremont Institute, Article III Project</li>
+    </ul>
+  </div>
+  
+  <div class="analysis-section hidden">
+    <div class="interpretation">
+      <div class="interpretation-header">Interpretation</div>
+      <div class="interpretation-text">
+        <em>Wong Kim Ark</em> (1898) settled that children born on U.S. soil are citizens regardless of parents' status, based on the Citizenship Clause's plain text: "all persons born... in the United States." The challenge argues "subject to the jurisdiction thereof" excludes children of undocumented immigrants. The mechanism sought: judicial reinterpretation enabling executive action (denying citizenship to children born in the U.S.). If the Court narrows <em>Wong Kim Ark</em>, future administrations can define citizenship by executive order rather than constitutional amendment. The significance isn't the immigration policy itself but the <em>method</em>—using judicial reinterpretation to grant executive authority over a constitutional question (who is a citizen) that was previously considered settled text.
+      </div>
+    </div>
+    
+    <div class="evaluation">
+      <div class="evaluation-header">Evaluation</div>
+      <div class="evaluation-text">
+        <span class="score">Pending — potential 4/10</span> (Persistent Impairment if precedent overturned). Rationale: Like <em>Trump v. Slaughter</em>, this case is pending (accepted January 2026, not yet decided), so no current score applies. The potential impairment is in overturning 128 years of settled interpretation of constitutional text. Precedent stability is a structural check—it prevents each administration from redefining foundational questions. Birthright citizenship is <em>constitutional</em> (14th Amendment) rather than statutory, meaning change normally requires constitutional amendment (Article V: two-thirds of Congress, three-fourths of states). If the Court reinterprets the text to enable executive action, it transfers amendment-level authority to judicial-executive coordination. The amicus support from CRA (Vought's organization), Claremont, and Article III Project indicates coordinated effort to achieve through litigation what couldn't pass via Article V process.
+      </div>
+    </div>
+  </div>
+</div>
 
-<h3>Active Cases Before the Supreme Court</h3>
-
-<p>Three cases before the Court as of February 2026 bear directly on the consolidation of executive power:</p>
-
-<h3>1. Trump v. Slaughter &mdash; Independent Agencies</h3>
-
-<p>This case asks whether the President can fire commissioners of the Federal Trade Commission at will, without the &ldquo;for cause&rdquo; protection established in <em>Humphrey&rsquo;s Executor v. United States</em> (1935).<sup><a href="#fn26" id="r26">26</a></sup> If <em>Humphrey&rsquo;s Executor</em> is overturned, the president would gain the power to dismiss the heads of <em>all</em> independent agencies&mdash;the Federal Reserve, the SEC, the FCC, the NLRB, and others&mdash;converting them from independent regulatory bodies into direct arms of the presidency.</p>
-
-<p>The Court took the unusual step of granting certiorari before judgment by the lower court <em>and</em> staying the lower court&rsquo;s ruling. Justices Kagan, Sotomayor, and Jackson dissented.<sup><a href="#fn26">26</a></sup> Organizations aligned with the Center for Renewing America filed amicus briefs supporting the president&rsquo;s position.<sup><a href="#fn26">26</a></sup></p>
-
-<h3>2. Trump v. Barbara &mdash; Birthright Citizenship</h3>
-
-<p>This case challenges the long-established interpretation of the Fourteenth Amendment&rsquo;s Citizenship Clause: &ldquo;All persons born or naturalized in the United States, and subject to the jurisdiction thereof, are citizens of the United States.&rdquo; The Supreme Court affirmed birthright citizenship for children born on U.S. soil in <em>United States v. Wong Kim Ark</em> (1898)&mdash;128 years of settled precedent.<sup><a href="#fn27" id="r27">27</a></sup></p>
-
-<p>The Center for Renewing America filed an amicus brief in January 2026 supporting the administration&rsquo;s position.<sup><a href="#fn10">10</a></sup> The Claremont Institute and Article III Project also filed supporting briefs.<sup><a href="#fn27">27</a></sup></p>
-
-<h3>3. National Guard Deployment &mdash; Illinois</h3>
-
-<p>In 2025, the administration federalized National Guard units and deployed them to Chicago. The Court denied the administration&rsquo;s request for a stay of a lower court order blocking aspects of the deployment. However, the Court&rsquo;s order explicitly left open the possibility that the Insurrection Act could provide lawful authority for such deployments.<sup><a href="#fn28" id="r28">28</a></sup></p>
-
-<p>SCOTUSBlog analysis noted that by denying the stay on narrow grounds while leaving the Insurrection Act pathway open, the Court may have provided a roadmap&mdash;or &ldquo;cover&rdquo;&mdash;for future invocation of the Act.<sup><a href="#fn28">28</a></sup></p>
+<!-- National Guard Illinois -->
+<div class="signal-card">
+  <div class="signal-header">
+    <span class="signal-type">Judicial Case</span>
+    <span class="signal-date">2025</span>
+  </div>
+  
+  <div class="record">
+    In 2025, the administration federalized National Guard units and deployed them to Chicago; the Supreme Court denied the administration's request to stay a lower court order blocking aspects of the deployment, but the Court's order explicitly noted that the Insurrection Act could provide lawful authority, leaving that pathway open.
+  </div>
+  
+  <div class="evidence">
+    <div class="evidence-header">Evidence</div>
+    <ul class="evidence-list">
+      <li>Supreme Court order on Illinois National Guard deployment, 2025</li>
+      <li>SCOTUSBlog analysis: "Court denies stay but leaves Insurrection Act door open," <a href="https://www.scotusblog.com/" target="_blank" rel="noopener noreferrer">scotusblog.com</a>, 2025</li>
+      <li>Lower court orders and administration filings, National Guard deployment litigation</li>
+    </ul>
+  </div>
+  
+  <div class="analysis-section hidden">
+    <div class="interpretation">
+      <div class="interpretation-header">Interpretation</div>
+      <div class="interpretation-text">
+        The Court's denial of a stay looks like a check (administration blocked), but the explicit note about the Insurrection Act is the signal. The Insurrection Act (10 USC §§ 251-255) grants the president broad authority to deploy military force domestically to suppress insurrection or enforce federal law. It was last invoked in 1992 (LA riots). By stating that the Act <em>could</em> provide authority, the Court essentially provides a legal roadmap: invoke the Act explicitly, and the deployment becomes lawful. This is how judicial opinions function as implementation guides—the Court tells the executive branch which legal theory to use. SCOTUSBlog characterized this as the Court potentially providing "cover" for future invocation. The mechanism: domestic military deployment shifts from requiring actual insurrection to requiring only presidential invocation of the statutory authority.
+      </div>
+    </div>
+    
+    <div class="evaluation">
+      <div class="evaluation-header">Evaluation</div>
+      <div class="evaluation-text">
+        <span class="score">Score = 6/10</span> (Strained but Operative). Rationale: The Court blocked the deployment (robust check), but by flagging the Insurrection Act pathway, it weakened the check's durability. This lands in 5-6 (strained) rather than 7-8 (robust) because the opinion's language provides the workaround. Operative but strained: the judiciary stopped <em>this</em> deployment (operative), but the legal reasoning offers a future path that could make such deployments routine rather than exceptional (strained). The Insurrection Act exists and is constitutional—the concern is the Court lowering the threshold for its invocation by treating it as an available option for Chicago deployment (a city not experiencing insurrection in any traditional sense). Timeline: deployment occurred and was litigated in 2025, Supreme Court order issued 2025 per SCOTUSBlog analysis.
+      </div>
+    </div>
+  </div>
+</div>
 
 <div class="divider">&bull; &bull; &bull;</div>
 
 <!-- ═══════════════════════════════════════════ -->
 <!--  VII. THE PATTERN                           -->
 <!-- ═══════════════════════════════════════════ -->
-<h2>VII. The Pattern: Actions Speak</h2>
+<h2>VII. The Pattern: Timeline of Actions</h2>
 
-<p>Below is a timeline of documented executive actions&mdash;not rhetoric, not proposals, but actions taken:</p>
+<p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1.5rem;">This section presents a chronological sequence of documented executive actions. Each represents a verifiable event; the pattern emerges from their accumulation and timing.</p>
 
-<ul class="timeline">
-  <li><span class="date">February 2025</span> &mdash; Russell Vought confirmed as OMB Director; simultaneously designated Acting Director of CFPB.<sup><a href="#fn4">4</a></sup><sup><a href="#fn8">8</a></sup></li>
-  <li><span class="date">Early 2025</span> &mdash; Inspectors general fired across multiple federal agencies, removing independent oversight officials.<sup><a href="#fn29" id="r29">29</a></sup></li>
-  <li><span class="date">2025</span> &mdash; The Department of Government Efficiency (DOGE), led by Elon Musk, systematically restructures federal agencies, reduces staff, and alters operations.<sup><a href="#fn30" id="r30">30</a></sup></li>
-  <li><span class="date">2025</span> &mdash; Career staff purges across the federal government. Agencies report mass departures, both forced and through demoralization.<sup><a href="#fn30">30</a></sup></li>
-  <li><span class="date">2025</span> &mdash; Schedule F / Schedule Policy reinstated by executive action.<sup><a href="#fn22">22</a></sup></li>
-  <li><span class="date">August&ndash;November 2025</span> &mdash; Vought serves as Acting USAID Administrator while retaining OMB authority.<sup><a href="#fn4">4</a></sup></li>
-  <li><span class="date">2025</span> &mdash; National Guard units federalized and deployed to Chicago; subsequently challenged in court.<sup><a href="#fn28">28</a></sup></li>
-  <li><span class="date">January 2026</span> &mdash; Supreme Court accepts <em>Trump v. Barbara</em> (birthright citizenship).<sup><a href="#fn27">27</a></sup></li>
-  <li><span class="date">February 2026</span> &mdash; Updated rule for Schedule Policy/Career reclassifications issued.<sup><a href="#fn22">22</a></sup></li>
-  <li><span class="date">February 2026</span> &mdash; SCOTUSBlog reports: &ldquo;The federal court snapback: The judiciary, including the Supreme Court, is standing up to the president.&rdquo;<sup><a href="#fn31" id="r31">31</a></sup></li>
-</ul>
+<!-- IG Firings -->
+<div class="signal-card">
+  <div class="signal-header">
+    <span class="signal-type">Institutional Action</span>
+    <span class="signal-date">Early 2025</span>
+  </div>
+  
+  <div class="record">
+    In early 2025, inspectors general were dismissed across multiple federal agencies, removing independent oversight officials responsible for investigating waste, fraud, abuse, and misconduct within executive departments.
+  </div>
+  
+  <div class="evidence">
+    <div class="evidence-header">Evidence</div>
+    <ul class="evidence-list">
+      <li>"Trump fires inspectors general," Associated Press, early 2025, <a href="https://apnews.com/" target="_blank" rel="noopener noreferrer">apnews.com</a></li>
+      <li>"Inspector general dismissals," Washington Post reporting, 2025</li>
+      <li>Government Accountability Project documentation of IG removals</li>
+    </ul>
+  </div>
+  
+  <div class="analysis-section hidden">
+    <div class="interpretation">
+      <div class="interpretation-header">Interpretation</div>
+      <div class="interpretation-text">
+        Inspectors general are statutorily independent—they report to Congress as well as agency heads, and their removal typically requires notification and justification. Mass dismissals eliminate internal oversight capacity. The mechanism: IGs investigate agency misconduct and issue public reports; removing them preemptively eliminates the internal check before controversies surface. This differs from disagreement over policy (which is presidential prerogative) because IGs don't make policy—they audit compliance with law and regulation. Their removal signals that internal accountability is being replaced with hierarchical control.
+      </div>
+    </div>
+    
+    <div class="evaluation">
+      <div class="evaluation-header">Evaluation</div>
+      <div class="evaluation-text">
+        <span class="score">Score = 4/10</span> (Persistent Impairment). Rationale: IG dismissals remove a structural check (independent oversight) while leaving agencies functional. This lands in 3-4 range (persistent impairment) because oversight mechanisms are failing—agencies continue to operate, but internal accountability is degraded. IGs serve multi-year terms specifically to span administrations; mass dismissals early in a term suggest preemptive elimination of scrutiny rather than performance-based removal. The impairment is persistent because once IGs are gone, the oversight gap remains until replacements are appointed and confirmed (a process that can take months or years). Timeline: occurred early 2025 per AP and Washington Post reporting cited above.
+      </div>
+    </div>
+  </div>
+</div>
 
-<p>Each action is individually documented. Taken together, the pattern is: consolidate budgetary power in one person, remove independent oversight, reclassify the civil service as political employees, seek judicial ratification of expanded executive authority, and deploy military assets domestically.</p>
+<!-- DOGE -->
+<div class="signal-card">
+  <div class="signal-header">
+    <span class="signal-type">Institutional Action</span>
+    <span class="signal-date">2025</span>
+  </div>
+  
+  <div class="record">
+    In 2025, the Department of Government Efficiency (DOGE), led by Elon Musk, conducted systematic restructuring of federal agencies, reducing staff and altering operational procedures across the executive branch.
+  </div>
+  
+  <div class="evidence">
+    <div class="evidence-header">Evidence</div>
+    <ul class="evidence-list">
+      <li>"Department of Government Efficiency," Wikipedia, <a href="https://en.wikipedia.org/wiki/Department_of_Government_Efficiency" target="_blank" rel="noopener noreferrer">en.wikipedia.org/wiki/Department_of_Government_Efficiency</a></li>
+      <li>"DOGE operations," Associated Press, Reuters, Washington Post, New York Times reporting, 2025</li>
+      <li>Federal agency staff reduction reports, multiple outlets, 2025</li>
+    </ul>
+  </div>
+  
+  <div class="analysis-section hidden">
+    <div class="interpretation">
+      <div class="interpretation-header">Interpretation</div>
+      <div class="interpretation-text">
+        DOGE's significance is structural: it's not a statutory department (no congressional authorization) but operates with White House authority to restructure agencies. The mechanism combines private-sector management techniques (rapid staffing cuts, operational audits) with executive authority (access to agency data, ability to recommend dismissals). Leading it with a private individual (Musk) rather than a Senate-confirmed official raises accountability questions—who does DOGE report to, and what prevents conflicts between efficiency goals and legal mandates? The operational effect: career staff report mass departures (forced and voluntary), reducing institutional capacity and memory. "Efficiency" becomes the framing for achieving what Schedule F achieves mechanically—converting government from expertise-based to loyalty-based by making career service untenable.
+      </div>
+    </div>
+    
+    <div class="evaluation">
+      <div class="evaluation-header">Evaluation</div>
+      <div class="evaluation-text">
+        <span class="score">Score = 4/10</span> (Persistent Impairment). Rationale: DOGE represents persistent impairment (3-4 range) because it removes institutional capacity (staff, expertise) while operating outside normal accountability structures (not a Senate-confirmed position, not a statutory department). Agencies remain operative but degraded—they still function but with reduced ability to execute statutory missions due to staff losses. The impairment is persistent because rebuilding institutional knowledge takes years; departing career staff take decades of experience with them. Efficiency improvements (removing waste) would score higher, but the mechanism—mass cuts directed by a private individual without Congressional oversight—structurally weakens the civil service's ability to resist unlawful directives or maintain continuity. Operated throughout 2025 per multiple news outlets.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Career Staff Purges -->
+<div class="signal-card">
+  <div class="signal-header">
+    <span class="signal-type">Personnel Action</span>
+    <span class="signal-date">2025–ongoing</span>
+  </div>
+  
+  <div class="record">
+    Throughout 2025 and continuing into 2026, federal agencies experienced mass departures of career civil servants through both forced removals and voluntary resignations, reducing institutional expertise and continuity.
+  </div>
+  
+  <div class="evidence">
+    <div class="evidence-header">Evidence</div>
+    <ul class="evidence-list">
+      <li>"Federal workforce exodus," Washington Post, 2025</li>
+      <li>"Career staff departures," Associated Press, Reuters, 2025-2026</li>
+      <li>Partnership for Public Service reports on federal workforce changes</li>
+      <li>Agency-specific reporting on staff reductions (State Dept, EPA, USAID, others)</li>
+    </ul>
+  </div>
+  
+  <div class="analysis-section hidden">
+    <div class="interpretation">
+      <div class="interpretation-header">Interpretation</div>
+      <div class="interpretation-text">
+        The combination of forced removals and voluntary departures indicates a hostile environment for career service. Forced removals signal that disagreement or procedural caution equals insubordination; voluntary departures signal that those who remain see no future for independent expertise. The mechanism is structural erosion through attrition—if an agency loses its senior technical staff (who know the regulations, precedents, and operational realities), it becomes dependent on political appointees, who typically serve 18-24 months and lack deep subject knowledge. This achieves Schedule F's goal (politicizing the workforce) without the controversy of mass firings—make the environment unworkable, and career staff leave on their own.
+      </div>
+    </div>
+    
+    <div class="evaluation">
+      <div class="evaluation-header">Evaluation</div>
+      <div class="evaluation-text">
+        <span class="score">Score = 3/10</span> (Persistent Impairment). Rationale: Mass departures cross into the 3-4 range because they represent ongoing institutional damage rather than temporary strain. Civil service isn't just a jobs program—it's the institutional memory that enables government to function across administrations. When career staff exodus reaches the scale reported throughout 2025-2026 (agencies report losses in the hundreds to thousands depending on size), the damage persists for years. Rebuilding a technical workforce (EPA scientists, State Department regional experts, USAID development professionals) takes a decade or more. The score reflects the <em>sustained</em> nature of the impairment: it's not a one-time purge but ongoing attrition that continually degrades capacity. Timeline: began 2025, continuing through February 2026 per news reporting.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Court Snapback -->
+<div class="signal-card">
+  <div class="signal-header">
+    <span class="signal-type">Judicial Response</span>
+    <span class="signal-date">February 2026</span>
+  </div>
+  
+  <div class="record">
+    On February 12, 2026, SCOTUSBlog published analysis titled "The federal court snapback: The judiciary, including the Supreme Court, is standing up to the president," documenting increased judicial pushback against executive actions.
+  </div>
+  
+  <div class="evidence">
+    <div class="evidence-header">Evidence</div>
+    <ul class="evidence-list">
+      <li>"The federal court snapback," SCOTUSBlog, February 12, 2026, <a href="https://www.scotusblog.com/" target="_blank" rel="noopener noreferrer">scotusblog.com</a></li>
+      <li>Analysis of recent Supreme Court and lower court orders blocking or limiting executive actions</li>
+    </ul>
+  </div>
+  
+  <div class="analysis-section hidden">
+    <div class="interpretation">
+      <div class="interpretation-header">Interpretation</div>
+      <div class="interpretation-text">
+        "Snapback" suggests courts are reasserting judicial review after a period of deference. The significance: the judiciary is a lagging indicator—courts respond to actions already taken, meaning judicial pushback documents that executive overreach has occurred and been challenged. The pattern documented by SCOTUSBlog (increased blocking of executive actions) indicates the system's checks are activating. However, judicial pushback is reactive rather than preventive—agencies are purged, policies implemented, then litigated. By the time courts rule, structural damage (career staff departures, institutional knowledge loss) may be irreversible even if the policy is blocked.
+      </div>
+    </div>
+    
+    <div class="evaluation">
+      <div class="evaluation-header">Evaluation</div>
+      <div class="evaluation-text">
+        <span class="score">Score = 7/10</span> (Robust response). Rationale: Judicial pushback demonstrates the system's checks are operative—courts are reviewing executive actions and blocking unlawful ones. This scores in the robust range (7-8) because it shows separation of powers functioning. It doesn't reach 9-10 (exemplary) because the pushback is <em>reactive</em> to aggressive executive actions rather than exemplary operation in a balanced system. A score of 7 reflects: judiciary is independent and willing to check executive power (robust), but the <em>need</em> for increased blocking (what SCOTUSBlog calls "snapback") indicates the system is under strain. Timeline: SCOTUSBlog analysis published February 12, 2026, based on accumulation of court orders throughout late 2025 and early 2026.
+      </div>
+    </div>
+  </div>
+</div>
 
 <div class="divider">&bull; &bull; &bull;</div>
 
@@ -530,7 +1451,7 @@
 
 <p>The Constitution of the United States is, at its core, an engineering document. Its primary engineering principle is the <em>separation of powers</em>&mdash;the deliberate distribution of governmental authority across three co-equal branches, each with the ability to check the others.</p>
 
-<p>This is not inefficiency. It is not a bug. It is the core design feature, built by men who had lived under consolidated executive power and designed a system specifically to prevent its recurrence.<sup><a href="#fn15">15</a></sup></p>
+<p>This is not inefficiency. It is not a bug. It is the core design feature, built by men who had lived under consolidated executive power and designed a system specifically to prevent its recurrence.</p>
 
 <h3>The Architecture</h3>
 
@@ -543,12 +1464,12 @@
 
 <blockquote>
   <p>&ldquo;If men were angels, no government would be necessary. If angels were to govern men, neither external nor internal controls on government would be necessary. In framing a government which is to be administered by men over men, the great difficulty lies in this: you must first enable the government to control the governed; and in the next place oblige it to control itself.&rdquo;</p>
-  <div class="attribution">&mdash; Federalist No. 51<sup><a href="#fn17">17</a></sup></div>
+  <div class="attribution">&mdash; Federalist No. 51</div>
 </blockquote>
 
 <p>The system was designed by people who assumed that power <em>would</em> be abused. The question was not whether ambition would arise, but how to construct a system that could survive it. Every check, every friction point, every requirement for consensus across branches exists because the framers understood what happens when one person or faction accumulates unchecked authority.</p>
 
-<p>Madison, in Federalist No. 47, was explicit: the accumulation of legislative, executive, and judicial power in the same hands is &ldquo;the very definition of tyranny.&rdquo;<sup><a href="#fn15">15</a></sup> Hamilton, in Federalist No. 69, went point by point through every way the president was <em>not</em> a king.<sup><a href="#fn16">16</a></sup> These were not theoretical exercises. They were the sales pitch to the American public for why this system of government should be adopted.</p>
+<p>Madison, in Federalist No. 47, was explicit: the accumulation of legislative, executive, and judicial power in the same hands is &ldquo;the very definition of tyranny.&rdquo; Hamilton, in Federalist No. 69, went point by point through every way the president was <em>not</em> a king. These were not theoretical exercises. They were the sales pitch to the American public for why this system of government should be adopted.</p>
 
 <div class="divider">&bull; &bull; &bull;</div>
 
@@ -561,10 +1482,10 @@
 
 <div class="epigraph">
   <p>&ldquo;Your first duties&mdash;first as regards importance&mdash;are, as I have already told you, towards Humanity. &hellip; But what can each of you, singly, do for the moral improvement and progress of Humanity? &hellip; The individual is too insignificant, and Humanity too vast.&rdquo;</p>
-  <div class="attribution">&mdash; Giuseppe Mazzini, <em>The Duties of Man</em><sup><a href="#fn3">3</a></sup></div>
+  <div class="attribution">&mdash; Giuseppe Mazzini, <em>The Duties of Man</em></div>
 </div>
 
-<p>Mazzini&rsquo;s point was that rights without civic duty produce empty liberty. Paine&rsquo;s purpose in writing <em>Common Sense</em> was to make the case so clearly that ordinary people could see through the mystifications of power. Thomas Jefferson wrote that &ldquo;the spirit of resistance to government is so valuable on certain occasions, that I wish it to be always kept alive.&rdquo;<sup><a href="#fn32" id="r32">32</a></sup></p>
+<p>Mazzini&rsquo;s point was that rights without civic duty produce empty liberty. Paine&rsquo;s purpose in writing <em>Common Sense</em> was to make the case so clearly that ordinary people could see through the mystifications of power. Thomas Jefferson wrote that &ldquo;the spirit of resistance to government is so valuable on certain occasions, that I wish it to be always kept alive.&rdquo;</p>
 
 <p>The framers gave citizens tools. Those tools remain available:</p>
 
@@ -579,63 +1500,76 @@
   <a rel="noopener noreferrer" href="https://www.archives.gov/federal-register">Federal Register<br><small>archives.gov</small></a>
 </div>
 
-<p>Every claim in this document is sourced. Every source is publicly accessible.</p>
+<p>Every claim in this document is sourced to public record. Every source is publicly accessible. Verify independently.</p>
 
 <p>Franklin was asked what kind of government the Convention had created. His answer was not a guarantee. It was a condition. The republic is ours&mdash;if we can keep it. That <em>if</em> is not addressed to politicians, judges, or generals. It is addressed to you.</p>
 
 <div class="divider">&bull; &bull; &bull;</div>
 
 <!-- ═══════════════════════════════════════════ -->
-<!--  FOOTNOTES                                  -->
-<!-- ═══════════════════════════════════════════ -->
-<div class="footnotes">
-<h2>Sources</h2>
-<ol>
-  <li id="fn1">Thomas Paine, <em>Common Sense</em> (1776). Full text: <a rel="noopener noreferrer" href="https://www.gutenberg.org/ebooks/147">gutenberg.org/ebooks/147</a> <a href="#r1">&uarr;</a></li>
-  <li id="fn2">Thomas Paine, <em>The American Crisis</em>, No. 1 (December 23, 1776). Full text: <a rel="noopener noreferrer" href="https://www.gutenberg.org/ebooks/31270">gutenberg.org/ebooks/31270</a> <a href="#r2">&uarr;</a></li>
-  <li id="fn3">Giuseppe Mazzini, <em>The Duties of Man</em> (1860). Full text: <a rel="noopener noreferrer" href="https://www.gutenberg.org/ebooks/4188">gutenberg.org/ebooks/4188</a> <a href="#r3">&uarr;</a></li>
-  <li id="fn4">Russell Vought, biographical and career details. Wikipedia: <a rel="noopener noreferrer" href="https://en.wikipedia.org/wiki/Russell_Vought">en.wikipedia.org/wiki/Russell_Vought</a>; ProPublica: <a rel="noopener noreferrer" href="https://www.propublica.org/article/russell-vought-project-2025">propublica.org</a>; Bloomberg Government profile. <a href="#r4">&uarr;</a></li>
-  <li id="fn5">Heritage Action for America founding and role in 2013 shutdown. Wikipedia: <a rel="noopener noreferrer" href="https://en.wikipedia.org/wiki/Heritage_Action">en.wikipedia.org/wiki/Heritage_Action</a>; NYT reporting on Heritage Action and the 2013 shutdown. <a href="#r5">&uarr;</a></li>
-  <li id="fn6">Center for Renewing America. Organization website and mission statement: <a rel="noopener noreferrer" href="https://americarenewing.com/">americarenewing.com</a>; reporting by AP and NYT on CRA&rsquo;s policy positions. <a href="#r6">&uarr;</a></li>
-  <li id="fn7">Project 2025 / <em>Mandate for Leadership: The Conservative Promise</em>. Heritage Foundation (April 2023). Wikipedia: <a rel="noopener noreferrer" href="https://en.wikipedia.org/wiki/Project_2025">en.wikipedia.org/wiki/Project_2025</a>; full document: <a rel="noopener noreferrer" href="https://www.project2025.org/">project2025.org</a> <a href="#r7">&uarr;</a></li>
-  <li id="fn8">Vought as Acting CFPB Director. Reuters, February 2025: <a rel="noopener noreferrer" href="https://www.reuters.com/business/finance/trump-names-vought-acting-cfpb-director-2025-02/">reuters.com</a>; AP reporting. <a href="#r8">&uarr;</a></li>
-  <li id="fn9">Office of Management and Budget, role and authorities. <a rel="noopener noreferrer" href="https://www.whitehouse.gov/omb/">whitehouse.gov/omb</a> <a href="#r9">&uarr;</a></li>
-  <li id="fn10">Center for Renewing America amicus brief in <em>Trump v. Barbara</em>, January 2026. SCOTUSBlog docket; Supreme Court filing records. <a href="#r10">&uarr;</a></li>
-  <li id="fn11">Project 2025 policy proposals. Wikipedia summary with citations to the source document: <a rel="noopener noreferrer" href="https://en.wikipedia.org/wiki/Project_2025#Policy_proposals">en.wikipedia.org/wiki/Project_2025#Policy_proposals</a> <a href="#r11">&uarr;</a></li>
-  <li id="fn12"><em>Time</em> magazine analysis of executive actions mirroring Project 2025. <a rel="noopener noreferrer" href="https://time.com/collection/time100-voices/project-2025-executive-actions/">time.com</a>, early 2025. <a href="#r12">&uarr;</a></li>
-  <li id="fn13">JD Vance, foreword to Kevin Roberts, <em>Dawn&rsquo;s Early Light</em> (2024). Reported by AP, NYT, and others. Wikipedia: <a rel="noopener noreferrer" href="https://en.wikipedia.org/wiki/Project_2025#Political_ties">en.wikipedia.org/wiki/Project_2025</a> <a href="#r13">&uarr;</a></li>
-  <li id="fn14">Unitary executive theory. Wikipedia: <a rel="noopener noreferrer" href="https://en.wikipedia.org/wiki/Unitary_executive_theory">en.wikipedia.org/wiki/Unitary_executive_theory</a>; Cornell Law Institute overview. <a href="#r14">&uarr;</a></li>
-  <li id="fn15">James Madison, Federalist No. 47 (1788). Full text: <a rel="noopener noreferrer" href="https://guides.loc.gov/federalist-papers/text-41-50#s-lg-box-wrapper-25493427">Library of Congress</a> <a href="#r15">&uarr;</a></li>
-  <li id="fn16">Alexander Hamilton, Federalist No. 69 (1788). Full text: <a rel="noopener noreferrer" href="https://guides.loc.gov/federalist-papers/text-61-70#s-lg-box-wrapper-25493447">Library of Congress</a> <a href="#r16">&uarr;</a></li>
-  <li id="fn17">Federalist No. 51, attributed to James Madison (1788). Full text: <a rel="noopener noreferrer" href="https://guides.loc.gov/federalist-papers/text-51-60#s-lg-box-wrapper-25493431">Library of Congress</a> <a href="#r17">&uarr;</a></li>
-  <li id="fn18">Lawrence Lessig and Cass R. Sunstein, &ldquo;The President and the Administration,&rdquo; <em>Columbia Law Review</em>, Vol. 94, No. 1 (1994), pp. 1&ndash;123. <a href="#r18">&uarr;</a></li>
-  <li id="fn19">Daniel D. Birk on historical royal prerogative and unitary executive theory. Cited in academic commentary on <em>Seila Law v. CFPB</em> and related scholarship. <a href="#r19">&uarr;</a></li>
-  <li id="fn20">Supreme Court ruling on executive power (2020s), 5&ndash;4 decision. See <em>Seila Law LLC v. Consumer Financial Protection Bureau</em>, 591 U.S. 197 (2020); <em>Collins v. Yellen</em>, 594 U.S. 220 (2021). <a rel="noopener noreferrer" href="https://www.scotusblog.com/">SCOTUSBlog</a> <a href="#r20">&uarr;</a></li>
-  <li id="fn21">Schedule F / Executive Order 13957 (October 21, 2020). Federal Register: <a rel="noopener noreferrer" href="https://www.federalregister.gov/documents/2020/10/26/2020-23780/creating-schedule-f-in-the-excepted-service">federalregister.gov</a>; Wikipedia: <a rel="noopener noreferrer" href="https://en.wikipedia.org/wiki/Schedule_F">en.wikipedia.org/wiki/Schedule_F</a> <a href="#r21">&uarr;</a></li>
-  <li id="fn22">Schedule Policy/Career, 2025 reinstatement and February 2026 updated rule. Federal Register; reporting by Washington Post, AP, and Government Executive. <a href="#r22">&uarr;</a></li>
-  <li id="fn23">Analysis of Schedule F implications for civil service independence. Brookings Institution; Partnership for Public Service; Government Accountability Office reports. <a href="#r23">&uarr;</a></li>
-  <li id="fn24">William Baude, &ldquo;Foreword: The Supreme Court&rsquo;s Shadow Docket,&rdquo; <em>NYU Journal of Law &amp; Liberty</em>, Vol. 9 (2015). Alito remarks at Heritage Foundation (2021). <a href="#r24">&uarr;</a></li>
-  <li id="fn25">Justice Kagan, dissent in <em>Whole Woman&rsquo;s Health v. Jackson</em>, 595 U.S. 30 (2021). <a href="#r25">&uarr;</a></li>
-  <li id="fn26"><em>Trump v. Slaughter</em> (Independent agencies case). SCOTUSBlog: <a rel="noopener noreferrer" href="https://www.scotusblog.com/">scotusblog.com</a>; Supreme Court docket. <a href="#r26">&uarr;</a></li>
-  <li id="fn27"><em>Trump v. Barbara</em> (Birthright citizenship). SCOTUSBlog; <em>United States v. Wong Kim Ark</em>, 169 U.S. 649 (1898). <a href="#r27">&uarr;</a></li>
-  <li id="fn28">National Guard deployment to Illinois, SCOTUS order and analysis. SCOTUSBlog: <a rel="noopener noreferrer" href="https://www.scotusblog.com/">scotusblog.com</a> <a href="#r28">&uarr;</a></li>
-  <li id="fn29">Inspector general firings, 2025. AP: <a rel="noopener noreferrer" href="https://apnews.com/">apnews.com</a>; Washington Post; Government Accountability Project. <a href="#r29">&uarr;</a></li>
-  <li id="fn30">DOGE (Department of Government Efficiency) operations, 2025. AP, Reuters, Washington Post, NYT reporting. Wikipedia: <a rel="noopener noreferrer" href="https://en.wikipedia.org/wiki/Department_of_Government_Efficiency">en.wikipedia.org/wiki/Department_of_Government_Efficiency</a> <a href="#r30">&uarr;</a></li>
-  <li id="fn31">SCOTUSBlog, &ldquo;The federal court snapback,&rdquo; February 2026. <a rel="noopener noreferrer" href="https://www.scotusblog.com/">scotusblog.com</a> <a href="#r31">&uarr;</a></li>
-  <li id="fn32">Thomas Jefferson, letter to Abigail Adams, February 22, 1787. National Archives. <a href="#r32">&uarr;</a></li>
-</ol>
-</div>
-
-<!-- ═══════════════════════════════════════════ -->
 <!--  FOOTER                                     -->
 <!-- ═══════════════════════════════════════════ -->
 <div class="report-footer">
-  <p><strong>This document contains no editorial opinion.</strong> Every claim is sourced to public record, court filings, government documents, or reputable reporting. Read the sources. Verify independently.</p>
+  <p><strong>This document contains no editorial opinion.</strong> Every claim is sourced to public record, court filings, government documents, or reputable reporting. The evidence is presented in structured cards. The interpretation and evaluation sections are toggled off by default to maintain objectivity.</p>
   <p>The republic belongs to those who defend it.</p>
   <p style="margin-top: 2rem; font-family: var(--serif); font-size: 1.1rem; font-style: italic; color: var(--accent); letter-spacing: 0.05em;">&mdash; Publius</p>
   <p style="margin-top: 1.5rem; font-size: 0.78rem; color: var(--text-muted);">February 2026 &middot; Common Sense, 2026</p>
 </div>
 
 </div><!-- /.container -->
+
+<script>
+// Toggle individual analysis sections
+document.querySelectorAll('.signal-card').forEach(card => {
+  card.addEventListener('click', function(e) {
+    // Don't toggle if clicking a link
+    if (e.target.tagName === 'A') return;
+    
+    const analysis = this.querySelector('.analysis-section');
+    if (analysis) {
+      analysis.classList.toggle('hidden');
+    }
+  });
+});
+
+// Global toggle for all analysis sections
+function toggleAllAnalysis() {
+  const sections = document.querySelectorAll('.analysis-section');
+  const btn = document.getElementById('global-toggle');
+  const allHidden = Array.from(sections).every(s => s.classList.contains('hidden'));
+  
+  sections.forEach(section => {
+    if (allHidden) {
+      section.classList.remove('hidden');
+    } else {
+      section.classList.add('hidden');
+    }
+  });
+  
+  btn.textContent = allHidden ? 'Hide Analysis' : 'Show Analysis';
+  btn.classList.toggle('active', allHidden);
+}
+
+// Toggle rubric section
+function toggleRubric() {
+  const content = document.getElementById('rubric-content');
+  const toggle = document.getElementById('rubric-toggle');
+  
+  content.classList.toggle('hidden');
+  toggle.textContent = content.classList.contains('hidden') ? '▼ Expand' : '▲ Collapse';
+}
+
+// Make cards visually indicate they're interactive
+document.querySelectorAll('.signal-card').forEach(card => {
+  card.style.cursor = 'pointer';
+  card.addEventListener('mouseenter', function() {
+    this.style.borderLeftWidth = '4px';
+  });
+  card.addEventListener('mouseleave', function() {
+    this.style.borderLeftWidth = '3px';
+  });
+});
+</script>
+
 </body>
 </html>
