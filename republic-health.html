@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Republic Health Index — Institutional Integrity Countdown</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: #080810;
+  color: #d0d0d0;
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  min-height: 100vh;
+  padding: 0;
+}
+
+header {
+  text-align: center;
+  padding: 40px 20px 20px;
+  border-bottom: 1px solid #1a1a2a;
+}
+header h1 {
+  font-size: 28px;
+  color: #fff;
+  letter-spacing: 1px;
+}
+header .subtitle {
+  color: #888;
+  font-size: 14px;
+  margin-top: 6px;
+  font-style: italic;
+}
+header .epigraph {
+  max-width: 700px;
+  margin: 16px auto 0;
+  color: #777;
+  font-size: 13px;
+  line-height: 1.6;
+  border-left: 3px solid #444;
+  padding-left: 16px;
+  text-align: left;
+}
+header .epigraph .attr { color: #999; font-weight: 600; }
+
+/* Master gauge */
+.master-gauge {
+  text-align: center;
+  padding: 30px 20px;
+}
+.gauge-value {
+  font-size: 96px;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+.gauge-label {
+  font-size: 14px;
+  color: #888;
+  margin-top: 4px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+.gauge-bar-container {
+  max-width: 600px;
+  margin: 16px auto 0;
+  background: #151520;
+  height: 12px;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.gauge-bar {
+  height: 100%;
+  border-radius: 6px;
+  transition: width 1s ease;
+}
+.gauge-phase {
+  font-size: 18px;
+  font-weight: 600;
+  margin-top: 12px;
+}
+
+/* Pillar grid */
+.pillars {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 16px;
+  padding: 20px 24px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.pillar {
+  background: #0e0e18;
+  border: 1px solid #1a1a2a;
+  border-radius: 10px;
+  padding: 20px;
+}
+.pillar-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px;
+}
+.pillar-icon { font-size: 24px; margin-right: 10px; }
+.pillar-name { font-size: 16px; font-weight: 700; color: #fff; }
+.pillar-score {
+  margin-left: auto;
+  font-size: 28px;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}
+.pillar-bar-bg {
+  background: #151520;
+  height: 6px;
+  border-radius: 3px;
+  margin-bottom: 14px;
+}
+.pillar-bar {
+  height: 6px;
+  border-radius: 3px;
+  transition: width 1s ease;
+}
+
+.indicator {
+  padding: 8px 0;
+  border-bottom: 1px solid #12121e;
+  display: flex;
+  align-items: flex-start;
+}
+.indicator:last-child { border-bottom: none; }
+.ind-status {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  margin-right: 10px;
+  margin-top: 4px;
+  flex-shrink: 0;
+}
+.ind-body { flex: 1; }
+.ind-name { font-size: 13px; font-weight: 600; color: #ccc; }
+.ind-detail { font-size: 11px; color: #777; margin-top: 2px; line-height: 1.4; }
+.ind-score {
+  font-size: 12px;
+  font-weight: 700;
+  margin-left: 8px;
+  white-space: nowrap;
+  align-self: center;
+}
+.ind-date { font-size: 10px; color: #555; margin-top: 2px; }
+
+/* Timeline */
+.timeline-section {
+  max-width: 1400px;
+  margin: 20px auto;
+  padding: 0 24px 40px;
+}
+.timeline-section h2 {
+  font-size: 18px;
+  color: #fff;
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #1a1a2a;
+}
+.timeline {
+  position: relative;
+  padding-left: 30px;
+}
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 8px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(to bottom, #ff4444, #ffaa00, #44ff88, #333);
+}
+.tl-item {
+  position: relative;
+  margin-bottom: 16px;
+  padding: 12px 16px;
+  background: #0e0e18;
+  border: 1px solid #1a1a2a;
+  border-radius: 8px;
+}
+.tl-item::before {
+  content: '';
+  position: absolute;
+  left: -26px;
+  top: 16px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 2px solid;
+}
+.tl-item.critical::before { border-color: #ff4444; background: #ff4444; }
+.tl-item.warning::before { border-color: #ffaa00; background: #ffaa00; }
+.tl-item.watch::before { border-color: #44aaff; background: #44aaff; }
+.tl-item.holding::before { border-color: #44ff88; background: #44ff88; }
+.tl-date { font-size: 11px; color: #666; }
+.tl-title { font-size: 14px; font-weight: 600; color: #ddd; margin: 4px 0; }
+.tl-body { font-size: 12px; color: #999; line-height: 1.5; }
+.tl-tag {
+  display: inline-block;
+  font-size: 10px;
+  padding: 2px 6px;
+  border-radius: 3px;
+  margin-top: 6px;
+  margin-right: 4px;
+  font-weight: 600;
+}
+
+/* Methodology */
+.methodology {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 24px 60px;
+}
+.methodology h2 { font-size: 18px; color: #fff; margin-bottom: 12px; }
+.methodology p { font-size: 13px; color: #888; line-height: 1.7; max-width: 800px; margin-bottom: 10px; }
+.methodology blockquote {
+  border-left: 3px solid #ffaa00;
+  padding-left: 16px;
+  margin: 16px 0;
+  color: #aaa;
+  font-style: italic;
+  font-size: 13px;
+  line-height: 1.6;
+}
+.methodology .attr { color: #ccc; font-weight: 600; font-style: normal; }
+
+/* Colors */
+.critical-color { color: #ff4444; }
+.warning-color { color: #ffaa00; }
+.degraded-color { color: #ff8844; }
+.watch-color { color: #44aaff; }
+.holding-color { color: #44ff88; }
+
+footer {
+  text-align: center;
+  padding: 30px 20px;
+  border-top: 1px solid #1a1a2a;
+  color: #444;
+  font-size: 12px;
+}
+footer a { color: #666; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>🏛️ Republic Health Index</h1>
+  <div class="subtitle">Institutional Integrity Countdown — United States, February 2026</div>
+  <div class="epigraph">
+    "These are the times that try men's souls. The summer soldier and the sunshine patriot will, in this crisis, shrink from the service of their country; but he that stands by it now, deserves the love and thanks of man and woman."
+    <br/><span class="attr">— Thomas Paine, <em>The American Crisis</em>, December 1776</span>
+  </div>
+  <div class="epigraph" style="margin-top:12px;">
+    "Without the duty of citizens, no security for your rights. Governments can only be maintained by the active support and watchfulness of the governed."
+    <br/><span class="attr">— Giuseppe Mazzini, <em>The Duties of Man</em>, 1860</span>
+  </div>
+</header>
+
+<!-- MASTER GAUGE -->
+<div class="master-gauge" id="masterGauge"></div>
+
+<!-- PILLARS -->
+<div class="pillars" id="pillarGrid"></div>
+
+<!-- CRITICAL PATH TIMELINE -->
+<div class="timeline-section">
+  <h2>⚡ Critical Path — What to Watch</h2>
+  <div class="timeline" id="timeline"></div>
+</div>
+
+<!-- METHODOLOGY -->
+<div class="methodology">
+  <h2>📐 Methodology</h2>
+  <p>
+    This index measures the functional integrity of republican self-governance across seven pillars.
+    Each pillar contains observable indicators scored 0–10 based on <strong>hard actions</strong>, not rhetoric.
+    The master score is a weighted average reflecting the interdependence of institutional checks.
+  </p>
+  <p>
+    <strong>Scoring principle:</strong> We measure the <em>capacity</em> of each institution to perform its constitutional function, 
+    not whether we agree with its current decisions. A court that rules against your preferences but operates independently scores higher 
+    than a court that rules for you but has been captured.
+  </p>
+  <blockquote>
+    "The spirit of resistance to government is so valuable on certain occasions, that I wish it to be always kept alive. 
+    It will often be exercised when wrong, but better so than not to be exercised at all."
+    <br/><span class="attr">— Thomas Jefferson, Letter to Abigail Adams, 1787</span>
+  </blockquote>
+  <p>
+    <strong>Phases:</strong> The index defines five phases of institutional health. These are not predictions — they are 
+    diagnostic categories based on observable evidence. The republic's trajectory is not fixed. It is determined by the 
+    actions of its sovereign: the citizenry.
+  </p>
+  <blockquote>
+    "The price of liberty is eternal vigilance."
+    <br/><span class="attr">— commonly attributed to Jefferson; paraphrasing John Philpot Curran, 1790</span>
+  </blockquote>
+</div>
+
+<footer>
+  Model built Feb 2026 · Signals validated against open-source reporting · 
+  This is a civic tool, not prophecy · The republic belongs to those who defend it
+</footer>
+
+<script>
+// ==================== DATA MODEL ====================
+
+const pillars = [
+  {
+    id: "separation",
+    name: "Separation of Powers",
+    icon: "⚖️",
+    weight: 1.5,
+    indicators: [
+      { name: "Executive compliance with court orders",
+        score: 4, status: "warning",
+        detail: "Multiple instances of delayed or contested compliance with federal court orders. No outright defiance yet, but pattern of 'slow-walking' and rhetorical challenges to judicial authority.",
+        date: "Ongoing, Feb 2026" },
+      { name: "Congressional oversight capacity",
+        score: 3, status: "critical",
+        detail: "Inspector generals fired across agencies. Congressional subpoena power effectively neutered by executive non-compliance. Partisan majority shields executive from accountability votes.",
+        date: "Jan-Feb 2026" },
+      { name: "Independent agency autonomy",
+        score: 3, status: "critical",
+        detail: "DOGE systematically restructuring agencies. Career staff purges. Acting directors replacing Senate-confirmed officials. CFPB, EPA, DOJ independence severely compromised.",
+        date: "Jan-Feb 2026" },
+      { name: "War powers / emergency authority restraint",
+        score: 5, status: "warning",
+        detail: "Military deployments to border under emergency framing. 'Beautiful armada' near Iran without congressional authorization debate. Emergency declarations for non-emergency purposes normalized.",
+        date: "Feb 2026" },
+      { name: "Federalism — state autonomy",
+        score: 5, status: "warning",
+        detail: "Federal funding threats to non-compliant states. Immigration enforcement overriding state/local policies. But states still functioning as independent actors in courts.",
+        date: "Feb 2026" },
+    ]
+  },
+  {
+    id: "judiciary",
+    name: "Judicial Independence",
+    icon: "🔨",
+    weight: 1.3,
+    indicators: [
+      { name: "Court order enforcement",
+        score: 5, status: "warning",
+        detail: "Courts still issuing orders and injunctions. Compliance is delayed but not openly defied. The critical threshold — executive ignoring a Supreme Court ruling — has not been crossed.",
+        date: "Feb 2026" },
+      { name: "Judicial appointment integrity",
+        score: 4, status: "warning",
+        detail: "Lifetime appointments continue to be filled with ideologically vetted candidates. Federalist Society pipeline remains dominant. But no court-packing attempt yet.",
+        date: "Ongoing" },
+      { name: "Prosecutorial independence",
+        score: 3, status: "critical",
+        detail: "DOJ perceived as politically directed. Selective prosecution concerns. Career prosecutors reportedly reassigned or resigned. Special counsel mechanism effectively sidelined.",
+        date: "Jan-Feb 2026" },
+      { name: "Judicial defiance window",
+        score: 6, status: "watch",
+        detail: "NO executive defiance of Supreme Court ruling has occurred. This is the single most critical threshold. If crossed, constitutional order is functionally suspended. WATCH THIS.",
+        date: "Threshold not yet crossed" },
+    ]
+  },
+  {
+    id: "elections",
+    name: "Electoral Integrity",
+    icon: "🗳️",
+    weight: 1.5,
+    indicators: [
+      { name: "Voter access and registration",
+        score: 5, status: "warning",
+        detail: "Voter roll purges in multiple states. ID requirements tightened. But court challenges ongoing and registration drives active.",
+        date: "Ongoing" },
+      { name: "Election administration independence",
+        score: 4, status: "warning",
+        detail: "Partisan election officials in key states. Certification process politicized after 2024. Independent election boards under pressure.",
+        date: "Ongoing" },
+      { name: "Gerrymandering / structural distortion",
+        score: 3, status: "critical",
+        detail: "Extreme partisan gerrymandering in multiple states. Supreme Court declined to intervene (Rucho v. Common Cause precedent). Structural minority rule enabled.",
+        date: "Structural" },
+      { name: "Campaign finance transparency",
+        score: 3, status: "critical",
+        detail: "Dark money flows effectively unlimited post-Citizens United. Crypto donations adding new opacity layer. Super PAC coordination with campaigns barely enforced.",
+        date: "Structural" },
+      { name: "Peaceful transfer of power norm",
+        score: 4, status: "warning",
+        detail: "Jan 6 established precedent that transfer can be contested violently with limited consequence. Participants pardoned. Norm severely damaged but not destroyed — 2024 transfer did occur.",
+        date: "Ongoing" },
+    ]
+  },
+  {
+    id: "press",
+    name: "Free Press & Information",
+    icon: "📰",
+    weight: 1.2,
+    indicators: [
+      { name: "Press access to government",
+        score: 4, status: "warning",
+        detail: "Press briefings irregular. FOIA requests slow-walked. Journalists excluded selectively. But press still operates, publishes, and investigates.",
+        date: "Feb 2026" },
+      { name: "Journalist legal protection",
+        score: 5, status: "warning",
+        detail: "No journalists imprisoned domestically. But legal threats, defamation suits as intimidation, and rhetoric delegitimizing media ('enemy of the people') create chilling effect.",
+        date: "Ongoing" },
+      { name: "Information ecosystem health",
+        score: 3, status: "critical",
+        detail: "Epistemic fragmentation severe. Algorithmic bubbles. State-adjacent media ecosystem. Platform capture (X/Twitter). Foreign disinfo operations. Shared factual reality eroding.",
+        date: "Structural" },
+      { name: "Whistleblower protection",
+        score: 3, status: "critical",
+        detail: "Federal whistleblower protections being weakened. Retaliation against leakers intensified. DOGE restructuring eliminates institutional channels for internal dissent.",
+        date: "Jan-Feb 2026" },
+    ]
+  },
+  {
+    id: "civil",
+    name: "Civil Liberties",
+    icon: "🗽",
+    weight: 1.2,
+    indicators: [
+      { name: "Due process — citizens",
+        score: 6, status: "watch",
+        detail: "Constitutional protections for citizens largely intact in courts. But ICE operations increasingly aggressive. Columbia protester Leqaa Kordia still in detention after seizure.",
+        date: "Feb 2026" },
+      { name: "Due process — non-citizens",
+        score: 3, status: "critical",
+        detail: "Deportation without adequate hearing processes. Detention conditions. Alien Enemies Act invocations. Legal permanent residents caught in enforcement dragnets.",
+        date: "Jan-Feb 2026" },
+      { name: "Right to protest",
+        score: 5, status: "warning",
+        detail: "Protests still occurring. But surveillance increased, protest-adjacent activities criminalized (material support framing), and chilling effect from ICE targeting of activists.",
+        date: "Feb 2026" },
+      { name: "Privacy / surveillance",
+        score: 4, status: "warning",
+        detail: "DOGE access to sensitive databases (Treasury, SSA, OPM). Mass data consolidation without oversight. Section 702 reauthorized with expanded scope. AI surveillance tools deployed.",
+        date: "Jan-Feb 2026" },
+      { name: "Religious liberty (non-sectarian)",
+        score: 5, status: "warning",
+        detail: "Establishment clause under pressure from Christian nationalist policy framing. But no overt theocratic legislation yet. School prayer/religious display cases advancing.",
+        date: "Ongoing" },
+    ]
+  },
+  {
+    id: "institutional",
+    name: "Institutional Knowledge & Capacity",
+    icon: "🏗️",
+    weight: 1.0,
+    indicators: [
+      { name: "Federal workforce integrity",
+        score: 3, status: "critical",
+        detail: "Mass firings of career civil servants. Institutional knowledge irreversibly lost. Schedule F reclassification enabling political loyalty tests. Agencies losing decades of expertise.",
+        date: "Jan-Feb 2026" },
+      { name: "Scientific / expert advisory capacity",
+        score: 3, status: "critical",
+        detail: "CDC, NIH, EPA scientific advisory boards disbanded or restaffed. Research grants frozen. Climate data access restricted. Brain drain to private sector and foreign institutions.",
+        date: "Jan-Feb 2026" },
+      { name: "Military chain of command integrity",
+        score: 6, status: "watch",
+        detail: "Military largely maintaining institutional culture. Senior officers still operating within chain of command. But loyalty tests at flag officer level and SecDef appointment concerns.",
+        date: "Feb 2026" },
+      { name: "Financial system independence",
+        score: 5, status: "warning",
+        detail: "Fed independence under pressure (Warsh nomination). Treasury accessed by DOGE. But dollar system and Fed rate-setting still functionally independent. Bitcoin strategic reserve signals.",
+        date: "Feb 2026" },
+    ]
+  },
+  {
+    id: "civic",
+    name: "Civic Culture & Participation",
+    icon: "🤝",
+    weight: 1.0,
+    indicators: [
+      { name: "Civic engagement / voter turnout",
+        score: 6, status: "watch",
+        detail: "Turnout remains relatively high. Civic organizations active. But engagement increasingly tribal — participation motivated by opposition, not shared civic project.",
+        date: "Structural" },
+      { name: "Civic education / constitutional literacy",
+        score: 3, status: "critical",
+        detail: "Constitutional literacy extremely low. Federalist Papers effectively unknown to general public. Civic education gutted from curricula over decades. Most citizens cannot name the three branches.",
+        date: "Structural — long-term erosion" },
+      { name: "Cross-partisan institutional trust",
+        score: 2, status: "critical",
+        detail: "Trust in institutions at historic lows across partisan lines. No shared epistemic authority. Even the military — last high-trust institution — seeing partisan trust divergence.",
+        date: "Structural" },
+      { name: "Norm of loyal opposition",
+        score: 3, status: "critical",
+        detail: "Opposition framed as enemy, not legitimate political competitor. 'Enemy of the people' rhetoric. Criminalization of political disagreement normalized in discourse.",
+        date: "Ongoing" },
+    ]
+  }
+];
+
+// ==================== SCORING ENGINE ====================
+
+function getColor(score) {
+  if (score >= 7) return "#44ff88";
+  if (score >= 5.5) return "#44aaff";
+  if (score >= 4) return "#ffaa00";
+  if (score >= 2.5) return "#ff8844";
+  return "#ff4444";
+}
+
+function getStatusColor(status) {
+  const map = { critical: "#ff4444", warning: "#ffaa00", watch: "#44aaff", holding: "#44ff88" };
+  return map[status] || "#666";
+}
+
+function getPhase(score) {
+  if (score >= 8) return { name: "Healthy Republic", color: "#44ff88", desc: "Institutions functioning with normal friction. Self-correction mechanisms intact." };
+  if (score >= 6) return { name: "Stressed but Functional", color: "#44aaff", desc: "Significant strain on institutions. Checks still operational but under pressure." };
+  if (score >= 4) return { name: "Institutional Erosion", color: "#ffaa00", desc: "Multiple checks degraded. Self-correction mechanisms impaired. Active civic defense required." };
+  if (score >= 2.5) return { name: "Constitutional Crisis", color: "#ff8844", desc: "Core checks failing. Democratic correction uncertain. Institutional restoration requires extraordinary civic action." };
+  return { name: "Failed State / Authoritarian Transition", color: "#ff4444", desc: "Constitutional order functionally suspended. Self-governance no longer operative through normal channels." };
+}
+
+// Calculate pillar scores
+pillars.forEach(p => {
+  const sum = p.indicators.reduce((a, i) => a + i.score, 0);
+  p.score = sum / p.indicators.length;
+});
+
+// Calculate master score (weighted)
+const totalWeight = pillars.reduce((a, p) => a + p.weight, 0);
+const masterScore = pillars.reduce((a, p) => a + p.score * p.weight, 0) / totalWeight;
+const phase = getPhase(masterScore);
+
+// ==================== RENDER MASTER GAUGE ====================
+
+const gaugeEl = document.getElementById('masterGauge');
+gaugeEl.innerHTML = `
+  <div class="gauge-value" style="color:${getColor(masterScore)};">${masterScore.toFixed(1)}</div>
+  <div class="gauge-label">Composite Republic Health Score</div>
+  <div class="gauge-bar-container">
+    <div class="gauge-bar" style="width:${masterScore*10}%;background:linear-gradient(90deg, #ff4444, ${getColor(masterScore)});"></div>
+  </div>
+  <div class="gauge-phase" style="color:${phase.color};">Phase: ${phase.name}</div>
+  <div style="color:#888;font-size:13px;margin-top:4px;max-width:600px;margin-left:auto;margin-right:auto;">${phase.desc}</div>
+`;
+
+// ==================== RENDER PILLARS ====================
+
+const pillarGrid = document.getElementById('pillarGrid');
+pillars.forEach(p => {
+  const div = document.createElement('div');
+  div.className = 'pillar';
+  let indHtml = '';
+  p.indicators.forEach(i => {
+    indHtml += `
+      <div class="indicator">
+        <div class="ind-status" style="background:${getStatusColor(i.status)};"></div>
+        <div class="ind-body">
+          <div class="ind-name">${i.name}</div>
+          <div class="ind-detail">${i.detail}</div>
+          <div class="ind-date">${i.date}</div>
+        </div>
+        <div class="ind-score" style="color:${getColor(i.score)};">${i.score}/10</div>
+      </div>
+    `;
+  });
+  div.innerHTML = `
+    <div class="pillar-header">
+      <div class="pillar-icon">${p.icon}</div>
+      <div class="pillar-name">${p.name}</div>
+      <div class="pillar-score" style="color:${getColor(p.score)};">${p.score.toFixed(1)}</div>
+    </div>
+    <div class="pillar-bar-bg">
+      <div class="pillar-bar" style="width:${p.score*10}%;background:${getColor(p.score)};"></div>
+    </div>
+    ${indHtml}
+  `;
+  pillarGrid.appendChild(div);
+});
+
+// ==================== CRITICAL PATH TIMELINE ====================
+
+const timelineData = [
+  { date: "NOW — Feb 2026", level: "warning", title: "Institutional Erosion Phase",
+    body: "Multiple pillars below 4.0. Career civil servant purges accelerating. DOGE restructuring eliminates oversight capacity. Federal workforce losing institutional memory that took decades to build.",
+    tags: [{ text: "ACTIVE", color: "#ff4444" }] },
+  { date: "THRESHOLD — Not Yet Crossed", level: "critical", title: "🚨 Executive Defiance of Supreme Court",
+    body: "The single most critical indicator. If the executive branch openly defies a Supreme Court ruling and faces no consequence, the constitutional order is functionally suspended. Andrew Jackson precedent becomes doctrine. ALL other indicators become secondary to this one.",
+    tags: [{ text: "WATCH DAILY", color: "#ff4444" }, { text: "RED LINE", color: "#ff0000" }] },
+  { date: "Watch: Q1–Q2 2026", level: "warning", title: "Emergency Powers Expansion",
+    body: "Border emergency declarations as template for broader emergency authority. If a manufactured crisis (economic, security, immigration) triggers emergency powers that bypass congressional oversight, the separation of powers pillar collapses further.",
+    tags: [{ text: "PREDICTIVE", color: "#ffaa00" }] },
+  { date: "Watch: 2026", level: "warning", title: "Schedule F Full Implementation",
+    body: "Reclassification of career civil servants as political appointees. Enables mass replacement of the professional bureaucracy with loyalists. If completed, institutional knowledge destruction becomes effectively irreversible within a single term.",
+    tags: [{ text: "IRREVERSIBILITY RISK", color: "#ff8844" }] },
+  { date: "Watch: 2026 Midterms", level: "watch", title: "Electoral Correction Capacity Test",
+    body: "Midterm elections are the first test of whether democratic self-correction still functions. Watch: voter access restrictions, election administration independence, willingness to certify unfavorable results, post-election legal challenges.",
+    tags: [{ text: "CORRECTION WINDOW", color: "#44aaff" }] },
+  { date: "Watch: Ongoing", level: "watch", title: "State-Level Resistance Capacity",
+    body: "Federalism as firewall. States filing lawsuits, protecting local institutions, maintaining independent election administration. If state resistance is effectively neutralized (funding threats, federal enforcement), the last structural check fails.",
+    tags: [{ text: "FEDERALISM", color: "#44aaff" }] },
+  { date: "Structural — Long Term", level: "holding", title: "Civic Renewal Requirement",
+    body: "Constitutional literacy at crisis lows. The sovereign (citizenry) cannot defend what it doesn't understand. Paine wrote Common Sense because the case for liberty needed to be made accessible. Mazzini wrote Duties of Man because rights without civic duty are hollow. The same work is needed now.",
+    tags: [{ text: "CIVIC DUTY", color: "#44ff88" }, { text: "PAINE", color: "#ffcc00" }, { text: "MAZZINI", color: "#ffcc00" }] },
+];
+
+const timelineEl = document.getElementById('timeline');
+timelineData.forEach(t => {
+  const div = document.createElement('div');
+  div.className = `tl-item ${t.level}`;
+  let tagHtml = t.tags.map(tag => `<span class="tl-tag" style="border:1px solid ${tag.color};color:${tag.color};">${tag.text}</span>`).join('');
+  div.innerHTML = `
+    <div class="tl-date">${t.date}</div>
+    <div class="tl-title">${t.title}</div>
+    <div class="tl-body">${t.body}</div>
+    ${tagHtml}
+  `;
+  timelineEl.appendChild(div);
+});
+</script>
+</body>
+</html>
