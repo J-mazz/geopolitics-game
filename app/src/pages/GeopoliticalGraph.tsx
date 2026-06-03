@@ -7,7 +7,7 @@ import {
 } from '../data/geopolitical'
 import type { GraphNode, GraphEdge, IncentiveEdge } from '../data/geopolitical'
 
-const SNAPSHOT_DATE = 'Feb 2026'   // valid-time of the signal snapshot; not "now"
+const SNAPSHOT_DATE = 'Jun 2026'   // baseline signals (S1–S20) are Feb 2026; S21+ and indicators are current
 
 export default function GeopoliticalGraph() {
   const svgRef = useRef<SVGSVGElement>(null)

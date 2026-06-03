@@ -10,7 +10,7 @@ export interface Hypothesis {
 export interface GraphNode {
   id: string
   label: string
-  type: 'major' | 'swing' | 'signal' | 'domain' | 'institution' | 'instrument'
+  type: 'major' | 'swing' | 'signal' | 'domain' | 'institution' | 'instrument' | 'indicator'
   group: number
   r: number
   detail: string
@@ -23,7 +23,7 @@ export interface GraphNode {
 export interface GraphEdge {
   source: string | GraphNode
   target: string | GraphNode
-  type: 'conflict' | 'cooperation' | 'economic' | 'signal' | 'influence'
+  type: 'conflict' | 'cooperation' | 'economic' | 'signal' | 'influence' | 'structural'
   strength: number
   label?: string
 }
@@ -36,7 +36,9 @@ export const hypotheses: Hypothesis[] = [
   { id: "H3", name: "China Peaks", score: 5.0, color: "#ffaa00",
     desc: "Dominant game is managing China's relative decline" },
   { id: "H4", name: "Transactional Realism", score: 7.0, color: "#44ff88",
-    desc: "Ideology dead; pure deal-making across all actors" }
+    desc: "Ideology dead; pure deal-making across all actors" },
+  { id: "H5", name: "Coercive Transactionalism", score: 7.5, color: "#ff66cc",
+    desc: "Deal-making enforced by episodic regime-change force (Venezuela, Iran); Pax Americana by coercion" }
 ]
 
 export const nodes: GraphNode[] = [
@@ -126,6 +128,44 @@ export const nodes: GraphNode[] = [
     detail: "Carney leverages submarine contract for auto sector investment. Transactional dealmaking between allies. VALIDATED: FT." },
   { id: "S20", label: "Iran Military Warning", type: "signal", group: 6, r: 10,
     detail: "Gen. Mousavi: 'entire region engulfed if Iran attacked'. Iran has 'power for long-term war with US'. Deterrence signaling. VALIDATED: Al Jazeera." },
+
+  // ---- Market structural indicators (live, Jun 2 2026) ----
+  { id: "I_OIL", label: "🛢️ Crude Oil $95", type: "indicator", group: 8, r: 12,
+    detail: "WTI ~$95.5/bbl, +66% YTD; Brent ~$97. The Hormuz war premium — the Iran conflict, priced. SOURCE: FMP via Bigdata, Jun 2 2026." },
+  { id: "I_GOLD", label: "🥇 Gold $4,490", type: "indicator", group: 8, r: 12,
+    detail: "Gold ~$4,490/oz, +33% 1Y. Debasement / safe-haven bid beneath the equity calm. SOURCE: FMP via Bigdata, Jun 2 2026." },
+  { id: "I_SILVER", label: "🥈 Silver +116% 1Y", type: "indicator", group: 8, r: 11,
+    detail: "Silver ~$74.7/oz, +116% over the year. Monetary-hedge surge outpacing gold. SOURCE: FMP via Bigdata, Jun 2 2026." },
+  { id: "I_VIX", label: "📉 VIX 15.8", type: "indicator", group: 8, r: 11,
+    detail: "Volatility index ~15.8 — markets calm through two wars. Capital's confidence, or complacency. SOURCE: FMP via Bigdata, Jun 2 2026." },
+  { id: "I_CHIPIDX", label: "💹 Korea/Taiwan AI Boom", type: "indicator", group: 8, r: 13,
+    detail: "KOSPI +226% 1Y, Taiwan +120%, Nikkei +83%. The AI-semiconductor supercycle — the world's dominant equity story, and it is geographic. SOURCE: FMP via Bigdata, Jun 2 2026." },
+  { id: "I_SP500", label: "📈 S&P 500 +27% 1Y", type: "indicator", group: 8, r: 12,
+    detail: "S&P 500 ~7,610, +11% YTD, +27% 1Y — record highs through Venezuela & Iran wars. Narrow, tech/momentum-led. SOURCE: FMP via Bigdata, Jun 2 2026." },
+  { id: "I_WEALTH", label: "⚖️ Top 1% = 31.7%", type: "indicator", group: 8, r: 12,
+    detail: "Top 1% hold a record 31.7% of US wealth (~$55T ≈ bottom 90% combined); bottom 50% ~2.6%. The richest 1% own ~half of all stocks — the melt-up IS the disparity. SOURCE: Fed DFA / Inequality.org, Q3 2025." },
+
+  // ---- Current signals (Jun 2026 refresh) ----
+  { id: "S21", label: "🇻🇪 Maduro Captured", type: "signal", group: 6, r: 10,
+    detail: "Jan 3 2026: US special forces captured Maduro in Caracas; Delcy Rodríguez sworn in as acting president; US oil sanctions lifted and privatization begun. Regime change plus an energy deal. SOURCE: Congress.gov CRS, Brookings." },
+  { id: "S22", label: "🇮🇷 US-Israel Strike Iran", type: "signal", group: 6, r: 10,
+    detail: "Feb 28 2026: US+Israel large-scale strikes begin the 2026 Iran war; Supreme Leader Khamenei killed, son named successor; Iran closes the Strait of Hormuz. SOURCE: UK House of Commons Library." },
+  { id: "S23", label: "🇮🇷 Hormuz Ceasefire MOU", type: "signal", group: 6, r: 10,
+    detail: "Late May 2026: tentative US-Iran MOU to reopen Hormuz plus a 60-day nuclear window; Trump has not signed off; ceasefire violations reported (Kuwait missile strike). SOURCE: CNN, PBS." },
+  { id: "S24", label: "🤝 Trump-Xi Summit", type: "signal", group: 6, r: 10,
+    detail: "May 2026: Trump state visit to China; both sides frame a 'constructive relationship of strategic stability' — a managed truce, with rare earths still China's lever. SOURCE: Global Times, China Briefing." },
+  { id: "S25", label: "💾 Chip Ban Eased then Re-tightened", type: "signal", group: 6, r: 10,
+    detail: "May 2026: H200/MI308 cleared for ~10 Chinese firms (75k cap) — but Beijing blocks imports to push domestic silicon; May 31 new controls on Blackwell/Rubin/MI350X. Chokepoint moved up a tier. SOURCE: BuiltIn, GuruFocus." },
+  { id: "S26", label: "🇺🇦 Ukraine Victory-Day Truce", type: "signal", group: 6, r: 10,
+    detail: "May 9-11 2026: Trump-brokered 3-day ceasefire plus prisoner swap; Putin says the war may be 'coming to an end' and offers direct talks; broader settlement stalled. SOURCE: Al Jazeera, NPR." },
+  { id: "S27", label: "🇸🇬 Shangri-La: US Softens", type: "signal", group: 6, r: 10,
+    detail: "May 29-31 2026: post-summit, Hegseth downplays Taiwan; sharp Japan-China friction over remilitarization; broad acceptance of higher defense spending. SOURCE: Global Times, CNBC." },
+  { id: "S28", label: "🌊 SCS Flashpoints Persist", type: "signal", group: 6, r: 10,
+    detail: "May 2026: Iroquois Reef research-vessel standoff and Scarborough Shoal drills; Philippines (2026 ASEAN chair) calls it a 'long-term struggle'; Code of Conduct seen unachievable. SOURCE: SCMP, CNBC." },
+  { id: "S29", label: "🗂️ Epstein Files Released", type: "signal", group: 6, r: 10,
+    detail: "Jan 30 2026: DOJ releases 3M+ pages under EFTA (200k+ withheld); Clintons held in contempt then testify; Andrew arrested Feb 18; Commerce Sec Lutnick to testify. An elite incentive network with primary-source provenance. SOURCE: DOJ, Britannica, CBS." },
+  { id: "S30", label: "📊 Markets Shrug Off Wars", type: "signal", group: 6, r: 10,
+    detail: "Equities at record highs through two regime-change wars while wealth concentration hits a record. Capital's confidence has decoupled from the median household. SOURCE: FMP via Bigdata, Fed DFA." },
 ]
 
 export const edges: GraphEdge[] = [
@@ -223,29 +263,81 @@ export const edges: GraphEdge[] = [
   { source: "S19", target: "US", type: "signal", strength: 4 },
   { source: "S20", target: "IR", type: "signal", strength: 8 },
   { source: "S20", target: "ME", type: "signal", strength: 7 },
+
+  // ---- Structural: market indicators anchored to the domains they price ----
+  { source: "I_OIL", target: "ENERGY", type: "structural", strength: 9 },
+  { source: "I_OIL", target: "ME", type: "structural", strength: 6 },
+  { source: "I_GOLD", target: "US", type: "structural", strength: 5 },
+  { source: "I_SILVER", target: "US", type: "structural", strength: 4 },
+  { source: "I_VIX", target: "US", type: "structural", strength: 5 },
+  { source: "I_CHIPIDX", target: "CHIPS", type: "structural", strength: 8 },
+  { source: "I_CHIPIDX", target: "TWN", type: "structural", strength: 6 },
+  { source: "I_CHIPIDX", target: "AI_TECH", type: "structural", strength: 7 },
+  { source: "I_SP500", target: "US", type: "structural", strength: 7 },
+  { source: "I_WEALTH", target: "US", type: "structural", strength: 8 },
+
+  // ---- Current signal edges (Jun 2026) ----
+  { source: "S21", target: "US", type: "signal", strength: 7 },
+  { source: "S21", target: "ENERGY", type: "signal", strength: 5 },
+  { source: "S22", target: "IR", type: "signal", strength: 9 },
+  { source: "S22", target: "ME", type: "signal", strength: 8 },
+  { source: "S22", target: "US", type: "signal", strength: 7 },
+  { source: "S22", target: "ENERGY", type: "signal", strength: 6 },
+  { source: "S23", target: "IR", type: "signal", strength: 7 },
+  { source: "S23", target: "ME", type: "signal", strength: 6 },
+  { source: "S23", target: "ENERGY", type: "signal", strength: 6 },
+  { source: "S24", target: "US", type: "signal", strength: 7 },
+  { source: "S24", target: "CN", type: "signal", strength: 7 },
+  { source: "S25", target: "CHIPS", type: "signal", strength: 8 },
+  { source: "S25", target: "CN", type: "signal", strength: 6 },
+  { source: "S25", target: "AI_TECH", type: "signal", strength: 6 },
+  { source: "S26", target: "UKR", type: "signal", strength: 8 },
+  { source: "S26", target: "RU", type: "signal", strength: 6 },
+  { source: "S26", target: "US", type: "signal", strength: 5 },
+  { source: "S27", target: "TWN", type: "signal", strength: 6 },
+  { source: "S27", target: "JP", type: "signal", strength: 6 },
+  { source: "S27", target: "CN", type: "signal", strength: 5 },
+  { source: "S28", target: "SCS", type: "signal", strength: 7 },
+  { source: "S28", target: "PH", type: "signal", strength: 6 },
+  { source: "S28", target: "CN", type: "signal", strength: 6 },
+  { source: "S29", target: "US", type: "signal", strength: 6 },
+  { source: "S30", target: "US", type: "signal", strength: 6 },
+  { source: "S30", target: "AI_TECH", type: "signal", strength: 4 },
 ]
 
 export const signalHypoSupport: Record<string, Record<string, number>> = {
-  S1:  { H1: 8, H2: 3, H3: 7, H4: 5 },
-  S2:  { H1: 4, H2: 7, H3: 4, H4: 8 },
-  S3:  { H1: 7, H2: 4, H3: 5, H4: 5 },
-  S4:  { H1: 3, H2: 5, H3: 3, H4: 9 },
-  S5:  { H1: 6, H2: 3, H3: 7, H4: 3 },
-  S6:  { H1: 7, H2: 4, H3: 5, H4: 5 },
-  S7:  { H1: 3, H2: 6, H3: 5, H4: 8 },
-  S8:  { H1: 8, H2: 4, H3: 7, H4: 3 },
-  S9:  { H1: 3, H2: 6, H3: 3, H4: 7 },
-  S10: { H1: 2, H2: 8, H3: 2, H4: 4 },
-  S11: { H1: 4, H2: 4, H3: 6, H4: 6 },
-  S12: { H1: 8, H2: 3, H3: 6, H4: 4 },
-  S13: { H1: 6, H2: 5, H3: 3, H4: 4 },
-  S14: { H1: 2, H2: 4, H3: 2, H4: 9 },
-  S15: { H1: 7, H2: 4, H3: 5, H4: 3 },
-  S16: { H1: 2, H2: 6, H3: 2, H4: 5 },
-  S17: { H1: 3, H2: 5, H3: 3, H4: 6 },
-  S18: { H1: 4, H2: 4, H3: 6, H4: 4 },
-  S19: { H1: 3, H2: 4, H3: 3, H4: 9 },
-  S20: { H1: 5, H2: 5, H3: 3, H4: 4 },
+  // Feb 2026 baseline (H5 added retroactively)
+  S1:  { H1: 8, H2: 3, H3: 7, H4: 5, H5: 2 },
+  S2:  { H1: 4, H2: 7, H3: 4, H4: 8, H5: 4 },
+  S3:  { H1: 7, H2: 4, H3: 5, H4: 5, H5: 4 },
+  S4:  { H1: 3, H2: 5, H3: 3, H4: 9, H5: 5 },
+  S5:  { H1: 6, H2: 3, H3: 7, H4: 3, H5: 2 },
+  S6:  { H1: 7, H2: 4, H3: 5, H4: 5, H5: 2 },
+  S7:  { H1: 3, H2: 6, H3: 5, H4: 8, H5: 3 },
+  S8:  { H1: 8, H2: 4, H3: 7, H4: 3, H5: 3 },
+  S9:  { H1: 3, H2: 6, H3: 3, H4: 7, H5: 4 },
+  S10: { H1: 2, H2: 8, H3: 2, H4: 4, H5: 2 },
+  S11: { H1: 4, H2: 4, H3: 6, H4: 6, H5: 5 },
+  S12: { H1: 8, H2: 3, H3: 6, H4: 4, H5: 3 },
+  S13: { H1: 6, H2: 5, H3: 3, H4: 4, H5: 3 },
+  S14: { H1: 2, H2: 4, H3: 2, H4: 9, H5: 7 },
+  S15: { H1: 7, H2: 4, H3: 5, H4: 3, H5: 2 },
+  S16: { H1: 2, H2: 6, H3: 2, H4: 5, H5: 3 },
+  S17: { H1: 3, H2: 5, H3: 3, H4: 6, H5: 2 },
+  S18: { H1: 4, H2: 4, H3: 6, H4: 4, H5: 2 },
+  S19: { H1: 3, H2: 4, H3: 3, H4: 9, H5: 4 },
+  S20: { H1: 5, H2: 5, H3: 3, H4: 4, H5: 5 },
+  // Jun 2026 current
+  S21: { H1: 3, H2: 4, H3: 2, H4: 6, H5: 10 },
+  S22: { H1: 7, H2: 5, H3: 2, H4: 3, H5: 9 },
+  S23: { H1: 3, H2: 4, H3: 2, H4: 8, H5: 7 },
+  S24: { H1: 4, H2: 5, H3: 5, H4: 9, H5: 4 },
+  S25: { H1: 6, H2: 4, H3: 7, H4: 7, H5: 5 },
+  S26: { H1: 3, H2: 4, H3: 2, H4: 8, H5: 6 },
+  S27: { H1: 3, H2: 6, H3: 4, H4: 7, H5: 4 },
+  S28: { H1: 6, H2: 7, H3: 5, H4: 3, H5: 3 },
+  S29: { H1: 2, H2: 7, H3: 2, H4: 4, H5: 3 },
+  S30: { H1: 3, H2: 6, H3: 4, H4: 6, H5: 6 },
 }
 
 export const typeColors: Record<string, string> = {
@@ -253,7 +345,8 @@ export const typeColors: Record<string, string> = {
   swing: "#44aaff",
   signal: "#ffaa00",
   domain: "#aa44ff",
-  institution: "#44ff88"
+  institution: "#44ff88",
+  indicator: "#22d3ee"
 }
 
 export const edgeColors: Record<string, string> = {
@@ -261,7 +354,8 @@ export const edgeColors: Record<string, string> = {
   cooperation: "#66ff66",
   economic: "#ffcc00",
   signal: "#cc66ff",
-  influence: "#555"
+  influence: "#555",
+  structural: "#22d3ee"
 }
 
 // ============================================================================
@@ -399,3 +493,51 @@ export const incentiveRelationColors: Record<IncentiveRelation, string> = {
 
 // instrument node color (extends the existing typeColors map at render time)
 export const instrumentColor = "#8899bb"
+
+// ============================================================================
+// SOURCES REGISTRY
+// ----------------------------------------------------------------------------
+// First-class, citable sources spanning three tiers:
+//   - model:   formal/falsifiable frameworks (e.g. bargaining model of war)
+//   - feed:    event-discovery / narrative synthesis outlets
+//   - market:  quantitative structural indicators (live, numeric)
+//   - primary: government / primary-source document releases
+//   - news:    conventional reporting outlets
+// provenance.sourceId on IncentiveEdge (and future signal provenance) should
+// reference a key in this registry rather than a free-text string.
+// ============================================================================
+
+export type SourceTier = 'model' | 'feed' | 'market' | 'primary' | 'news'
+
+export interface Source {
+  id: string
+  name: string
+  tier: SourceTier
+  url?: string
+  note: string
+}
+
+export const sources: Record<string, Source> = {
+  SPANIEL: {
+    id: "SPANIEL", name: "William Spaniel (Game Theory 101)", tier: "model",
+    url: "https://gametheory101.com",
+    note: "Formal crisis-bargaining model of war. The three failure modes — private information / incentives to misrepresent, commitment problems, issue indivisibility — map directly onto edge annotations for why a conflict resists settlement." },
+  WARFRONTS: {
+    id: "WARFRONTS", name: "Fronts / WarFronts (Simon Whistler)", tier: "feed",
+    url: "https://fronts.co",
+    note: "Independent, audience-funded conflict/defense synthesis (ex-Warographics). Event-discovery and ground-truth layer; qualitative, self-declared bias-aware. Not to be confused with warfront.live." },
+  FMP_BIGDATA: {
+    id: "FMP_BIGDATA", name: "FMP via Bigdata.com market tearsheet", tier: "market",
+    note: "Live multi-asset structural indicators (equities, commodities, yields, FX, crypto). Numeric, continuous, auto-updatable via connector — the highest-quality signal substrate." },
+  FED_DFA: {
+    id: "FED_DFA", name: "Federal Reserve Distributional Financial Accounts", tier: "primary",
+    url: "https://www.federalreserve.gov/releases/z1/dataviz/dfa/",
+    note: "Quarterly wealth-share by percentile. Source for the Top-1% / bottom-50% disparity indicator." },
+  DOJ_EFTA: {
+    id: "DOJ_EFTA", name: "DOJ disclosures under the Epstein Files Transparency Act (H.R. 4405)", tier: "primary",
+    url: "https://www.justice.gov/epstein",
+    note: "Primary-source document sets. Citable provenance (url + span) for the elite-incentive-network sub-graph; replaces seed:structural placeholders." },
+  HOC_LIBRARY: {
+    id: "HOC_LIBRARY", name: "UK House of Commons Library", tier: "primary",
+    note: "Briefing source for the 2026 Iran war / US-Iran ceasefire timeline." },
+}
