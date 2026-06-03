@@ -10,7 +10,7 @@ export interface Hypothesis {
 export interface GraphNode {
   id: string
   label: string
-  type: 'major' | 'swing' | 'signal' | 'domain' | 'institution'
+  type: 'major' | 'swing' | 'signal' | 'domain' | 'institution' | 'instrument'
   group: number
   r: number
   detail: string
@@ -263,3 +263,139 @@ export const edgeColors: Record<string, string> = {
   signal: "#cc66ff",
   influence: "#555"
 }
+
+// ============================================================================
+// INCENTIVES LAYER
+// ----------------------------------------------------------------------------
+// A toggleable "who-benefits" lens over the same force graph. It reuses the
+// existing actor nodes (major/swing/institution) as endpoints, adds a small
+// set of `instrument` nodes (concrete bills/contracts/quotas/programs), and
+// connects them with a CLOSED set of incentive relations. Every edge carries
+// provenance + a valid-time (asOf) so the structure can be reconstructed
+// as-of a past date for backtesting without leaking the future.
+//
+// NOTE ON THE SEED DATA: the edges below are hand-curated and STRUCTURALLY
+// true (membership, administration, basing arrangements). Provenance quotes
+// are plain structural statements, not sourced news excerpts, and sourceId is
+// marked `seed:structural`. Before any of this is treated as backtest-grade,
+// replace each edge's provenance with a real citation (url + span quote) via
+// curation or the extraction pipeline. The schema forces that discipline:
+// no provenance, no edge.
+// ============================================================================
+
+export type ActorKind = 'person' | 'fund' | 'firm' | 'agency' | 'legislator' | 'state'
+export type InstrumentKind = 'bill' | 'contract' | 'position' | 'donation' | 'sanction' | 'treaty' | 'quota' | 'program'
+
+export type IncentiveRelation =
+  | 'holds'         // actor holds a position/instrument
+  | 'donates_to'    // actor funds a target
+  | 'lobbies_on'    // actor lobbies on an instrument
+  | 'sponsors'      // actor sponsors/authors an instrument
+  | 'benefits_from' // actor's incentives are served by target
+  | 'controls'      // actor sets/administers the instrument
+  | 'conflicts_with'// the instrument cuts against the target's interest
+
+export interface Provenance {
+  sourceId: string      // citation key; `seed:structural` = placeholder, needs real source
+  url?: string          // omitted for seed edges by design — do not fabricate
+  quote: string         // the span that justifies the edge
+  asOf: string          // ISO date — valid-time, the bitemporal anchor
+}
+
+export interface IncentiveEdge {
+  source: string                // actor id (existing node) 
+  target: string                // instrument id, or an existing actor/domain/signal id
+  relation: IncentiveRelation
+  strength: number              // 1-10, magnitude of the incentive
+  confidence: number            // 0-1, epistemic state in the edge itself
+  provenance: Provenance
+}
+
+// Concrete instruments — the levers actors actually pull. Distinct from the
+// broad `domain` nodes (CHIPS, ENERGY) so the who-benefits join stays legible.
+export const instruments: GraphNode[] = [
+  { id: "INST_EXPORTCTL", label: "📜 Chip Export Controls", type: "instrument", group: 7, r: 13,
+    detail: "US BIS export-administration rules restricting advanced-node chips & tooling to China. Lever wielded by the US, aimed at CN." },
+  { id: "INST_OPECQUOTA", label: "🛢️ OPEC+ Output Quota", type: "instrument", group: 7, r: 13,
+    detail: "Coordinated production targets set by OPEC+ . Saudi swing capacity sets the marginal price; Russia is a member." },
+  { id: "INST_EDCA", label: "🪖 EDCA Basing", type: "instrument", group: 7, r: 13,
+    detail: "Enhanced Defense Cooperation Agreement: US rotational access to Philippine bases. Expands US forward posture near the SCS/Taiwan." },
+  { id: "INST_RUOIL", label: "🛢️ Discounted RU Crude", type: "instrument", group: 7, r: 12,
+    detail: "Below-market Russian crude sold to non-aligned buyers (India, China) under the sanctions regime." },
+  { id: "INST_F35", label: "✈️ F-35 Program", type: "instrument", group: 7, r: 13,
+    detail: "US-led 5th-gen fighter program. Operated across the Asia-Pacific alliance network; 300+ airframes projected by 2030." },
+  { id: "INST_BRI", label: "🏗️ BRI Lending", type: "instrument", group: 7, r: 13,
+    detail: "China's Belt & Road infrastructure lending. Creates debt-leverage and basing access (e.g. Ream) across the periphery." },
+]
+
+export const incentiveEdges: IncentiveEdge[] = [
+  // --- Chip export controls ---
+  { source: "US", target: "INST_EXPORTCTL", relation: "controls", strength: 9, confidence: 0.95,
+    provenance: { sourceId: "seed:structural", asOf: "2025-12-01",
+      quote: "The US Bureau of Industry and Security administers the advanced-semiconductor export-control regime." } },
+  { source: "INST_EXPORTCTL", target: "CN", relation: "conflicts_with", strength: 8, confidence: 0.9,
+    provenance: { sourceId: "seed:structural", asOf: "2025-12-01",
+      quote: "Controls are explicitly designed to constrain China's access to leading-edge compute." } },
+  { source: "US", target: "CHIPS", relation: "benefits_from", strength: 7, confidence: 0.75,
+    provenance: { sourceId: "seed:structural", asOf: "2025-12-01",
+      quote: "US retains leverage over the chip chokepoint by gating equipment access." } },
+  // --- OPEC+ pricing ---
+  { source: "SA", target: "INST_OPECQUOTA", relation: "controls", strength: 8, confidence: 0.9,
+    provenance: { sourceId: "seed:structural", asOf: "2025-11-15",
+      quote: "Saudi spare capacity makes it the de-facto swing producer setting marginal price." } },
+  { source: "RU", target: "INST_OPECQUOTA", relation: "benefits_from", strength: 6, confidence: 0.85,
+    provenance: { sourceId: "seed:structural", asOf: "2025-11-15",
+      quote: "Russia is an OPEC+ member and coordinates output under the same quota framework." } },
+  { source: "RU", target: "INST_RUOIL", relation: "controls", strength: 7, confidence: 0.9,
+    provenance: { sourceId: "seed:structural", asOf: "2025-11-15",
+      quote: "Russia sets discounts on sanctioned crude to retain export volume." } },
+  { source: "IN", target: "INST_RUOIL", relation: "benefits_from", strength: 7, confidence: 0.85,
+    provenance: { sourceId: "seed:structural", asOf: "2025-11-15",
+      quote: "India is a primary buyer of discounted Russian crude, lowering its import bill." } },
+  { source: "CN", target: "INST_RUOIL", relation: "benefits_from", strength: 6, confidence: 0.8,
+    provenance: { sourceId: "seed:structural", asOf: "2025-11-15",
+      quote: "China purchases below-market Russian energy under strategic alignment." } },
+  // --- EDCA / forward posture ---
+  { source: "US", target: "INST_EDCA", relation: "sponsors", strength: 8, confidence: 0.9,
+    provenance: { sourceId: "seed:structural", asOf: "2025-07-01",
+      quote: "The US expands rotational basing access under the EDCA framework." } },
+  { source: "PH", target: "INST_EDCA", relation: "benefits_from", strength: 6, confidence: 0.8,
+    provenance: { sourceId: "seed:structural", asOf: "2025-07-01",
+      quote: "Manila gains a security guarantee and deterrence against SCS coercion." } },
+  { source: "INST_EDCA", target: "CN", relation: "conflicts_with", strength: 7, confidence: 0.85,
+    provenance: { sourceId: "seed:structural", asOf: "2025-07-01",
+      quote: "Expanded US basing constrains Chinese freedom of action in the near seas." } },
+  // --- F-35 alliance hardening ---
+  { source: "US", target: "INST_F35", relation: "controls", strength: 9, confidence: 0.95,
+    provenance: { sourceId: "seed:structural", asOf: "2026-01-01",
+      quote: "The US leads the F-35 program and gates partner access and sustainment." } },
+  { source: "JP", target: "INST_F35", relation: "holds", strength: 6, confidence: 0.9,
+    provenance: { sourceId: "seed:structural", asOf: "2026-01-01",
+      quote: "Japan is a major F-35 operator integrating into the regional posture." } },
+  { source: "INST_F35", target: "S12", relation: "benefits_from", strength: 5, confidence: 0.7,
+    provenance: { sourceId: "seed:structural", asOf: "2026-02-08",
+      quote: "Singapore's first F-35 deliveries are evidence of the program's alliance-hardening role." } },
+  // --- BRI leverage ---
+  { source: "CN", target: "INST_BRI", relation: "controls", strength: 8, confidence: 0.9,
+    provenance: { sourceId: "seed:structural", asOf: "2025-10-01",
+      quote: "China directs BRI lending terms as an instrument of strategic leverage." } },
+  { source: "KH", target: "INST_BRI", relation: "benefits_from", strength: 6, confidence: 0.75,
+    provenance: { sourceId: "seed:structural", asOf: "2025-10-01",
+      quote: "Cambodia received BRI infrastructure financing, including the Ream naval facility." } },
+  { source: "INST_BRI", target: "ASEAN", relation: "conflicts_with", strength: 5, confidence: 0.65,
+    provenance: { sourceId: "seed:structural", asOf: "2025-10-01",
+      quote: "BRI-linked dependencies have stalled ASEAN consensus (e.g. the SCS Code of Conduct)." } },
+]
+
+export const incentiveRelationColors: Record<IncentiveRelation, string> = {
+  holds:          "#7dd3fc",
+  donates_to:     "#fbbf24",
+  lobbies_on:     "#f472b6",
+  sponsors:       "#34d399",
+  benefits_from:  "#a78bfa",
+  controls:       "#fb923c",
+  conflicts_with: "#f87171",
+}
+
+// instrument node color (extends the existing typeColors map at render time)
+export const instrumentColor = "#8899bb"
