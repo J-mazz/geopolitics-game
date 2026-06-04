@@ -1,11 +1,3 @@
-export interface Outcome {
-  id: string
-  name: string
-  score: number
-  color: string
-  desc: string
-}
-
 export interface GraphNode {
   id: string
   label: string
@@ -26,19 +18,6 @@ export interface GraphEdge {
   strength: number
   label?: string
 }
-
-export const outcomes: Outcome[] = [
-  { id: "O1", name: "Cold War II (Bipolar)", score: 5.5, color: "#ff4444",
-    desc: "US-China bipolar competition dominates all other dynamics" },
-  { id: "O2", name: "Multipolar Chaos", score: 6.5, color: "#44aaff",
-    desc: "No single axis; every actor plays for themselves" },
-  { id: "O3", name: "China Peaks", score: 5.0, color: "#ffaa00",
-    desc: "Dominant game is managing China's relative decline" },
-  { id: "O4", name: "Transactional Realism", score: 7.0, color: "#44ff88",
-    desc: "Ideology dead; pure deal-making across all actors" },
-  { id: "O5", name: "Coercive Transactionalism", score: 7.5, color: "#ff66cc",
-    desc: "Deal-making enforced by episodic regime-change force (Venezuela, Iran); Pax Americana by coercion" }
-]
 
 export const nodes: GraphNode[] = [
   { id: "US", label: "🇺🇸 United States", type: "major", group: 1, r: 28,
@@ -303,51 +282,6 @@ export const edges: GraphEdge[] = [
   { source: "S30", target: "US", type: "signal", strength: 6 },
   { source: "S30", target: "AI_TECH", type: "signal", strength: 4 },
 ]
-
-// Cohort boundary: S1–S20 are the Feb 2026 baseline (snapshotted, frozen);
-// S21+ are the current refresh. The split is what lets the rollup show
-// "baseline vs. current" instead of a single diluted mean — without that,
-// the O5 surge from S21/S22 gets averaged out by 20 older signals.
-export const SIGNAL_COHORT_BOUNDARY = 20
-export const isBaselineSignal = (id: string): boolean => {
-  const n = parseInt(id.replace(/^S/, ''), 10)
-  return Number.isFinite(n) && n <= SIGNAL_COHORT_BOUNDARY
-}
-
-export const signalOutcomeSupport: Record<string, Record<string, number>> = {
-  // Feb 2026 baseline (O5 added retroactively)
-  S1:  { O1: 8, O2: 3, O3: 7, O4: 5, O5: 2 },
-  S2:  { O1: 4, O2: 7, O3: 4, O4: 8, O5: 4 },
-  S3:  { O1: 7, O2: 4, O3: 5, O4: 5, O5: 4 },
-  S4:  { O1: 3, O2: 5, O3: 3, O4: 9, O5: 5 },
-  S5:  { O1: 6, O2: 3, O3: 7, O4: 3, O5: 2 },
-  S6:  { O1: 7, O2: 4, O3: 5, O4: 5, O5: 2 },
-  S7:  { O1: 3, O2: 6, O3: 5, O4: 8, O5: 3 },
-  S8:  { O1: 8, O2: 4, O3: 7, O4: 3, O5: 3 },
-  S9:  { O1: 3, O2: 6, O3: 3, O4: 7, O5: 4 },
-  S10: { O1: 2, O2: 8, O3: 2, O4: 4, O5: 2 },
-  S11: { O1: 4, O2: 4, O3: 6, O4: 6, O5: 5 },
-  S12: { O1: 8, O2: 3, O3: 6, O4: 4, O5: 3 },
-  S13: { O1: 6, O2: 5, O3: 3, O4: 4, O5: 3 },
-  S14: { O1: 2, O2: 4, O3: 2, O4: 9, O5: 7 },
-  S15: { O1: 7, O2: 4, O3: 5, O4: 3, O5: 2 },
-  S16: { O1: 2, O2: 6, O3: 2, O4: 5, O5: 3 },
-  S17: { O1: 3, O2: 5, O3: 3, O4: 6, O5: 2 },
-  S18: { O1: 4, O2: 4, O3: 6, O4: 4, O5: 2 },
-  S19: { O1: 3, O2: 4, O3: 3, O4: 9, O5: 4 },
-  S20: { O1: 5, O2: 5, O3: 3, O4: 4, O5: 5 },
-  // Jun 2026 current
-  S21: { O1: 3, O2: 4, O3: 2, O4: 6, O5: 10 },
-  S22: { O1: 7, O2: 5, O3: 2, O4: 3, O5: 9 },
-  S23: { O1: 3, O2: 4, O3: 2, O4: 8, O5: 7 },
-  S24: { O1: 4, O2: 5, O3: 5, O4: 9, O5: 4 },
-  S25: { O1: 6, O2: 4, O3: 7, O4: 7, O5: 5 },
-  S26: { O1: 3, O2: 4, O3: 2, O4: 8, O5: 6 },
-  S27: { O1: 3, O2: 6, O3: 4, O4: 7, O5: 4 },
-  S28: { O1: 6, O2: 7, O3: 5, O4: 3, O5: 3 },
-  S29: { O1: 2, O2: 7, O3: 2, O4: 4, O5: 3 },
-  S30: { O1: 3, O2: 6, O3: 4, O4: 6, O5: 6 },
-}
 
 export const typeColors: Record<string, string> = {
   major: "#ff4444",

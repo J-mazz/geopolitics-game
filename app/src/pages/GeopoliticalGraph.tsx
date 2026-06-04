@@ -1,10 +1,10 @@
-import { useEffect, useRef, useState, useCallback } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import * as d3 from 'd3'
 import {
-  nodes as rawNodes, edges as rawEdges, outcomes, signalOutcomeSupport,
+  nodes as rawNodes, edges as rawEdges,
   typeColors, edgeColors,
   instruments, incentiveEdges, incentiveRelationColors, instrumentColor,
-  sources, isBaselineSignal,
+  sources,
 } from '../data/geopolitical'
 import type { GraphNode, GraphEdge, IncentiveEdge } from '../data/geopolitical'
 
@@ -12,33 +12,12 @@ const SNAPSHOT_DATE = 'Jun 2026'   // baseline signals (S1–S20) are Feb 2026; 
 
 export default function GeopoliticalGraph() {
   const svgRef = useRef<SVGSVGElement>(null)
-  const [activeOutcome, setActiveOutcome] = useState<string | null>(null)
   const [showIncentives, setShowIncentives] = useState(false)
   const [tooltip, setTooltip] = useState<{ x: number; y: number; node: GraphNode } | null>(null)
   const [edgeTip, setEdgeTip] = useState<{ x: number; y: number; edge: IncentiveEdge } | null>(null)
 
-  const sortedOutcomes = [...outcomes].sort((a, b) => b.score - a.score)
-
-  // Outcome rollup, split by cohort so the Jun 2026 refresh isn't diluted
-  // by the 20 Feb baseline signals. The panel shows prior · baseline · current.
-  const baselineScores: Record<string, number> = {}
-  const currentScores: Record<string, number> = {}
-  outcomes.forEach(o => {
-    let bTotal = 0, bCount = 0, cTotal = 0, cCount = 0
-    Object.keys(signalOutcomeSupport).forEach(sId => {
-      const v = signalOutcomeSupport[sId][o.id]
-      if (isBaselineSignal(sId)) { bTotal += v; bCount++ } else { cTotal += v; cCount++ }
-    })
-    baselineScores[o.id] = parseFloat((bTotal / Math.max(1, bCount)).toFixed(1))
-    currentScores[o.id] = parseFloat((cTotal / Math.max(1, cCount)).toFixed(1))
-  })
-
   const signalNodes = rawNodes.filter(n => n.type === 'signal')
   const indicatorNodes = rawNodes.filter(n => n.type === 'indicator')
-
-  const toggleOutcome = useCallback((oId: string) => {
-    setActiveOutcome(prev => prev === oId ? null : oId)
-  }, [])
 
   useEffect(() => {
     if (!svgRef.current) return
@@ -198,45 +177,6 @@ export default function GeopoliticalGraph() {
     return () => { window.removeEventListener('resize', handleResize); simulation.stop() }
   }, [])
 
-  // Outcome highlight lens — scoped to base nodes/links only.
-  useEffect(() => {
-    if (!svgRef.current) return
-    const svg = d3.select(svgRef.current)
-
-    if (!activeOutcome) {
-      svg.selectAll<SVGCircleElement, GraphNode>('circle.base-node')
-        .attr('fill-opacity', d => d.type === 'signal' ? 0.7 : 0.85)
-      svg.selectAll<SVGTextElement, GraphNode>('text.base-label')
-        .attr('fill-opacity', 1)
-      svg.selectAll<SVGLineElement, GraphEdge>('line.base-link')
-        .attr('stroke-opacity', d => d.type === 'signal' ? 0.3 : 0.5)
-      return
-    }
-
-    const oId = activeOutcome
-    svg.selectAll<SVGCircleElement, GraphNode>('circle.base-node')
-      .attr('fill-opacity', d => {
-        if (d.type !== 'signal') return 0.85
-        const s = signalOutcomeSupport[d.id]
-        return s ? (s[oId] >= 6 ? 1 : 0.15) : 0.2
-      })
-    svg.selectAll<SVGTextElement, GraphNode>('text.base-label')
-      .attr('fill-opacity', d => {
-        if (d.type !== 'signal') return 1
-        const s = signalOutcomeSupport[d.id]
-        return s ? (s[oId] >= 6 ? 1 : 0.2) : 0.2
-      })
-    svg.selectAll<SVGLineElement, GraphEdge>('line.base-link')
-      .attr('stroke-opacity', d => {
-        if (d.type !== 'signal') return 0.5
-        const srcId = typeof d.source === 'object' ? (d.source as GraphNode).id : d.source
-        const srcNode = rawNodes.find(n => n.id === srcId)
-        if (!srcNode || srcNode.type !== 'signal') return 0.5
-        const s = signalOutcomeSupport[srcNode.id]
-        return (s && s[oId] >= 6) ? 0.7 : 0.05
-      })
-  }, [activeOutcome])
-
   // Incentive lens — owns visibility of instrument nodes + incentive links,
   // and gently dims the base graph so the who-benefits layer reads on top.
   useEffect(() => {
@@ -252,17 +192,15 @@ export default function GeopoliticalGraph() {
       .transition().duration(300)
       .attr('stroke-opacity', d => showIncentives ? (0.2 + d.confidence * 0.6) : 0)
 
-    if (!activeOutcome) {
-      svg.selectAll<SVGCircleElement, GraphNode>('circle.base-node')
-        .transition().duration(300)
-        .attr('fill-opacity', d =>
-          showIncentives ? (d.type === 'signal' ? 0.35 : 0.45) : (d.type === 'signal' ? 0.7 : 0.85))
-      svg.selectAll<SVGLineElement, GraphEdge>('line.base-link')
-        .transition().duration(300)
-        .attr('stroke-opacity', d =>
-          showIncentives ? 0.12 : (d.type === 'signal' ? 0.3 : 0.5))
-    }
-  }, [showIncentives, activeOutcome])
+    svg.selectAll<SVGCircleElement, GraphNode>('circle.base-node')
+      .transition().duration(300)
+      .attr('fill-opacity', d =>
+        showIncentives ? (d.type === 'signal' ? 0.35 : 0.45) : (d.type === 'signal' ? 0.7 : 0.85))
+    svg.selectAll<SVGLineElement, GraphEdge>('line.base-link')
+      .transition().duration(300)
+      .attr('stroke-opacity', d =>
+        showIncentives ? 0.12 : (d.type === 'signal' ? 0.3 : 0.5))
+  }, [showIncentives])
 
   return (
     <div className="relative w-screen" style={{ height: 'calc(100vh - 32px)', overflow: 'hidden' }}>
@@ -290,23 +228,6 @@ export default function GeopoliticalGraph() {
         }}>
           <h3 className="text-white font-bold text-[15px] mb-1">{tooltip.node.label}</h3>
           <div className="text-[#aaa] whitespace-pre-line mb-1">{tooltip.node.detail}</div>
-          {tooltip.node.type === 'signal' && signalOutcomeSupport[tooltip.node.id] && (
-            <div className="mt-1.5">
-              {outcomes.map(o => {
-                const val = signalOutcomeSupport[tooltip.node.id][o.id]
-                return (
-                  <div key={o.id} className="my-0.5">
-                    <span className="font-semibold" style={{ color: o.color }}>{o.id}</span>{' '}
-                    <span className="text-[#888]">{o.name}</span>
-                    <span className="float-right font-bold">{val}/10</span>
-                    <div className="bg-[#222] h-[3px] rounded mt-0.5">
-                      <div className="h-[3px] rounded" style={{ background: o.color, width: `${val * 10}%` }} />
-                    </div>
-                  </div>
-                )
-              })}
-            </div>
-          )}
         </div>
       )}
 
@@ -380,48 +301,10 @@ export default function GeopoliticalGraph() {
         )}
       </div>
 
-      {/* Outcome / Incentive Panel — split into scored outcomes and incentive levers */}
+      {/* Right panel — Market Indicators + Incentive Levers */}
       <div className="absolute top-3 right-3 z-40 w-[320px] max-h-[calc(100vh-48px)] overflow-y-auto text-xs" style={{
         background: 'rgba(15,15,25,0.9)', border: '1px solid #333', borderRadius: 8, padding: '14px 18px'
       }}>
-        <section>
-          <h2 className="text-white font-bold text-[15px] mb-1">Outcomes — Scored</h2>
-          <div className="text-[10.5px] text-[#777] mb-2.5">prior · baseline (Feb) · current (Jun) signal mean</div>
-          {sortedOutcomes.map(o => {
-            const base = baselineScores[o.id]
-            const cur = currentScores[o.id]
-            const delta = cur - base
-            const deltaColor = delta > 0.3 ? '#34d399' : delta < -0.3 ? '#f87171' : '#777'
-            const deltaSign = delta > 0 ? '+' : ''
-            return (
-              <div key={o.id}
-                className={`my-1.5 cursor-pointer p-1.5 rounded transition-colors ${activeOutcome === o.id ? 'bg-white/10 border-l-[3px] border-l-[#ffcc00]' : 'hover:bg-white/5'}`}
-                onClick={() => toggleOutcome(o.id)}
-              >
-                <div>
-                  <span className="font-semibold" style={{ color: o.color }}>{o.id}: {o.name}</span>
-                  <span className="float-right font-bold" style={{ color: o.color }}>
-                    {o.score}
-                    <span className="text-[#777] font-normal"> · {base} · {cur}</span>
-                    <span className="ml-1 text-[10px] font-normal" style={{ color: deltaColor }}>
-                      ({deltaSign}{delta.toFixed(1)})
-                    </span>
-                  </span>
-                </div>
-                <div className="text-[11px] text-[#888] mt-0.5">{o.desc}</div>
-                <div className="bg-[#222] h-1 rounded mt-1 relative">
-                  <div className="h-1 rounded transition-[width] duration-500" style={{ width: `${o.score / 10 * 100}%`, background: o.color }} />
-                  {/* baseline tick (white) and current tick (cyan) */}
-                  <div className="absolute top-0 h-1 w-[2px]" style={{ left: `${base / 10 * 100}%`, background: '#fff' }} title={`baseline ${base}`} />
-                  <div className="absolute top-0 h-1 w-[2px]" style={{ left: `${cur / 10 * 100}%`, background: '#22d3ee' }} title={`current ${cur}`} />
-                </div>
-              </div>
-            )
-          })}
-        </section>
-
-        <div className="my-3 border-t border-[#2a2a3a]" />
-
         <section>
           <h2 className="text-white font-bold text-[15px] mb-1">📊 Market Indicators</h2>
           <div className="text-[10.5px] text-[#777] mb-2.5">structural signals — what capital is pricing today</div>
@@ -483,22 +366,15 @@ export default function GeopoliticalGraph() {
         background: 'rgba(15,15,25,0.9)', border: '1px solid #333', borderRadius: 8, padding: '12px 16px'
       }}>
         <h3 className="text-white font-bold text-[13px] mb-1.5">📡 Signals — Validated {SNAPSHOT_DATE}</h3>
-        {signalNodes.map(s => {
-          const support = signalOutcomeSupport[s.id]
-          const best = outcomes.reduce((acc, o) => support[o.id] > support[acc.id] ? o : acc, outcomes[0])
-          return (
-            <div key={s.id} className="flex items-start py-1 border-b border-[#1a1a2a] last:border-b-0">
-              <div className="w-2 h-2 rounded-full bg-[#ffaa00] mr-2 mt-1 shrink-0" />
-              <div className="flex-1">
-                <strong>{s.label}</strong><br />
-                <span className="text-[#888]">{s.detail.split('.')[0]}.</span>
-              </div>
-              <span className="ml-2 text-[10px] px-1.5 py-0.5 rounded whitespace-nowrap" style={{
-                border: `1px solid ${best.color}`, color: best.color, background: '#222'
-              }}>Best: {best.id} ({support[best.id]}/10)</span>
+        {signalNodes.map(s => (
+          <div key={s.id} className="flex items-start py-1 border-b border-[#1a1a2a] last:border-b-0">
+            <div className="w-2 h-2 rounded-full bg-[#ffaa00] mr-2 mt-1 shrink-0" />
+            <div className="flex-1">
+              <strong>{s.label}</strong><br />
+              <span className="text-[#888]">{s.detail.split('.')[0]}.</span>
             </div>
-          )
-        })}
+          </div>
+        ))}
       </div>
     </div>
   )
