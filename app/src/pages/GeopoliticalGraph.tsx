@@ -1,9 +1,10 @@
 import { useEffect, useRef, useState, useCallback } from 'react'
 import * as d3 from 'd3'
 import {
-  nodes as rawNodes, edges as rawEdges, hypotheses, signalHypoSupport,
+  nodes as rawNodes, edges as rawEdges, outcomes, signalOutcomeSupport,
   typeColors, edgeColors,
   instruments, incentiveEdges, incentiveRelationColors, instrumentColor,
+  sources, isBaselineSignal,
 } from '../data/geopolitical'
 import type { GraphNode, GraphEdge, IncentiveEdge } from '../data/geopolitical'
 
@@ -11,26 +12,32 @@ const SNAPSHOT_DATE = 'Jun 2026'   // baseline signals (S1–S20) are Feb 2026; 
 
 export default function GeopoliticalGraph() {
   const svgRef = useRef<SVGSVGElement>(null)
-  const [activeHypo, setActiveHypo] = useState<string | null>(null)
+  const [activeOutcome, setActiveOutcome] = useState<string | null>(null)
   const [showIncentives, setShowIncentives] = useState(false)
   const [tooltip, setTooltip] = useState<{ x: number; y: number; node: GraphNode } | null>(null)
   const [edgeTip, setEdgeTip] = useState<{ x: number; y: number; edge: IncentiveEdge } | null>(null)
-  const simRef = useRef<d3.Simulation<GraphNode, GraphEdge> | null>(null)
 
-  const sortedHypos = [...hypotheses].sort((a, b) => b.score - a.score)
+  const sortedOutcomes = [...outcomes].sort((a, b) => b.score - a.score)
 
-  // Live scores: mean support across all signals (the likelihood roll-up).
-  const liveScores: Record<string, number> = {}
-  hypotheses.forEach(h => {
-    let total = 0, count = 0
-    Object.keys(signalHypoSupport).forEach(sId => { total += signalHypoSupport[sId][h.id]; count++ })
-    liveScores[h.id] = parseFloat((total / Math.max(1, count)).toFixed(1))
+  // Outcome rollup, split by cohort so the Jun 2026 refresh isn't diluted
+  // by the 20 Feb baseline signals. The panel shows prior · baseline · current.
+  const baselineScores: Record<string, number> = {}
+  const currentScores: Record<string, number> = {}
+  outcomes.forEach(o => {
+    let bTotal = 0, bCount = 0, cTotal = 0, cCount = 0
+    Object.keys(signalOutcomeSupport).forEach(sId => {
+      const v = signalOutcomeSupport[sId][o.id]
+      if (isBaselineSignal(sId)) { bTotal += v; bCount++ } else { cTotal += v; cCount++ }
+    })
+    baselineScores[o.id] = parseFloat((bTotal / Math.max(1, bCount)).toFixed(1))
+    currentScores[o.id] = parseFloat((cTotal / Math.max(1, cCount)).toFixed(1))
   })
 
   const signalNodes = rawNodes.filter(n => n.type === 'signal')
+  const indicatorNodes = rawNodes.filter(n => n.type === 'indicator')
 
-  const toggleHypo = useCallback((hId: string) => {
-    setActiveHypo(prev => prev === hId ? null : hId)
+  const toggleOutcome = useCallback((oId: string) => {
+    setActiveOutcome(prev => prev === oId ? null : oId)
   }, [])
 
   useEffect(() => {
@@ -86,8 +93,6 @@ export default function GeopoliticalGraph() {
       .force('collision', d3.forceCollide<GraphNode>().radius(d => d.r + 5))
       .force('x', d3.forceX(width / 2).strength(0.03))
       .force('y', d3.forceY(height / 2).strength(0.03))
-
-    simRef.current = simulation
 
     // --- base links ---
     const link = g.append('g').selectAll('line')
@@ -193,12 +198,12 @@ export default function GeopoliticalGraph() {
     return () => { window.removeEventListener('resize', handleResize); simulation.stop() }
   }, [])
 
-  // Hypothesis highlight lens — scoped to base nodes/links only.
+  // Outcome highlight lens — scoped to base nodes/links only.
   useEffect(() => {
     if (!svgRef.current) return
     const svg = d3.select(svgRef.current)
 
-    if (!activeHypo) {
+    if (!activeOutcome) {
       svg.selectAll<SVGCircleElement, GraphNode>('circle.base-node')
         .attr('fill-opacity', d => d.type === 'signal' ? 0.7 : 0.85)
       svg.selectAll<SVGTextElement, GraphNode>('text.base-label')
@@ -208,18 +213,18 @@ export default function GeopoliticalGraph() {
       return
     }
 
-    const hId = activeHypo
+    const oId = activeOutcome
     svg.selectAll<SVGCircleElement, GraphNode>('circle.base-node')
       .attr('fill-opacity', d => {
         if (d.type !== 'signal') return 0.85
-        const s = signalHypoSupport[d.id]
-        return s ? (s[hId] >= 6 ? 1 : 0.15) : 0.2
+        const s = signalOutcomeSupport[d.id]
+        return s ? (s[oId] >= 6 ? 1 : 0.15) : 0.2
       })
     svg.selectAll<SVGTextElement, GraphNode>('text.base-label')
       .attr('fill-opacity', d => {
         if (d.type !== 'signal') return 1
-        const s = signalHypoSupport[d.id]
-        return s ? (s[hId] >= 6 ? 1 : 0.2) : 0.2
+        const s = signalOutcomeSupport[d.id]
+        return s ? (s[oId] >= 6 ? 1 : 0.2) : 0.2
       })
     svg.selectAll<SVGLineElement, GraphEdge>('line.base-link')
       .attr('stroke-opacity', d => {
@@ -227,10 +232,10 @@ export default function GeopoliticalGraph() {
         const srcId = typeof d.source === 'object' ? (d.source as GraphNode).id : d.source
         const srcNode = rawNodes.find(n => n.id === srcId)
         if (!srcNode || srcNode.type !== 'signal') return 0.5
-        const s = signalHypoSupport[srcNode.id]
-        return (s && s[hId] >= 6) ? 0.7 : 0.05
+        const s = signalOutcomeSupport[srcNode.id]
+        return (s && s[oId] >= 6) ? 0.7 : 0.05
       })
-  }, [activeHypo])
+  }, [activeOutcome])
 
   // Incentive lens — owns visibility of instrument nodes + incentive links,
   // and gently dims the base graph so the who-benefits layer reads on top.
@@ -247,7 +252,7 @@ export default function GeopoliticalGraph() {
       .transition().duration(300)
       .attr('stroke-opacity', d => showIncentives ? (0.2 + d.confidence * 0.6) : 0)
 
-    if (!activeHypo) {
+    if (!activeOutcome) {
       svg.selectAll<SVGCircleElement, GraphNode>('circle.base-node')
         .transition().duration(300)
         .attr('fill-opacity', d =>
@@ -257,7 +262,7 @@ export default function GeopoliticalGraph() {
         .attr('stroke-opacity', d =>
           showIncentives ? 0.12 : (d.type === 'signal' ? 0.3 : 0.5))
     }
-  }, [showIncentives, activeHypo])
+  }, [showIncentives, activeOutcome])
 
   return (
     <div className="relative w-screen" style={{ height: 'calc(100vh - 32px)', overflow: 'hidden' }}>
@@ -285,17 +290,17 @@ export default function GeopoliticalGraph() {
         }}>
           <h3 className="text-white font-bold text-[15px] mb-1">{tooltip.node.label}</h3>
           <div className="text-[#aaa] whitespace-pre-line mb-1">{tooltip.node.detail}</div>
-          {tooltip.node.type === 'signal' && signalHypoSupport[tooltip.node.id] && (
+          {tooltip.node.type === 'signal' && signalOutcomeSupport[tooltip.node.id] && (
             <div className="mt-1.5">
-              {hypotheses.map(h => {
-                const val = signalHypoSupport[tooltip.node.id][h.id]
+              {outcomes.map(o => {
+                const val = signalOutcomeSupport[tooltip.node.id][o.id]
                 return (
-                  <div key={h.id} className="my-0.5">
-                    <span className="font-semibold" style={{ color: h.color }}>{h.id}</span>{' '}
-                    <span className="text-[#888]">{h.name}</span>
+                  <div key={o.id} className="my-0.5">
+                    <span className="font-semibold" style={{ color: o.color }}>{o.id}</span>{' '}
+                    <span className="text-[#888]">{o.name}</span>
                     <span className="float-right font-bold">{val}/10</span>
                     <div className="bg-[#222] h-[3px] rounded mt-0.5">
-                      <div className="h-[3px] rounded" style={{ background: h.color, width: `${val * 10}%` }} />
+                      <div className="h-[3px] rounded" style={{ background: o.color, width: `${val * 10}%` }} />
                     </div>
                   </div>
                 )
@@ -306,24 +311,31 @@ export default function GeopoliticalGraph() {
       )}
 
       {/* Incentive-edge provenance tooltip */}
-      {edgeTip && (
-        <div className="absolute pointer-events-none z-[100]" style={{
-          left: edgeTip.x, top: edgeTip.y, background: 'rgba(15,15,25,0.97)',
-          border: `1px solid ${incentiveRelationColors[edgeTip.edge.relation]}`, borderRadius: 8,
-          padding: '10px 14px', maxWidth: 340, fontSize: 12.5, lineHeight: 1.45,
-          boxShadow: '0 4px 20px rgba(0,0,0,0.6)'
-        }}>
-          <div className="font-bold mb-1" style={{ color: incentiveRelationColors[edgeTip.edge.relation] }}>
-            {edgeTip.edge.source} <span className="text-[#888]">—{edgeTip.edge.relation}→</span> {edgeTip.edge.target}
+      {edgeTip && (() => {
+        const src = sources[edgeTip.edge.provenance.sourceId]
+        return (
+          <div className="absolute pointer-events-none z-[100]" style={{
+            left: edgeTip.x, top: edgeTip.y, background: 'rgba(15,15,25,0.97)',
+            border: `1px solid ${incentiveRelationColors[edgeTip.edge.relation]}`, borderRadius: 8,
+            padding: '10px 14px', maxWidth: 340, fontSize: 12.5, lineHeight: 1.45,
+            boxShadow: '0 4px 20px rgba(0,0,0,0.6)'
+          }}>
+            <div className="font-bold mb-1" style={{ color: incentiveRelationColors[edgeTip.edge.relation] }}>
+              {edgeTip.edge.source} <span className="text-[#888]">—{edgeTip.edge.relation}→</span> {edgeTip.edge.target}
+            </div>
+            <div className="text-[#bbb] italic mb-1.5">"{edgeTip.edge.provenance.quote}"</div>
+            <div className="text-[10.5px] text-[#777] flex justify-between gap-3">
+              <span>strength {edgeTip.edge.strength}/10 · conf {(edgeTip.edge.confidence * 100).toFixed(0)}%</span>
+              <span>as of {edgeTip.edge.provenance.asOf}</span>
+            </div>
+            <div className="text-[10px] text-[#666] mt-0.5">
+              {src
+                ? <>src: <span className="text-[#aaa]">{src.name}</span> <span className="text-[#555]">({src.tier})</span></>
+                : <>src: {edgeTip.edge.provenance.sourceId}</>}
+            </div>
           </div>
-          <div className="text-[#bbb] italic mb-1.5">"{edgeTip.edge.provenance.quote}"</div>
-          <div className="text-[10.5px] text-[#777] flex justify-between gap-3">
-            <span>strength {edgeTip.edge.strength}/10 · conf {(edgeTip.edge.confidence * 100).toFixed(0)}%</span>
-            <span>as of {edgeTip.edge.provenance.asOf}</span>
-          </div>
-          <div className="text-[10px] text-[#666] mt-0.5">src: {edgeTip.edge.provenance.sourceId}</div>
-        </div>
-      )}
+        )
+      })()}
 
       {/* Legend */}
       <div className="absolute top-3 left-3 z-40 text-xs" style={{
@@ -338,11 +350,21 @@ export default function GeopoliticalGraph() {
           { color: '#ffaa00', label: `Signal (${SNAPSHOT_DATE})` },
           { color: '#aa44ff', label: 'Domain / Theater' },
           { color: '#44ff88', label: 'Institution / Framework' },
+          { color: '#22d3ee', label: 'Indicator (live market)' },
           { color: instrumentColor, label: 'Instrument (lens)' },
         ].map(i => (
           <div key={i.label} className="flex items-center my-1">
             <div className="w-3 h-3 rounded-full mr-2 shrink-0" style={{ background: i.color }} />
             {i.label}
+          </div>
+        ))}
+        <div className="font-semibold text-[#aaa] mt-2 mb-1">Edge Types</div>
+        {[
+          { color: '#22d3ee', label: 'Structural (indicator → domain)' },
+        ].map(e => (
+          <div key={e.label} className="flex items-center my-1">
+            <div className="w-6 h-[2px] rounded mr-2 shrink-0" style={{ background: e.color }} />
+            {e.label}
           </div>
         ))}
         {showIncentives && (
@@ -358,30 +380,102 @@ export default function GeopoliticalGraph() {
         )}
       </div>
 
-      {/* Hypothesis Panel — now shows base vs. live (signal-derived) score */}
-      <div className="absolute top-3 right-3 z-40 w-[290px] text-xs" style={{
+      {/* Outcome / Incentive Panel — split into scored outcomes and incentive levers */}
+      <div className="absolute top-3 right-3 z-40 w-[320px] max-h-[calc(100vh-48px)] overflow-y-auto text-xs" style={{
         background: 'rgba(15,15,25,0.9)', border: '1px solid #333', borderRadius: 8, padding: '14px 18px'
       }}>
-        <h2 className="text-white font-bold text-[15px] mb-1">Hypotheses — Scored</h2>
-        <div className="text-[10.5px] text-[#777] mb-2.5">base prior · live = mean signal support</div>
-        {sortedHypos.map(h => (
-          <div key={h.id}
-            className={`my-1.5 cursor-pointer p-1.5 rounded transition-colors ${activeHypo === h.id ? 'bg-white/10 border-l-[3px] border-l-[#ffcc00]' : 'hover:bg-white/5'}`}
-            onClick={() => toggleHypo(h.id)}
-          >
-            <div>
-              <span className="font-semibold" style={{ color: h.color }}>{h.id}: {h.name}</span>
-              <span className="float-right font-bold" style={{ color: h.color }}>
-                {h.score} <span className="text-[#777] font-normal">/ {liveScores[h.id]}</span>
+        <section>
+          <h2 className="text-white font-bold text-[15px] mb-1">Outcomes — Scored</h2>
+          <div className="text-[10.5px] text-[#777] mb-2.5">prior · baseline (Feb) · current (Jun) signal mean</div>
+          {sortedOutcomes.map(o => {
+            const base = baselineScores[o.id]
+            const cur = currentScores[o.id]
+            const delta = cur - base
+            const deltaColor = delta > 0.3 ? '#34d399' : delta < -0.3 ? '#f87171' : '#777'
+            const deltaSign = delta > 0 ? '+' : ''
+            return (
+              <div key={o.id}
+                className={`my-1.5 cursor-pointer p-1.5 rounded transition-colors ${activeOutcome === o.id ? 'bg-white/10 border-l-[3px] border-l-[#ffcc00]' : 'hover:bg-white/5'}`}
+                onClick={() => toggleOutcome(o.id)}
+              >
+                <div>
+                  <span className="font-semibold" style={{ color: o.color }}>{o.id}: {o.name}</span>
+                  <span className="float-right font-bold" style={{ color: o.color }}>
+                    {o.score}
+                    <span className="text-[#777] font-normal"> · {base} · {cur}</span>
+                    <span className="ml-1 text-[10px] font-normal" style={{ color: deltaColor }}>
+                      ({deltaSign}{delta.toFixed(1)})
+                    </span>
+                  </span>
+                </div>
+                <div className="text-[11px] text-[#888] mt-0.5">{o.desc}</div>
+                <div className="bg-[#222] h-1 rounded mt-1 relative">
+                  <div className="h-1 rounded transition-[width] duration-500" style={{ width: `${o.score / 10 * 100}%`, background: o.color }} />
+                  {/* baseline tick (white) and current tick (cyan) */}
+                  <div className="absolute top-0 h-1 w-[2px]" style={{ left: `${base / 10 * 100}%`, background: '#fff' }} title={`baseline ${base}`} />
+                  <div className="absolute top-0 h-1 w-[2px]" style={{ left: `${cur / 10 * 100}%`, background: '#22d3ee' }} title={`current ${cur}`} />
+                </div>
+              </div>
+            )
+          })}
+        </section>
+
+        <div className="my-3 border-t border-[#2a2a3a]" />
+
+        <section>
+          <h2 className="text-white font-bold text-[15px] mb-1">📊 Market Indicators</h2>
+          <div className="text-[10.5px] text-[#777] mb-2.5">structural signals — what capital is pricing today</div>
+          <div className="space-y-1.5">
+            {indicatorNodes.map(ind => (
+              <div key={ind.id} className="rounded-md border border-[#1f2a30] bg-[#0c1418] px-2.5 py-1.5">
+                <div className="font-semibold text-[#a5f3fc] text-[11.5px]">{ind.label}</div>
+                <div className="text-[10.5px] text-[#7a8a90] mt-0.5">{ind.detail.split('.')[0]}.</div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <div className="my-3 border-t border-[#2a2a3a]" />
+
+        <section>
+          <h2 className="text-white font-bold text-[15px] mb-1">Incentives — Key Levers</h2>
+          <div className="text-[10.5px] text-[#777] mb-2.5">
+            The who-benefits layer: instruments, relations, and the lens state.
+          </div>
+
+          <div className="rounded-md border border-[#242434] bg-[#10101a] px-3 py-2 mb-3">
+            <div className="flex items-center justify-between gap-2">
+              <span className="font-semibold text-[#ccc]">Lens status</span>
+              <span className="font-bold" style={{ color: showIncentives ? '#c4b5fd' : '#888' }}>
+                {showIncentives ? 'Active' : 'Off'}
               </span>
             </div>
-            <div className="text-[11px] text-[#888] mt-0.5">{h.desc}</div>
-            <div className="bg-[#222] h-1 rounded mt-1 relative">
-              <div className="h-1 rounded transition-[width] duration-500" style={{ width: `${h.score / 10 * 100}%`, background: h.color }} />
-              <div className="absolute top-0 h-1 w-[2px]" style={{ left: `${liveScores[h.id] / 10 * 100}%`, background: '#fff' }} />
+            <div className="mt-1 text-[10.5px] text-[#888]">
+              {showIncentives ? 'Instrument nodes and relation edges are visible on the graph.' : 'Turn on the Incentives Lens to surface instrument nodes and relations.'}
             </div>
           </div>
-        ))}
+
+          <div className="space-y-2 mb-3">
+            {instruments.map(inst => (
+              <div key={inst.id} className="rounded-md border border-[#242434] bg-[#10101a] px-3 py-2">
+                <div className="font-semibold" style={{ color: instrumentColor }}>{inst.label}</div>
+                <div className="text-[10.5px] text-[#888] mt-0.5">
+                  {inst.detail.split('.')[0]}.
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div>
+            <div className="font-semibold text-[#aaa] mb-1">Relation types</div>
+            {Object.entries(incentiveRelationColors).map(([rel, color]) => (
+              <div key={rel} className="flex items-center my-1">
+                <div className="w-6 h-[3px] rounded mr-2 shrink-0" style={{ background: color }} />
+                {rel}
+              </div>
+            ))}
+          </div>
+        </section>
       </div>
 
       {/* Signal Panel */}
@@ -390,8 +484,8 @@ export default function GeopoliticalGraph() {
       }}>
         <h3 className="text-white font-bold text-[13px] mb-1.5">📡 Signals — Validated {SNAPSHOT_DATE}</h3>
         {signalNodes.map(s => {
-          const support = signalHypoSupport[s.id]
-          const bestH = hypotheses.reduce((best, h) => support[h.id] > support[best.id] ? h : best, hypotheses[0])
+          const support = signalOutcomeSupport[s.id]
+          const best = outcomes.reduce((acc, o) => support[o.id] > support[acc.id] ? o : acc, outcomes[0])
           return (
             <div key={s.id} className="flex items-start py-1 border-b border-[#1a1a2a] last:border-b-0">
               <div className="w-2 h-2 rounded-full bg-[#ffaa00] mr-2 mt-1 shrink-0" />
@@ -400,8 +494,8 @@ export default function GeopoliticalGraph() {
                 <span className="text-[#888]">{s.detail.split('.')[0]}.</span>
               </div>
               <span className="ml-2 text-[10px] px-1.5 py-0.5 rounded whitespace-nowrap" style={{
-                border: `1px solid ${bestH.color}`, color: bestH.color, background: '#222'
-              }}>Best: {bestH.id} ({support[bestH.id]}/10)</span>
+                border: `1px solid ${best.color}`, color: best.color, background: '#222'
+              }}>Best: {best.id} ({support[best.id]}/10)</span>
             </div>
           )
         })}

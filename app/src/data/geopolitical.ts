@@ -1,10 +1,9 @@
-export interface Hypothesis {
+export interface Outcome {
   id: string
   name: string
   score: number
   color: string
   desc: string
-  liveScore?: number
 }
 
 export interface GraphNode {
@@ -28,16 +27,16 @@ export interface GraphEdge {
   label?: string
 }
 
-export const hypotheses: Hypothesis[] = [
-  { id: "H1", name: "Cold War II (Bipolar)", score: 5.5, color: "#ff4444",
+export const outcomes: Outcome[] = [
+  { id: "O1", name: "Cold War II (Bipolar)", score: 5.5, color: "#ff4444",
     desc: "US-China bipolar competition dominates all other dynamics" },
-  { id: "H2", name: "Multipolar Chaos", score: 6.5, color: "#44aaff",
+  { id: "O2", name: "Multipolar Chaos", score: 6.5, color: "#44aaff",
     desc: "No single axis; every actor plays for themselves" },
-  { id: "H3", name: "China Peaks", score: 5.0, color: "#ffaa00",
+  { id: "O3", name: "China Peaks", score: 5.0, color: "#ffaa00",
     desc: "Dominant game is managing China's relative decline" },
-  { id: "H4", name: "Transactional Realism", score: 7.0, color: "#44ff88",
+  { id: "O4", name: "Transactional Realism", score: 7.0, color: "#44ff88",
     desc: "Ideology dead; pure deal-making across all actors" },
-  { id: "H5", name: "Coercive Transactionalism", score: 7.5, color: "#ff66cc",
+  { id: "O5", name: "Coercive Transactionalism", score: 7.5, color: "#ff66cc",
     desc: "Deal-making enforced by episodic regime-change force (Venezuela, Iran); Pax Americana by coercion" }
 ]
 
@@ -305,39 +304,49 @@ export const edges: GraphEdge[] = [
   { source: "S30", target: "AI_TECH", type: "signal", strength: 4 },
 ]
 
-export const signalHypoSupport: Record<string, Record<string, number>> = {
-  // Feb 2026 baseline (H5 added retroactively)
-  S1:  { H1: 8, H2: 3, H3: 7, H4: 5, H5: 2 },
-  S2:  { H1: 4, H2: 7, H3: 4, H4: 8, H5: 4 },
-  S3:  { H1: 7, H2: 4, H3: 5, H4: 5, H5: 4 },
-  S4:  { H1: 3, H2: 5, H3: 3, H4: 9, H5: 5 },
-  S5:  { H1: 6, H2: 3, H3: 7, H4: 3, H5: 2 },
-  S6:  { H1: 7, H2: 4, H3: 5, H4: 5, H5: 2 },
-  S7:  { H1: 3, H2: 6, H3: 5, H4: 8, H5: 3 },
-  S8:  { H1: 8, H2: 4, H3: 7, H4: 3, H5: 3 },
-  S9:  { H1: 3, H2: 6, H3: 3, H4: 7, H5: 4 },
-  S10: { H1: 2, H2: 8, H3: 2, H4: 4, H5: 2 },
-  S11: { H1: 4, H2: 4, H3: 6, H4: 6, H5: 5 },
-  S12: { H1: 8, H2: 3, H3: 6, H4: 4, H5: 3 },
-  S13: { H1: 6, H2: 5, H3: 3, H4: 4, H5: 3 },
-  S14: { H1: 2, H2: 4, H3: 2, H4: 9, H5: 7 },
-  S15: { H1: 7, H2: 4, H3: 5, H4: 3, H5: 2 },
-  S16: { H1: 2, H2: 6, H3: 2, H4: 5, H5: 3 },
-  S17: { H1: 3, H2: 5, H3: 3, H4: 6, H5: 2 },
-  S18: { H1: 4, H2: 4, H3: 6, H4: 4, H5: 2 },
-  S19: { H1: 3, H2: 4, H3: 3, H4: 9, H5: 4 },
-  S20: { H1: 5, H2: 5, H3: 3, H4: 4, H5: 5 },
+// Cohort boundary: S1–S20 are the Feb 2026 baseline (snapshotted, frozen);
+// S21+ are the current refresh. The split is what lets the rollup show
+// "baseline vs. current" instead of a single diluted mean — without that,
+// the O5 surge from S21/S22 gets averaged out by 20 older signals.
+export const SIGNAL_COHORT_BOUNDARY = 20
+export const isBaselineSignal = (id: string): boolean => {
+  const n = parseInt(id.replace(/^S/, ''), 10)
+  return Number.isFinite(n) && n <= SIGNAL_COHORT_BOUNDARY
+}
+
+export const signalOutcomeSupport: Record<string, Record<string, number>> = {
+  // Feb 2026 baseline (O5 added retroactively)
+  S1:  { O1: 8, O2: 3, O3: 7, O4: 5, O5: 2 },
+  S2:  { O1: 4, O2: 7, O3: 4, O4: 8, O5: 4 },
+  S3:  { O1: 7, O2: 4, O3: 5, O4: 5, O5: 4 },
+  S4:  { O1: 3, O2: 5, O3: 3, O4: 9, O5: 5 },
+  S5:  { O1: 6, O2: 3, O3: 7, O4: 3, O5: 2 },
+  S6:  { O1: 7, O2: 4, O3: 5, O4: 5, O5: 2 },
+  S7:  { O1: 3, O2: 6, O3: 5, O4: 8, O5: 3 },
+  S8:  { O1: 8, O2: 4, O3: 7, O4: 3, O5: 3 },
+  S9:  { O1: 3, O2: 6, O3: 3, O4: 7, O5: 4 },
+  S10: { O1: 2, O2: 8, O3: 2, O4: 4, O5: 2 },
+  S11: { O1: 4, O2: 4, O3: 6, O4: 6, O5: 5 },
+  S12: { O1: 8, O2: 3, O3: 6, O4: 4, O5: 3 },
+  S13: { O1: 6, O2: 5, O3: 3, O4: 4, O5: 3 },
+  S14: { O1: 2, O2: 4, O3: 2, O4: 9, O5: 7 },
+  S15: { O1: 7, O2: 4, O3: 5, O4: 3, O5: 2 },
+  S16: { O1: 2, O2: 6, O3: 2, O4: 5, O5: 3 },
+  S17: { O1: 3, O2: 5, O3: 3, O4: 6, O5: 2 },
+  S18: { O1: 4, O2: 4, O3: 6, O4: 4, O5: 2 },
+  S19: { O1: 3, O2: 4, O3: 3, O4: 9, O5: 4 },
+  S20: { O1: 5, O2: 5, O3: 3, O4: 4, O5: 5 },
   // Jun 2026 current
-  S21: { H1: 3, H2: 4, H3: 2, H4: 6, H5: 10 },
-  S22: { H1: 7, H2: 5, H3: 2, H4: 3, H5: 9 },
-  S23: { H1: 3, H2: 4, H3: 2, H4: 8, H5: 7 },
-  S24: { H1: 4, H2: 5, H3: 5, H4: 9, H5: 4 },
-  S25: { H1: 6, H2: 4, H3: 7, H4: 7, H5: 5 },
-  S26: { H1: 3, H2: 4, H3: 2, H4: 8, H5: 6 },
-  S27: { H1: 3, H2: 6, H3: 4, H4: 7, H5: 4 },
-  S28: { H1: 6, H2: 7, H3: 5, H4: 3, H5: 3 },
-  S29: { H1: 2, H2: 7, H3: 2, H4: 4, H5: 3 },
-  S30: { H1: 3, H2: 6, H3: 4, H4: 6, H5: 6 },
+  S21: { O1: 3, O2: 4, O3: 2, O4: 6, O5: 10 },
+  S22: { O1: 7, O2: 5, O3: 2, O4: 3, O5: 9 },
+  S23: { O1: 3, O2: 4, O3: 2, O4: 8, O5: 7 },
+  S24: { O1: 4, O2: 5, O3: 5, O4: 9, O5: 4 },
+  S25: { O1: 6, O2: 4, O3: 7, O4: 7, O5: 5 },
+  S26: { O1: 3, O2: 4, O3: 2, O4: 8, O5: 6 },
+  S27: { O1: 3, O2: 6, O3: 4, O4: 7, O5: 4 },
+  S28: { O1: 6, O2: 7, O3: 5, O4: 3, O5: 3 },
+  S29: { O1: 2, O2: 7, O3: 2, O4: 4, O5: 3 },
+  S30: { O1: 3, O2: 6, O3: 4, O4: 6, O5: 6 },
 }
 
 export const typeColors: Record<string, string> = {
@@ -376,9 +385,6 @@ export const edgeColors: Record<string, string> = {
 // curation or the extraction pipeline. The schema forces that discipline:
 // no provenance, no edge.
 // ============================================================================
-
-export type ActorKind = 'person' | 'fund' | 'firm' | 'agency' | 'legislator' | 'state'
-export type InstrumentKind = 'bill' | 'contract' | 'position' | 'donation' | 'sanction' | 'treaty' | 'quota' | 'program'
 
 export type IncentiveRelation =
   | 'holds'         // actor holds a position/instrument
