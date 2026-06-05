@@ -1,0 +1,206 @@
+[
+  {
+    "source": "US",
+    "target": "INST_EXPORTCTL",
+    "relation": "controls",
+    "strength": 9,
+    "confidence": 0.95,
+    "provenance": {
+      "sourceId": "BIS",
+      "asOf": "2025-12-01",
+      "quote": "The US Bureau of Industry and Security administers the advanced-semiconductor export-control regime."
+    }
+  },
+  {
+    "source": "INST_EXPORTCTL",
+    "target": "CN",
+    "relation": "conflicts_with",
+    "strength": 8,
+    "confidence": 0.9,
+    "provenance": {
+      "sourceId": "FT",
+      "asOf": "2025-12-01",
+      "quote": "Controls are explicitly designed to constrain China's access to leading-edge compute."
+    }
+  },
+  {
+    "source": "US",
+    "target": "CHIPS",
+    "relation": "benefits_from",
+    "strength": 7,
+    "confidence": 0.75,
+    "provenance": {
+      "sourceId": "FT",
+      "asOf": "2025-12-01",
+      "quote": "US retains leverage over the chip chokepoint by gating equipment access."
+    }
+  },
+  {
+    "source": "SA",
+    "target": "INST_OPECQUOTA",
+    "relation": "controls",
+    "strength": 8,
+    "confidence": 0.9,
+    "provenance": {
+      "sourceId": "OPEC",
+      "asOf": "2025-11-15",
+      "quote": "Saudi spare capacity makes it the de-facto swing producer setting marginal price."
+    }
+  },
+  {
+    "source": "RU",
+    "target": "INST_OPECQUOTA",
+    "relation": "benefits_from",
+    "strength": 6,
+    "confidence": 0.85,
+    "provenance": {
+      "sourceId": "STRUCTURAL",
+      "asOf": "2025-11-15",
+      "quote": "Russia is an OPEC+ member and coordinates output under the same quota framework."
+    }
+  },
+  {
+    "source": "RU",
+    "target": "INST_RUOIL",
+    "relation": "controls",
+    "strength": 7,
+    "confidence": 0.9,
+    "provenance": {
+      "sourceId": "REUTERS",
+      "asOf": "2025-11-15",
+      "quote": "Russia sets discounts on sanctioned crude to retain export volume."
+    }
+  },
+  {
+    "source": "IN",
+    "target": "INST_RUOIL",
+    "relation": "benefits_from",
+    "strength": 7,
+    "confidence": 0.85,
+    "provenance": {
+      "sourceId": "FT",
+      "asOf": "2025-11-15",
+      "quote": "India is a primary buyer of discounted Russian crude, lowering its import bill."
+    }
+  },
+  {
+    "source": "CN",
+    "target": "INST_RUOIL",
+    "relation": "benefits_from",
+    "strength": 6,
+    "confidence": 0.8,
+    "provenance": {
+      "sourceId": "SCMP",
+      "asOf": "2025-11-15",
+      "quote": "China purchases below-market Russian energy under strategic alignment."
+    }
+  },
+  {
+    "source": "US",
+    "target": "INST_EDCA",
+    "relation": "sponsors",
+    "strength": 8,
+    "confidence": 0.9,
+    "provenance": {
+      "sourceId": "STATE",
+      "asOf": "2025-07-01",
+      "quote": "The US expands rotational basing access under the EDCA framework."
+    }
+  },
+  {
+    "source": "PH",
+    "target": "INST_EDCA",
+    "relation": "benefits_from",
+    "strength": 6,
+    "confidence": 0.8,
+    "provenance": {
+      "sourceId": "DEFENSE_NEWS",
+      "asOf": "2025-07-01",
+      "quote": "Manila gains a security guarantee and deterrence against SCS coercion."
+    }
+  },
+  {
+    "source": "INST_EDCA",
+    "target": "CN",
+    "relation": "conflicts_with",
+    "strength": 7,
+    "confidence": 0.85,
+    "provenance": {
+      "sourceId": "SCMP",
+      "asOf": "2025-07-01",
+      "quote": "Expanded US basing constrains Chinese freedom of action in the near seas."
+    }
+  },
+  {
+    "source": "US",
+    "target": "INST_F35",
+    "relation": "controls",
+    "strength": 9,
+    "confidence": 0.95,
+    "provenance": {
+      "sourceId": "LOCKHEED",
+      "asOf": "2026-01-01",
+      "quote": "The US leads the F-35 program and gates partner access and sustainment."
+    }
+  },
+  {
+    "source": "JP",
+    "target": "INST_F35",
+    "relation": "holds",
+    "strength": 6,
+    "confidence": 0.9,
+    "provenance": {
+      "sourceId": "STRUCTURAL",
+      "asOf": "2026-01-01",
+      "quote": "Japan is a major F-35 operator integrating into the regional posture."
+    }
+  },
+  {
+    "source": "INST_F35",
+    "target": "S12",
+    "relation": "benefits_from",
+    "strength": 5,
+    "confidence": 0.7,
+    "provenance": {
+      "sourceId": "DEFENSE_NEWS",
+      "asOf": "2026-02-08",
+      "quote": "Singapore's first F-35 deliveries are evidence of the program's alliance-hardening role."
+    }
+  },
+  {
+    "source": "CN",
+    "target": "INST_BRI",
+    "relation": "controls",
+    "strength": 8,
+    "confidence": 0.9,
+    "provenance": {
+      "sourceId": "STRUCTURAL",
+      "asOf": "2025-10-01",
+      "quote": "China directs BRI lending terms as an instrument of strategic leverage."
+    }
+  },
+  {
+    "source": "KH",
+    "target": "INST_BRI",
+    "relation": "benefits_from",
+    "strength": 6,
+    "confidence": 0.75,
+    "provenance": {
+      "sourceId": "DEFENSE_NEWS",
+      "asOf": "2025-10-01",
+      "quote": "Cambodia received BRI infrastructure financing, including the Ream naval facility."
+    }
+  },
+  {
+    "source": "INST_BRI",
+    "target": "ASEAN",
+    "relation": "conflicts_with",
+    "strength": 5,
+    "confidence": 0.65,
+    "provenance": {
+      "sourceId": "SCMP",
+      "asOf": "2025-10-01",
+      "quote": "BRI-linked dependencies have stalled ASEAN consensus (e.g. the SCS Code of Conduct)."
+    }
+  }
+]

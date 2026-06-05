@@ -1,0 +1,57 @@
+{
+  "I_OIL": {
+    "value": 95.5,
+    "unit": "$/bbl",
+    "changeYtd": 66,
+    "asOf": "2026-06-02",
+    "sourceId": "YAHOO_FINANCE",
+    "notes": "WTI; Brent ~$97. Hormuz war premium.",
+    "changePct1y": 43.8
+  },
+  "I_GOLD": {
+    "value": 4490,
+    "unit": "$/oz",
+    "changePct1y": 33,
+    "asOf": "2026-06-02",
+    "sourceId": "YAHOO_FINANCE",
+    "changeYtd": 4
+  },
+  "I_SILVER": {
+    "value": 74.7,
+    "unit": "$/oz",
+    "changePct1y": 116,
+    "asOf": "2026-06-02",
+    "sourceId": "YAHOO_FINANCE",
+    "changeYtd": 3.1
+  },
+  "I_VIX": {
+    "value": 15.8,
+    "unit": "index",
+    "asOf": "2026-06-02",
+    "sourceId": "YAHOO_FINANCE",
+    "changePct1y": -6.2,
+    "changeYtd": 8.4
+  },
+  "I_CHIPIDX": {
+    "value": 226,
+    "unit": "% 1Y",
+    "asOf": "2026-06-02",
+    "sourceId": "FMP_BIGDATA",
+    "notes": "KOSPI lead; Taiwan +120%, Nikkei +83%."
+  },
+  "I_SP500": {
+    "value": 7610,
+    "unit": "index",
+    "changeYtd": 11,
+    "changePct1y": 27,
+    "asOf": "2026-06-02",
+    "sourceId": "YAHOO_FINANCE"
+  },
+  "I_WEALTH": {
+    "value": 31.7,
+    "unit": "%",
+    "asOf": "2025-09-30",
+    "sourceId": "FED_DFA",
+    "notes": "Top 1% US household wealth share; bottom 50% ~2.6%."
+  }
+}

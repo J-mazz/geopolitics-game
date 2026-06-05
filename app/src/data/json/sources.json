@@ -1,0 +1,257 @@
+{
+  "STRUCTURAL": {
+    "id": "STRUCTURAL",
+    "name": "Structural fact",
+    "tier": "structural",
+    "note": "Canonical, invariant fact (membership, charter, treaty) — the claim itself is the source. Used in place of a news/primary cite when no specific article is needed (e.g., 'Russia is a member of OPEC+')."
+  },
+  "BIS": {
+    "id": "BIS",
+    "name": "US Bureau of Industry and Security",
+    "tier": "primary",
+    "url": "https://www.bis.doc.gov",
+    "note": "Administers US dual-use export controls (chips, tooling, EUV)."
+  },
+  "OPEC": {
+    "id": "OPEC",
+    "name": "OPEC Secretariat",
+    "tier": "primary",
+    "url": "https://www.opec.org",
+    "note": "Authoritative source for OPEC/OPEC+ quotas, communiqués, membership."
+  },
+  "STATE": {
+    "id": "STATE",
+    "name": "US Department of State",
+    "tier": "primary",
+    "url": "https://www.state.gov",
+    "note": "Primary source for US treaty / framework agreements (EDCA, alliance arrangements)."
+  },
+  "CONGRESS_CRS": {
+    "id": "CONGRESS_CRS",
+    "name": "Congressional Research Service (Congress.gov)",
+    "tier": "primary",
+    "url": "https://congress.gov",
+    "note": "Primary-source CRS reports issued for Congress."
+  },
+  "USARPAC": {
+    "id": "USARPAC",
+    "name": "US Army Pacific",
+    "tier": "primary",
+    "url": "https://www.usarpac.army.mil",
+    "note": "Primary-source US Army command releases."
+  },
+  "LOCKHEED": {
+    "id": "LOCKHEED",
+    "name": "Lockheed Martin (press)",
+    "tier": "primary",
+    "url": "https://lockheedmartin.com",
+    "note": "Primary-source manufacturer press releases."
+  },
+  "FED_DFA": {
+    "id": "FED_DFA",
+    "name": "Federal Reserve Distributional Financial Accounts",
+    "tier": "primary",
+    "url": "https://www.federalreserve.gov/releases/z1/dataviz/dfa/",
+    "note": "Quarterly wealth-share by percentile. Source for the Top-1% / bottom-50% disparity indicator."
+  },
+  "DOJ_EFTA": {
+    "id": "DOJ_EFTA",
+    "name": "DOJ disclosures under the Epstein Files Transparency Act (H.R. 4405)",
+    "tier": "primary",
+    "url": "https://www.justice.gov/epstein",
+    "note": "Primary-source document sets. Citable provenance (url + span) for the elite-incentive-network sub-graph (Lutnick / Mandelson / etc.) — once those actor / instrument nodes are added."
+  },
+  "HOC_LIBRARY": {
+    "id": "HOC_LIBRARY",
+    "name": "UK House of Commons Library",
+    "tier": "primary",
+    "note": "Briefing source for the 2026 Iran war / US-Iran ceasefire timeline."
+  },
+  "SPANIEL": {
+    "id": "SPANIEL",
+    "name": "William Spaniel (Game Theory 101)",
+    "tier": "model",
+    "url": "https://gametheory101.com",
+    "note": "Formal crisis-bargaining model of war. The three failure modes — private information / incentives to misrepresent, commitment problems, issue indivisibility — map directly onto edge annotations for why a conflict resists settlement."
+  },
+  "WARFRONTS": {
+    "id": "WARFRONTS",
+    "name": "Fronts / WarFronts (Simon Whistler)",
+    "tier": "feed",
+    "url": "https://fronts.co",
+    "note": "Independent, audience-funded conflict/defense synthesis (ex-Warographics). Event-discovery and ground-truth layer; qualitative, self-declared bias-aware. Not to be confused with warfront.live."
+  },
+  "FMP_BIGDATA": {
+    "id": "FMP_BIGDATA",
+    "name": "FMP via Bigdata.com market tearsheet",
+    "tier": "market",
+    "note": "Live multi-asset structural indicators (equities, commodities, yields, FX, crypto). Numeric, continuous, auto-updatable via connector — the highest-quality signal substrate."
+  },
+  "AJ": {
+    "id": "AJ",
+    "name": "Al Jazeera",
+    "tier": "news",
+    "url": "https://aljazeera.com",
+    "note": "International news with Middle East focus."
+  },
+  "BRITANNICA": {
+    "id": "BRITANNICA",
+    "name": "Encyclopædia Britannica",
+    "tier": "news",
+    "url": "https://britannica.com",
+    "note": "Reference / explainer."
+  },
+  "BROOKINGS": {
+    "id": "BROOKINGS",
+    "name": "Brookings Institution",
+    "tier": "news",
+    "url": "https://brookings.edu",
+    "note": "Policy research / think-tank analysis."
+  },
+  "BUILTIN": {
+    "id": "BUILTIN",
+    "name": "BuiltIn",
+    "tier": "news",
+    "url": "https://builtin.com",
+    "note": "Tech industry trade press."
+  },
+  "CBS": {
+    "id": "CBS",
+    "name": "CBS News",
+    "tier": "news",
+    "url": "https://cbsnews.com",
+    "note": "US broadcast news."
+  },
+  "CHINABRIEFING": {
+    "id": "CHINABRIEFING",
+    "name": "China Briefing",
+    "tier": "news",
+    "url": "https://china-briefing.com",
+    "note": "Business / regulatory coverage of China."
+  },
+  "CNBC": {
+    "id": "CNBC",
+    "name": "CNBC",
+    "tier": "news",
+    "url": "https://cnbc.com",
+    "note": "Business news."
+  },
+  "CNN": {
+    "id": "CNN",
+    "name": "CNN",
+    "tier": "news",
+    "url": "https://cnn.com",
+    "note": "US cable news."
+  },
+  "DEFENSE_NEWS": {
+    "id": "DEFENSE_NEWS",
+    "name": "Defense News",
+    "tier": "news",
+    "url": "https://defensenews.com",
+    "note": "Defense industry trade press."
+  },
+  "FT": {
+    "id": "FT",
+    "name": "Financial Times",
+    "tier": "news",
+    "url": "https://ft.com",
+    "note": "International business and political reporting."
+  },
+  "GLOBAL_TIMES": {
+    "id": "GLOBAL_TIMES",
+    "name": "Global Times",
+    "tier": "news",
+    "url": "https://globaltimes.cn",
+    "note": "Chinese state-affiliated outlet — useful as PRC framing signal, not unbiased reporting."
+  },
+  "GURUFOCUS": {
+    "id": "GURUFOCUS",
+    "name": "GuruFocus",
+    "tier": "news",
+    "url": "https://gurufocus.com",
+    "note": "Equity / fundamentals coverage."
+  },
+  "NHK": {
+    "id": "NHK",
+    "name": "NHK",
+    "tier": "news",
+    "url": "https://www3.nhk.or.jp",
+    "note": "Japanese public broadcaster."
+  },
+  "NPR": {
+    "id": "NPR",
+    "name": "NPR",
+    "tier": "news",
+    "url": "https://npr.org",
+    "note": "US public radio."
+  },
+  "PBS": {
+    "id": "PBS",
+    "name": "PBS NewsHour",
+    "tier": "news",
+    "url": "https://www.pbs.org/newshour",
+    "note": "US public broadcasting news."
+  },
+  "REUTERS": {
+    "id": "REUTERS",
+    "name": "Reuters",
+    "tier": "news",
+    "url": "https://reuters.com",
+    "note": "International wire service."
+  },
+  "SCMP": {
+    "id": "SCMP",
+    "name": "South China Morning Post",
+    "tier": "news",
+    "url": "https://scmp.com",
+    "note": "Hong Kong-based regional reporting on Greater China and Asia."
+  },
+  "YAHOO_FINANCE": {
+    "id": "YAHOO_FINANCE",
+    "name": "Yahoo Finance (public chart API)",
+    "tier": "market",
+    "url": "https://finance.yahoo.com",
+    "note": "Free unauthenticated quote / OHLC endpoint used by the refresh:indicators script."
+  },
+  "seed:structural": {
+    "id": "seed:structural",
+    "name": "Seed structural placeholder",
+    "tier": "structural",
+    "note": "Placeholder provenance key for hand-curated seed edges; replace with a real citation when backtesting or curating from source material."
+  },
+  "FEC": {
+    "id": "FEC",
+    "name": "Federal Election Commission filings",
+    "tier": "primary",
+    "url": "https://www.fec.gov",
+    "note": "Primary campaign-finance disclosures used for bloc spending and donations."
+  },
+  "HERITAGE": {
+    "id": "HERITAGE",
+    "name": "The Heritage Foundation",
+    "tier": "primary",
+    "url": "https://www.heritage.org",
+    "note": "Publisher of Project Esther and Project 2025; cited as the primary author of its own strategy documents."
+  },
+  "JTA": {
+    "id": "JTA",
+    "name": "Jewish Telegraphic Agency",
+    "tier": "news",
+    "url": "https://www.jta.org",
+    "note": "Reporting on CUFI and other pro-Israel mobilization networks."
+  },
+  "NYT": {
+    "id": "NYT",
+    "name": "The New York Times",
+    "tier": "news",
+    "url": "https://www.nytimes.com",
+    "note": "Reporting used for the Esther / policy-parallel note where causation is unconfirmed."
+  },
+  "OPENSECRETS": {
+    "id": "OPENSECRETS",
+    "name": "OpenSecrets (CRP) — federal lobbying & election spending",
+    "tier": "primary",
+    "url": "https://www.opensecrets.org",
+    "note": "Aggregates LDA lobbying disclosures and FEC filings for bloc spending magnitudes."
+  }
+}

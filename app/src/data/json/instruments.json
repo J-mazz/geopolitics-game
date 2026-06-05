@@ -1,0 +1,53 @@
+[
+  {
+    "id": "INST_EXPORTCTL",
+    "label": "📜 Chip Export Controls",
+    "type": "instrument",
+    "group": 7,
+    "r": 13,
+    "detail": "US BIS export-administration rules restricting advanced-node chips & tooling to China. Lever wielded by the US, aimed at CN."
+  },
+  {
+    "id": "INST_OPECQUOTA",
+    "label": "🛢️ OPEC+ Output Quota",
+    "type": "instrument",
+    "group": 7,
+    "r": 13,
+    "detail": "Coordinated production targets set by OPEC+ . Saudi swing capacity sets the marginal price; Russia is a member."
+  },
+  {
+    "id": "INST_EDCA",
+    "label": "🪖 EDCA Basing",
+    "type": "instrument",
+    "group": 7,
+    "r": 13,
+    "detail": "Enhanced Defense Cooperation Agreement: US rotational access to Philippine bases. Expands US forward posture near the SCS/Taiwan."
+  },
+  {
+    "id": "INST_RUOIL",
+    "label": "🛢️ Discounted RU Crude",
+    "type": "instrument",
+    "group": 7,
+    "r": 12,
+    "detail": "Below-market Russian crude sold to non-aligned buyers (India, China) under the sanctions regime."
+  },
+  {
+    "id": "INST_F35",
+    "label": "✈️ F-35 Program",
+    "type": "instrument",
+    "group": 7,
+    "r": 13,
+    "ids": {
+      "wikidata": "Q11247"
+    },
+    "detail": "US-led 5th-gen fighter program. Operated across the Asia-Pacific alliance network; 300+ airframes projected by 2030."
+  },
+  {
+    "id": "INST_BRI",
+    "label": "🏗️ BRI Lending",
+    "type": "instrument",
+    "group": 7,
+    "r": 13,
+    "detail": "China's Belt & Road infrastructure lending. Creates debt-leverage and basing access (e.g. Ream) across the periphery."
+  }
+]

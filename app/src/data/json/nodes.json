@@ -1,0 +1,575 @@
+[
+  {
+    "id": "US",
+    "label": "🇺🇸 United States",
+    "type": "major",
+    "group": 1,
+    "r": 28,
+    "ids": {
+      "wikidata": "Q30"
+    },
+    "detail": "Levers: Dollar/SWIFT, military forward-deploy, chip controls, LNG, alliance network.\nCosts: Polarization, fiscal deficit, alliance fatigue, hollowed industrial base.\nCurrent posture: Transactional dealmaking, military build-up near Iran, quiet Philippines rotation."
+  },
+  {
+    "id": "CN",
+    "label": "🇨🇳 China",
+    "type": "major",
+    "group": 1,
+    "r": 28,
+    "ids": {
+      "wikidata": "Q148"
+    },
+    "detail": "Levers: Manufacturing monopoly, rare earths, BRI debt, domestic market, navy.\nCosts: Demographic cliff, property crisis, youth unemployment, Malacca dependency, tech sanctions.\nCurrent posture: Drone tech advances, soft power push, Philippines talks, Cambodia base leverage."
+  },
+  {
+    "id": "RU",
+    "label": "🇷🇺 Russia",
+    "type": "major",
+    "group": 1,
+    "r": 24,
+    "ids": {
+      "wikidata": "Q159"
+    },
+    "detail": "Levers: Nuclear arsenal, energy exports, grain, casualty tolerance, proxy networks.\nCosts: Demographic loss, brain drain, equipment depletion, China dependency.\nCurrent posture: Informed of Iran-US talks content, junior partner dynamics increasing."
+  },
+  {
+    "id": "IN",
+    "label": "🇮🇳 India",
+    "type": "swing",
+    "group": 2,
+    "r": 20,
+    "ids": {
+      "wikidata": "Q668"
+    },
+    "detail": "Multi-alignment strategy. 1.4B market as leverage. Swing voter in US-China competition.\nPlaying both sides on energy (Russian oil) and tech (US partnerships)."
+  },
+  {
+    "id": "SA",
+    "label": "🇸🇦 Saudi/Gulf",
+    "type": "swing",
+    "group": 2,
+    "r": 20,
+    "ids": {
+      "wikidata": "Q851"
+    },
+    "detail": "Post-oil diversification. Security guarantee shopping. OPEC+ pricing power.\nNuclear hedging option. Normalization leverage."
+  },
+  {
+    "id": "TR",
+    "label": "🇹🇷 Turkey",
+    "type": "swing",
+    "group": 2,
+    "r": 18,
+    "ids": {
+      "wikidata": "Q43"
+    },
+    "detail": "NATO member controlling Bosphorus. Drone exports proven. Refugee leverage over EU.\nOverextended across multiple theaters. Lira crisis ongoing."
+  },
+  {
+    "id": "EU",
+    "label": "🇪🇺 EU",
+    "type": "swing",
+    "group": 2,
+    "r": 22,
+    "ids": {
+      "wikidata": "Q458"
+    },
+    "detail": "Strategic autonomy stated, cheap energy revealed preference. Regulatory superpower.\n27-member consensus paralysis. Defense spending still anemic. Post-Russia energy trauma."
+  },
+  {
+    "id": "IR",
+    "label": "🇮🇷 Iran",
+    "type": "swing",
+    "group": 2,
+    "r": 18,
+    "ids": {
+      "wikidata": "Q794"
+    },
+    "detail": "Nuclear negotiations via Oman. Economy heavily declining. Signaling sovereignty.\nMilitary commander warns of regional war if attacked. China/Russia informed of US talks."
+  },
+  {
+    "id": "JP",
+    "label": "🇯🇵 Japan",
+    "type": "swing",
+    "group": 2,
+    "r": 20,
+    "ids": {
+      "wikidata": "Q17"
+    },
+    "detail": "PM Takaichi LDP supermajority — 316/465 seats. Stocks soaring to record.\nPromised tax cuts + military spending to counter China. Most hawkish Japanese leader in decades."
+  },
+  {
+    "id": "KH",
+    "label": "🇰🇭 Cambodia",
+    "type": "swing",
+    "group": 3,
+    "r": 14,
+    "ids": {
+      "wikidata": "Q424"
+    },
+    "detail": "Chinese-built Ream Naval Base now hosting USS Cincinnati. Hedging between US and China.\nWas Beijing's ASEAN proxy since 2012. Now drifting."
+  },
+  {
+    "id": "PH",
+    "label": "🇵🇭 Philippines",
+    "type": "swing",
+    "group": 3,
+    "r": 16,
+    "ids": {
+      "wikidata": "Q928"
+    },
+    "detail": "US Army quiet rotation established Jul 2025. Task Force Philippines. EDCA bases expanding.\nFirst China-Philippines talks in over a year — South China Sea thaw?"
+  },
+  {
+    "id": "SCS",
+    "label": "South China Sea",
+    "type": "domain",
+    "group": 4,
+    "r": 16,
+    "detail": "Contested by China, Philippines, Vietnam, Malaysia, Brunei, Indonesia.\nUS freedom of navigation ops. Chinese coast guard confrontations.\nKey chokepoint for global trade."
+  },
+  {
+    "id": "TWN",
+    "label": "Taiwan Strait",
+    "type": "domain",
+    "group": 4,
+    "r": 16,
+    "detail": "Black Hawk drones: new frontier in US-China rivalry.\nAutonomous U-Hawk can deliver HIMARS pods or Navy strike missiles.\n300+ F-35s in Asia-Pacific by 2030."
+  },
+  {
+    "id": "ME",
+    "label": "Middle East",
+    "type": "domain",
+    "group": 4,
+    "r": 16,
+    "detail": "Iran-US indirect talks in Oman. Trump's 'beautiful armada' near Iran.\nHamas rejects disarmament. Israel expanding West Bank settler access.\nGaza body returns ongoing."
+  },
+  {
+    "id": "UKR",
+    "label": "Ukraine Theater",
+    "type": "domain",
+    "group": 4,
+    "r": 14,
+    "detail": "Ukraine's Gripen jets likely to come with Meteor missiles.\nFrozen conflict dynamics. European defense spending pressure."
+  },
+  {
+    "id": "SEA",
+    "label": "SE Asia",
+    "type": "domain",
+    "group": 4,
+    "r": 14,
+    "detail": "Thailand: Bhumjaithai party decisive victory, conservative-establishment win.\nCambodia drifting from China. Myanmar scam center crackdown by China."
+  },
+  {
+    "id": "CHIPS",
+    "label": "Semiconductor War",
+    "type": "domain",
+    "group": 4,
+    "r": 15,
+    "detail": "US export controls on ASML, chip equipment. China SMIC pushing domestic fabs.\n$660B Big Tech AI spending spree. Chokepoint technology."
+  },
+  {
+    "id": "ENERGY",
+    "label": "Energy Markets",
+    "type": "domain",
+    "group": 4,
+    "r": 14,
+    "detail": "Oil pricing dynamics. Russia-China below-market pricing.\nIran sanctions impact. OPEC+ spare capacity as lever. LNG geopolitics."
+  },
+  {
+    "id": "AI_TECH",
+    "label": "AI / Tech Race",
+    "type": "domain",
+    "group": 4,
+    "r": 15,
+    "detail": "$660B Big Tech AI spending spree. Kevin Warsh (likely Fed nominee) claims AI boom enables rate cuts.\nEconomists reject this. Anthropic breakout moment. China drone tech advances."
+  },
+  {
+    "id": "ASEAN",
+    "label": "ASEAN",
+    "type": "institution",
+    "group": 5,
+    "r": 12,
+    "ids": {
+      "wikidata": "Q7768"
+    },
+    "detail": "Central convener for SE Asia. Code of Conduct stalled by Cambodia proxy for China.\nNow Cambodia drifting — could unblock progress."
+  },
+  {
+    "id": "NATO",
+    "label": "NATO",
+    "type": "institution",
+    "group": 5,
+    "r": 14,
+    "ids": {
+      "wikidata": "Q7184"
+    },
+    "detail": "Turkey as complex member. European defense spending pressure.\nUS commitment questioned under transactional administration."
+  },
+  {
+    "id": "OPEC",
+    "label": "OPEC+",
+    "type": "institution",
+    "group": 5,
+    "r": 12,
+    "ids": {
+      "wikidata": "Q7795"
+    },
+    "detail": "Saudi-led pricing. Russia member. Spare capacity as geopolitical lever.\nOil demand peak timeline creates urgency."
+  },
+  {
+    "id": "NPT",
+    "label": "NPT / Nuclear Order",
+    "type": "institution",
+    "group": 5,
+    "r": 12,
+    "detail": "Iran invoking NPT rights for enrichment. Saudi nuclear hedging.\nNon-proliferation regime under strain from multiple directions."
+  },
+  {
+    "id": "S1",
+    "label": "JP Election Landslide",
+    "type": "signal",
+    "group": 6,
+    "r": 10,
+    "cohort": "feb-2026",
+    "detail": "LDP wins 316/465 seats. Takaichi supermajority. Stocks soar to record. Tax cuts + defense spending to counter China. VALIDATED: NHK, FT, AJ."
+  },
+  {
+    "id": "S2",
+    "label": "USS Cincinnati @ Ream",
+    "type": "signal",
+    "group": 6,
+    "r": 10,
+    "cohort": "feb-2026",
+    "detail": "First US warship at Chinese-built Cambodia port. Beijing 'quietly displeased'. Cambodia hedging. VALIDATED: Defense News."
+  },
+  {
+    "id": "S3",
+    "label": "US Army Philippines Rotation",
+    "type": "signal",
+    "group": 6,
+    "r": 10,
+    "cohort": "feb-2026",
+    "detail": "~50 troops rotational presence since Jul 2025. Task Force Philippines. 'Quiet' but persistent. VALIDATED: Defense News, USARPAC."
+  },
+  {
+    "id": "S4",
+    "label": "Iran-US Oman Talks",
+    "type": "signal",
+    "group": 6,
+    "r": 10,
+    "cohort": "feb-2026",
+    "detail": "Indirect nuclear talks via Oman. Witkoff + Kushner met Iranian envoys. China & Russia informed. Iran signals sovereignty. VALIDATED: Al Jazeera."
+  },
+  {
+    "id": "S5",
+    "label": "Jimmy Lai 20yr Sentence",
+    "type": "signal",
+    "group": 6,
+    "r": 10,
+    "cohort": "feb-2026",
+    "detail": "Hong Kong media mogul sentenced under national security law. Most severe punishment. Signaling to dissidents. VALIDATED: Reuters, FT."
+  },
+  {
+    "id": "S6",
+    "label": "$660B AI Spending Spree",
+    "type": "signal",
+    "group": 6,
+    "r": 10,
+    "cohort": "feb-2026",
+    "detail": "Big Tech unprecedented AI investment. Warsh claims enables rate cuts (economists reject). Tech supremacy competition. VALIDATED: FT."
+  },
+  {
+    "id": "S7",
+    "label": "China-PH Talks Resume",
+    "type": "signal",
+    "group": 6,
+    "r": 10,
+    "cohort": "feb-2026",
+    "detail": "First China-Philippines talks in over a year. South China Sea thaw? PH rejects declaring CN ambassador persona non grata. VALIDATED: SCMP."
+  },
+  {
+    "id": "S8",
+    "label": "CN Drone Tech Advance",
+    "type": "signal",
+    "group": 6,
+    "r": 10,
+    "cohort": "feb-2026",
+    "detail": "Aerodynamic tail nozzle for drones tested — 'edge over F-35s' claim. CK-300 drone. Plus US autonomous Black Hawk (U-Hawk) counter. VALIDATED: SCMP, SCMP Military."
+  },
+  {
+    "id": "S9",
+    "label": "Israel West Bank Expansion",
+    "type": "signal",
+    "group": 6,
+    "r": 10,
+    "cohort": "feb-2026",
+    "detail": "Security cabinet approves easier settler land purchases + more enforcement powers over Palestinians. VALIDATED: Reuters."
+  },
+  {
+    "id": "S10",
+    "label": "Ethiopia-Eritrea Tension",
+    "type": "signal",
+    "group": 6,
+    "r": 10,
+    "cohort": "feb-2026",
+    "detail": "Ethiopia demands Eritrea 'immediately withdraw' troops. Eritrea supporting rebel fighters. Horn of Africa instability. VALIDATED: Al Jazeera."
+  },
+  {
+    "id": "S11",
+    "label": "CN Myanmar Executions",
+    "type": "signal",
+    "group": 6,
+    "r": 10,
+    "cohort": "feb-2026",
+    "detail": "China executed Myanmese crime syndicate kingpins who ran scam centers trapping Chinese nationals. Regional power projection signal. VALIDATED: SCMP."
+  },
+  {
+    "id": "S12",
+    "label": "Singapore F-35s 2026",
+    "type": "signal",
+    "group": 6,
+    "r": 10,
+    "cohort": "feb-2026",
+    "detail": "Singapore receiving first F-35 fighters this year. 300+ F-35s in Asia-Pacific by 2030. Alliance hardening signal. VALIDATED: Defense News, Lockheed."
+  },
+  {
+    "id": "S13",
+    "label": "Ukraine Gripen + Meteor",
+    "type": "signal",
+    "group": 6,
+    "r": 10,
+    "cohort": "feb-2026",
+    "detail": "Ukraine's Gripen jets likely to come with long-reach Meteor missiles. Escalation capability. VALIDATED: Defense News."
+  },
+  {
+    "id": "S14",
+    "label": "Venezuela Releases",
+    "type": "signal",
+    "group": 6,
+    "r": 10,
+    "cohort": "feb-2026",
+    "detail": "Opposition politicians Guanipa, Superlano, lawyer Rocha freed from jail. Maduro regime signaling to US? Deal-making posture. VALIDATED: Reuters, AJ."
+  },
+  {
+    "id": "S15",
+    "label": "Norway China Threat Report",
+    "type": "signal",
+    "group": 6,
+    "r": 10,
+    "cohort": "feb-2026",
+    "detail": "Norwegian intelligence labels China a threat. Chinese embassy slams as 'sheer speculation'. Nordic countries aligning with US framing. VALIDATED: SCMP."
+  },
+  {
+    "id": "S16",
+    "label": "Epstein Network Fallout",
+    "type": "signal",
+    "group": 6,
+    "r": 10,
+    "cohort": "feb-2026",
+    "detail": "Norway ambassador resigns. UK PM aide quits over Mandelson-Epstein links. DP World boss emailed Epstein. Elite network exposure. VALIDATED: Reuters, FT, AJ."
+  },
+  {
+    "id": "S17",
+    "label": "Thailand Conservative Win",
+    "type": "signal",
+    "group": 6,
+    "r": 10,
+    "cohort": "feb-2026",
+    "detail": "Bhumjaithai Party decisive election victory. Conservative-establishment consolidation. Progressive/populist parties routed. VALIDATED: Reuters, AJ."
+  },
+  {
+    "id": "S18",
+    "label": "CN Soft Power Meme Push",
+    "type": "signal",
+    "group": 6,
+    "r": 10,
+    "cohort": "feb-2026",
+    "detail": "'Very Chinese time' — Western social media trends painting Chineseness positively. Observers question if Beijing benefits. VALIDATED: SCMP."
+  },
+  {
+    "id": "S19",
+    "label": "Canada Subs-for-Auto Deal",
+    "type": "signal",
+    "group": 6,
+    "r": 10,
+    "cohort": "feb-2026",
+    "detail": "Carney leverages submarine contract for auto sector investment. Transactional dealmaking between allies. VALIDATED: FT."
+  },
+  {
+    "id": "S20",
+    "label": "Iran Military Warning",
+    "type": "signal",
+    "group": 6,
+    "r": 10,
+    "cohort": "feb-2026",
+    "detail": "Gen. Mousavi: 'entire region engulfed if Iran attacked'. Iran has 'power for long-term war with US'. Deterrence signaling. VALIDATED: Al Jazeera."
+  },
+  {
+    "id": "I_OIL",
+    "label": "🛢️ Crude Oil",
+    "type": "indicator",
+    "group": 8,
+    "r": 12,
+    "detail": "WTI ~$95.5/bbl, +66% YTD; Brent ~$97. The Hormuz war premium — the Iran conflict, priced. SOURCE: FMP via Bigdata, Jun 2 2026.",
+    "ids": {
+      "ticker": "CL=F"
+    }
+  },
+  {
+    "id": "I_GOLD",
+    "label": "🥇 Gold",
+    "type": "indicator",
+    "group": 8,
+    "r": 12,
+    "ids": {
+      "ticker": "GC=F"
+    },
+    "detail": "Gold ~$4,490/oz, +33% 1Y. Debasement / safe-haven bid beneath the equity calm. SOURCE: FMP via Bigdata, Jun 2 2026."
+  },
+  {
+    "id": "I_SILVER",
+    "label": "🥈 Silver",
+    "type": "indicator",
+    "group": 8,
+    "r": 11,
+    "ids": {
+      "ticker": "SI=F"
+    },
+    "detail": "Silver ~$74.7/oz, +116% over the year. Monetary-hedge surge outpacing gold. SOURCE: FMP via Bigdata, Jun 2 2026."
+  },
+  {
+    "id": "I_VIX",
+    "label": "📉 VIX",
+    "type": "indicator",
+    "group": 8,
+    "r": 11,
+    "ids": {
+      "ticker": "^VIX"
+    },
+    "detail": "Volatility index ~15.8 — markets calm through two wars. Capital's confidence, or complacency. SOURCE: FMP via Bigdata, Jun 2 2026."
+  },
+  {
+    "id": "I_CHIPIDX",
+    "label": "💹 Korea/Taiwan AI Boom",
+    "type": "indicator",
+    "group": 8,
+    "r": 13,
+    "detail": "KOSPI +226% 1Y, Taiwan +120%, Nikkei +83%. The AI-semiconductor supercycle — the world's dominant equity story, and it is geographic. SOURCE: FMP via Bigdata, Jun 2 2026."
+  },
+  {
+    "id": "I_SP500",
+    "label": "📈 S&P 500",
+    "type": "indicator",
+    "group": 8,
+    "r": 12,
+    "ids": {
+      "ticker": "^GSPC"
+    },
+    "detail": "S&P 500 ~7,610, +11% YTD, +27% 1Y — record highs through Venezuela & Iran wars. Narrow, tech/momentum-led. SOURCE: FMP via Bigdata, Jun 2 2026."
+  },
+  {
+    "id": "I_WEALTH",
+    "label": "⚖️ Top 1% Wealth Share",
+    "type": "indicator",
+    "group": 8,
+    "r": 12,
+    "detail": "Top 1% hold a record 31.7% of US wealth (~$55T ≈ bottom 90% combined); bottom 50% ~2.6%. The richest 1% own ~half of all stocks — the melt-up IS the disparity. SOURCE: Fed DFA / Inequality.org, Q3 2025."
+  },
+  {
+    "id": "S21",
+    "label": "🇻🇪 Maduro Captured",
+    "type": "signal",
+    "group": 6,
+    "r": 10,
+    "cohort": "jun-2026",
+    "date": "2026-01-03",
+    "detail": "Jan 3 2026: US special forces captured Maduro in Caracas; Delcy Rodríguez sworn in as acting president; US oil sanctions lifted and privatization begun. Regime change plus an energy deal. SOURCE: Congress.gov CRS, Brookings."
+  },
+  {
+    "id": "S22",
+    "label": "🇮🇷 US-Israel Strike Iran",
+    "type": "signal",
+    "group": 6,
+    "r": 10,
+    "cohort": "jun-2026",
+    "date": "2026-02-28",
+    "detail": "Feb 28 2026: US+Israel large-scale strikes begin the 2026 Iran war; Supreme Leader Khamenei killed, son named successor; Iran closes the Strait of Hormuz. SOURCE: UK House of Commons Library."
+  },
+  {
+    "id": "S23",
+    "label": "🇮🇷 Hormuz Ceasefire MOU",
+    "type": "signal",
+    "group": 6,
+    "r": 10,
+    "cohort": "jun-2026",
+    "detail": "Late May 2026: tentative US-Iran MOU to reopen Hormuz plus a 60-day nuclear window; Trump has not signed off; ceasefire violations reported (Kuwait missile strike). SOURCE: CNN, PBS."
+  },
+  {
+    "id": "S24",
+    "label": "🤝 Trump-Xi Summit",
+    "type": "signal",
+    "group": 6,
+    "r": 10,
+    "cohort": "jun-2026",
+    "detail": "May 2026: Trump state visit to China; both sides frame a 'constructive relationship of strategic stability' — a managed truce, with rare earths still China's lever. SOURCE: Global Times, China Briefing."
+  },
+  {
+    "id": "S25",
+    "label": "💾 Chip Ban Eased then Re-tightened",
+    "type": "signal",
+    "group": 6,
+    "r": 10,
+    "cohort": "jun-2026",
+    "date": "2026-05-31",
+    "detail": "May 2026: H200/MI308 cleared for ~10 Chinese firms (75k cap) — but Beijing blocks imports to push domestic silicon; May 31 new controls on Blackwell/Rubin/MI350X. Chokepoint moved up a tier. SOURCE: BuiltIn, GuruFocus."
+  },
+  {
+    "id": "S26",
+    "label": "🇺🇦 Ukraine Victory-Day Truce",
+    "type": "signal",
+    "group": 6,
+    "r": 10,
+    "cohort": "jun-2026",
+    "date": "2026-05-09",
+    "detail": "May 9-11 2026: Trump-brokered 3-day ceasefire plus prisoner swap; Putin says the war may be 'coming to an end' and offers direct talks; broader settlement stalled. SOURCE: Al Jazeera, NPR."
+  },
+  {
+    "id": "S27",
+    "label": "🇸🇬 Shangri-La: US Softens",
+    "type": "signal",
+    "group": 6,
+    "r": 10,
+    "cohort": "jun-2026",
+    "date": "2026-05-29",
+    "detail": "May 29-31 2026: post-summit, Hegseth downplays Taiwan; sharp Japan-China friction over remilitarization; broad acceptance of higher defense spending. SOURCE: Global Times, CNBC."
+  },
+  {
+    "id": "S28",
+    "label": "🌊 SCS Flashpoints Persist",
+    "type": "signal",
+    "group": 6,
+    "r": 10,
+    "cohort": "jun-2026",
+    "detail": "May 2026: Iroquois Reef research-vessel standoff and Scarborough Shoal drills; Philippines (2026 ASEAN chair) calls it a 'long-term struggle'; Code of Conduct seen unachievable. SOURCE: SCMP, CNBC."
+  },
+  {
+    "id": "S29",
+    "label": "🗂️ Epstein Files Released",
+    "type": "signal",
+    "group": 6,
+    "r": 10,
+    "cohort": "jun-2026",
+    "date": "2026-01-30",
+    "detail": "Jan 30 2026: DOJ releases 3M+ pages under EFTA (200k+ withheld); Clintons held in contempt then testify; Andrew arrested Feb 18; Commerce Sec Lutnick to testify. An elite incentive network with primary-source provenance. SOURCE: DOJ, Britannica, CBS."
+  },
+  {
+    "id": "S30",
+    "label": "📊 Markets Shrug Off Wars",
+    "type": "signal",
+    "group": 6,
+    "r": 10,
+    "cohort": "jun-2026",
+    "detail": "Equities at record highs through two regime-change wars while wealth concentration hits a record. Capital's confidence has decoupled from the median household. SOURCE: FMP via Bigdata, Fed DFA."
+  }
+]

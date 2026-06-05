@@ -30,3 +30,14 @@ body {
 ::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-track { background: #0a0a12; }
 ::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
+
+/* A11Y-01: visible focus ring on keyboard-focused graph nodes.
+   The default browser outline on an SVG <g> renders poorly in Chrome/Firefox;
+   we draw a halo on the contained circle/rect instead. */
+svg g[role="button"]:focus { outline: none; }
+svg g[role="button"]:focus-visible circle,
+svg g[role="button"]:focus-visible rect {
+  stroke: #ffcc00 !important;
+  stroke-width: 3 !important;
+  filter: drop-shadow(0 0 4px #ffcc00aa);
+}

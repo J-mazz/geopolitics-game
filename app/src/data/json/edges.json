@@ -1,0 +1,829 @@
+[
+  {
+    "source": "US",
+    "target": "CN",
+    "type": "conflict",
+    "strength": 9,
+    "label": "Strategic competition"
+  },
+  {
+    "source": "US",
+    "target": "RU",
+    "type": "conflict",
+    "strength": 7,
+    "label": "Ukraine proxy + sanctions"
+  },
+  {
+    "source": "CN",
+    "target": "RU",
+    "type": "cooperation",
+    "strength": 6,
+    "label": "Energy + strategic alignment"
+  },
+  {
+    "source": "US",
+    "target": "JP",
+    "type": "cooperation",
+    "strength": 8,
+    "label": "Security treaty + chip alliance"
+  },
+  {
+    "source": "US",
+    "target": "EU",
+    "type": "cooperation",
+    "strength": 6,
+    "label": "NATO + trade (fraying)"
+  },
+  {
+    "source": "US",
+    "target": "PH",
+    "type": "cooperation",
+    "strength": 7,
+    "label": "EDCA + Task Force PH"
+  },
+  {
+    "source": "US",
+    "target": "SA",
+    "type": "economic",
+    "strength": 6,
+    "label": "Arms sales + oil pricing"
+  },
+  {
+    "source": "US",
+    "target": "IN",
+    "type": "cooperation",
+    "strength": 5,
+    "label": "Quad + tech partnership"
+  },
+  {
+    "source": "US",
+    "target": "KH",
+    "type": "cooperation",
+    "strength": 3,
+    "label": "Warming (USS Cincinnati)"
+  },
+  {
+    "source": "CN",
+    "target": "KH",
+    "type": "economic",
+    "strength": 7,
+    "label": "BRI + Ream base + ASEAN proxy"
+  },
+  {
+    "source": "CN",
+    "target": "PH",
+    "type": "conflict",
+    "strength": 6,
+    "label": "SCS disputes (talks resuming)"
+  },
+  {
+    "source": "CN",
+    "target": "IR",
+    "type": "cooperation",
+    "strength": 5,
+    "label": "Energy imports + strategic info"
+  },
+  {
+    "source": "CN",
+    "target": "SA",
+    "type": "economic",
+    "strength": 5,
+    "label": "Oil purchases + BRI"
+  },
+  {
+    "source": "CN",
+    "target": "IN",
+    "type": "conflict",
+    "strength": 5,
+    "label": "Border + Indian Ocean rivalry"
+  },
+  {
+    "source": "CN",
+    "target": "JP",
+    "type": "conflict",
+    "strength": 7,
+    "label": "Taiwan + East China Sea"
+  },
+  {
+    "source": "CN",
+    "target": "TR",
+    "type": "economic",
+    "strength": 3,
+    "label": "Trade + Uyghur tension"
+  },
+  {
+    "source": "RU",
+    "target": "IR",
+    "type": "cooperation",
+    "strength": 5,
+    "label": "Defense + sanctions solidarity"
+  },
+  {
+    "source": "RU",
+    "target": "TR",
+    "type": "cooperation",
+    "strength": 4,
+    "label": "Energy + Syria + S-400"
+  },
+  {
+    "source": "RU",
+    "target": "IN",
+    "type": "economic",
+    "strength": 5,
+    "label": "Discounted oil + arms"
+  },
+  {
+    "source": "SA",
+    "target": "IR",
+    "type": "conflict",
+    "strength": 6,
+    "label": "Regional rivalry (thawing)"
+  },
+  {
+    "source": "TR",
+    "target": "EU",
+    "type": "economic",
+    "strength": 4,
+    "label": "Migration leverage + NATO"
+  },
+  {
+    "source": "EU",
+    "target": "RU",
+    "type": "conflict",
+    "strength": 6,
+    "label": "Ukraine + energy decoupling"
+  },
+  {
+    "source": "IR",
+    "target": "US",
+    "type": "conflict",
+    "strength": 7,
+    "label": "Nuclear + 'beautiful armada'"
+  },
+  {
+    "source": "CN",
+    "target": "SCS",
+    "type": "influence",
+    "strength": 8
+  },
+  {
+    "source": "US",
+    "target": "SCS",
+    "type": "influence",
+    "strength": 6
+  },
+  {
+    "source": "PH",
+    "target": "SCS",
+    "type": "influence",
+    "strength": 5
+  },
+  {
+    "source": "CN",
+    "target": "TWN",
+    "type": "influence",
+    "strength": 9
+  },
+  {
+    "source": "US",
+    "target": "TWN",
+    "type": "influence",
+    "strength": 7
+  },
+  {
+    "source": "JP",
+    "target": "TWN",
+    "type": "influence",
+    "strength": 5
+  },
+  {
+    "source": "US",
+    "target": "ME",
+    "type": "influence",
+    "strength": 7
+  },
+  {
+    "source": "IR",
+    "target": "ME",
+    "type": "influence",
+    "strength": 7
+  },
+  {
+    "source": "SA",
+    "target": "ME",
+    "type": "influence",
+    "strength": 6
+  },
+  {
+    "source": "RU",
+    "target": "UKR",
+    "type": "influence",
+    "strength": 9
+  },
+  {
+    "source": "EU",
+    "target": "UKR",
+    "type": "influence",
+    "strength": 6
+  },
+  {
+    "source": "US",
+    "target": "UKR",
+    "type": "influence",
+    "strength": 5
+  },
+  {
+    "source": "CN",
+    "target": "SEA",
+    "type": "influence",
+    "strength": 7
+  },
+  {
+    "source": "US",
+    "target": "SEA",
+    "type": "influence",
+    "strength": 4
+  },
+  {
+    "source": "US",
+    "target": "CHIPS",
+    "type": "influence",
+    "strength": 9
+  },
+  {
+    "source": "CN",
+    "target": "CHIPS",
+    "type": "influence",
+    "strength": 7
+  },
+  {
+    "source": "JP",
+    "target": "CHIPS",
+    "type": "influence",
+    "strength": 5
+  },
+  {
+    "source": "SA",
+    "target": "ENERGY",
+    "type": "influence",
+    "strength": 8
+  },
+  {
+    "source": "RU",
+    "target": "ENERGY",
+    "type": "influence",
+    "strength": 6
+  },
+  {
+    "source": "IR",
+    "target": "ENERGY",
+    "type": "influence",
+    "strength": 5
+  },
+  {
+    "source": "US",
+    "target": "AI_TECH",
+    "type": "influence",
+    "strength": 9
+  },
+  {
+    "source": "CN",
+    "target": "AI_TECH",
+    "type": "influence",
+    "strength": 7
+  },
+  {
+    "source": "KH",
+    "target": "ASEAN",
+    "type": "influence",
+    "strength": 4
+  },
+  {
+    "source": "PH",
+    "target": "ASEAN",
+    "type": "influence",
+    "strength": 4
+  },
+  {
+    "source": "TR",
+    "target": "NATO",
+    "type": "influence",
+    "strength": 5
+  },
+  {
+    "source": "US",
+    "target": "NATO",
+    "type": "influence",
+    "strength": 8
+  },
+  {
+    "source": "EU",
+    "target": "NATO",
+    "type": "influence",
+    "strength": 6
+  },
+  {
+    "source": "SA",
+    "target": "OPEC",
+    "type": "influence",
+    "strength": 8
+  },
+  {
+    "source": "RU",
+    "target": "OPEC",
+    "type": "influence",
+    "strength": 4
+  },
+  {
+    "source": "IR",
+    "target": "NPT",
+    "type": "influence",
+    "strength": 6
+  },
+  {
+    "source": "S1",
+    "target": "JP",
+    "type": "signal",
+    "strength": 8
+  },
+  {
+    "source": "S1",
+    "target": "CN",
+    "type": "signal",
+    "strength": 5
+  },
+  {
+    "source": "S2",
+    "target": "KH",
+    "type": "signal",
+    "strength": 8
+  },
+  {
+    "source": "S2",
+    "target": "US",
+    "type": "signal",
+    "strength": 5
+  },
+  {
+    "source": "S2",
+    "target": "CN",
+    "type": "signal",
+    "strength": 6
+  },
+  {
+    "source": "S3",
+    "target": "PH",
+    "type": "signal",
+    "strength": 8
+  },
+  {
+    "source": "S3",
+    "target": "US",
+    "type": "signal",
+    "strength": 6
+  },
+  {
+    "source": "S3",
+    "target": "SCS",
+    "type": "signal",
+    "strength": 5
+  },
+  {
+    "source": "S4",
+    "target": "IR",
+    "type": "signal",
+    "strength": 9
+  },
+  {
+    "source": "S4",
+    "target": "US",
+    "type": "signal",
+    "strength": 7
+  },
+  {
+    "source": "S4",
+    "target": "ME",
+    "type": "signal",
+    "strength": 6
+  },
+  {
+    "source": "S4",
+    "target": "RU",
+    "type": "signal",
+    "strength": 3
+  },
+  {
+    "source": "S4",
+    "target": "CN",
+    "type": "signal",
+    "strength": 3
+  },
+  {
+    "source": "S5",
+    "target": "CN",
+    "type": "signal",
+    "strength": 7
+  },
+  {
+    "source": "S6",
+    "target": "AI_TECH",
+    "type": "signal",
+    "strength": 9
+  },
+  {
+    "source": "S6",
+    "target": "US",
+    "type": "signal",
+    "strength": 7
+  },
+  {
+    "source": "S6",
+    "target": "CHIPS",
+    "type": "signal",
+    "strength": 5
+  },
+  {
+    "source": "S7",
+    "target": "PH",
+    "type": "signal",
+    "strength": 7
+  },
+  {
+    "source": "S7",
+    "target": "CN",
+    "type": "signal",
+    "strength": 7
+  },
+  {
+    "source": "S7",
+    "target": "SCS",
+    "type": "signal",
+    "strength": 6
+  },
+  {
+    "source": "S8",
+    "target": "CN",
+    "type": "signal",
+    "strength": 7
+  },
+  {
+    "source": "S8",
+    "target": "TWN",
+    "type": "signal",
+    "strength": 6
+  },
+  {
+    "source": "S8",
+    "target": "AI_TECH",
+    "type": "signal",
+    "strength": 4
+  },
+  {
+    "source": "S9",
+    "target": "ME",
+    "type": "signal",
+    "strength": 7
+  },
+  {
+    "source": "S10",
+    "target": "ME",
+    "type": "signal",
+    "strength": 4
+  },
+  {
+    "source": "S11",
+    "target": "CN",
+    "type": "signal",
+    "strength": 6
+  },
+  {
+    "source": "S11",
+    "target": "SEA",
+    "type": "signal",
+    "strength": 7
+  },
+  {
+    "source": "S12",
+    "target": "US",
+    "type": "signal",
+    "strength": 5
+  },
+  {
+    "source": "S12",
+    "target": "TWN",
+    "type": "signal",
+    "strength": 5
+  },
+  {
+    "source": "S12",
+    "target": "SEA",
+    "type": "signal",
+    "strength": 5
+  },
+  {
+    "source": "S13",
+    "target": "UKR",
+    "type": "signal",
+    "strength": 8
+  },
+  {
+    "source": "S13",
+    "target": "EU",
+    "type": "signal",
+    "strength": 4
+  },
+  {
+    "source": "S14",
+    "target": "US",
+    "type": "signal",
+    "strength": 4
+  },
+  {
+    "source": "S15",
+    "target": "CN",
+    "type": "signal",
+    "strength": 5
+  },
+  {
+    "source": "S15",
+    "target": "EU",
+    "type": "signal",
+    "strength": 4
+  },
+  {
+    "source": "S16",
+    "target": "EU",
+    "type": "signal",
+    "strength": 5
+  },
+  {
+    "source": "S17",
+    "target": "SEA",
+    "type": "signal",
+    "strength": 6
+  },
+  {
+    "source": "S18",
+    "target": "CN",
+    "type": "signal",
+    "strength": 5
+  },
+  {
+    "source": "S19",
+    "target": "US",
+    "type": "signal",
+    "strength": 4
+  },
+  {
+    "source": "S20",
+    "target": "IR",
+    "type": "signal",
+    "strength": 8
+  },
+  {
+    "source": "S20",
+    "target": "ME",
+    "type": "signal",
+    "strength": 7
+  },
+  {
+    "source": "I_OIL",
+    "target": "ENERGY",
+    "type": "structural",
+    "strength": 9
+  },
+  {
+    "source": "I_OIL",
+    "target": "ME",
+    "type": "structural",
+    "strength": 6
+  },
+  {
+    "source": "I_GOLD",
+    "target": "US",
+    "type": "structural",
+    "strength": 5
+  },
+  {
+    "source": "I_SILVER",
+    "target": "US",
+    "type": "structural",
+    "strength": 4
+  },
+  {
+    "source": "I_VIX",
+    "target": "US",
+    "type": "structural",
+    "strength": 5
+  },
+  {
+    "source": "I_CHIPIDX",
+    "target": "CHIPS",
+    "type": "structural",
+    "strength": 8
+  },
+  {
+    "source": "I_CHIPIDX",
+    "target": "TWN",
+    "type": "structural",
+    "strength": 6
+  },
+  {
+    "source": "I_CHIPIDX",
+    "target": "AI_TECH",
+    "type": "structural",
+    "strength": 7
+  },
+  {
+    "source": "I_SP500",
+    "target": "US",
+    "type": "structural",
+    "strength": 7
+  },
+  {
+    "source": "I_WEALTH",
+    "target": "US",
+    "type": "structural",
+    "strength": 8
+  },
+  {
+    "source": "S21",
+    "target": "US",
+    "type": "signal",
+    "strength": 7
+  },
+  {
+    "source": "S21",
+    "target": "ENERGY",
+    "type": "signal",
+    "strength": 5
+  },
+  {
+    "source": "S22",
+    "target": "IR",
+    "type": "signal",
+    "strength": 9
+  },
+  {
+    "source": "S22",
+    "target": "ME",
+    "type": "signal",
+    "strength": 8
+  },
+  {
+    "source": "S22",
+    "target": "US",
+    "type": "signal",
+    "strength": 7
+  },
+  {
+    "source": "S22",
+    "target": "ENERGY",
+    "type": "signal",
+    "strength": 6
+  },
+  {
+    "source": "S23",
+    "target": "IR",
+    "type": "signal",
+    "strength": 7
+  },
+  {
+    "source": "S23",
+    "target": "ME",
+    "type": "signal",
+    "strength": 6
+  },
+  {
+    "source": "S23",
+    "target": "ENERGY",
+    "type": "signal",
+    "strength": 6
+  },
+  {
+    "source": "S24",
+    "target": "US",
+    "type": "signal",
+    "strength": 7
+  },
+  {
+    "source": "S24",
+    "target": "CN",
+    "type": "signal",
+    "strength": 7
+  },
+  {
+    "source": "S25",
+    "target": "CHIPS",
+    "type": "signal",
+    "strength": 8
+  },
+  {
+    "source": "S25",
+    "target": "CN",
+    "type": "signal",
+    "strength": 6
+  },
+  {
+    "source": "S25",
+    "target": "AI_TECH",
+    "type": "signal",
+    "strength": 6
+  },
+  {
+    "source": "S26",
+    "target": "UKR",
+    "type": "signal",
+    "strength": 8
+  },
+  {
+    "source": "S26",
+    "target": "RU",
+    "type": "signal",
+    "strength": 6
+  },
+  {
+    "source": "S26",
+    "target": "US",
+    "type": "signal",
+    "strength": 5
+  },
+  {
+    "source": "S27",
+    "target": "TWN",
+    "type": "signal",
+    "strength": 6
+  },
+  {
+    "source": "S27",
+    "target": "JP",
+    "type": "signal",
+    "strength": 6
+  },
+  {
+    "source": "S27",
+    "target": "CN",
+    "type": "signal",
+    "strength": 5
+  },
+  {
+    "source": "S28",
+    "target": "SCS",
+    "type": "signal",
+    "strength": 7
+  },
+  {
+    "source": "S28",
+    "target": "PH",
+    "type": "signal",
+    "strength": 6
+  },
+  {
+    "source": "S28",
+    "target": "CN",
+    "type": "signal",
+    "strength": 6
+  },
+  {
+    "source": "S29",
+    "target": "US",
+    "type": "signal",
+    "strength": 6
+  },
+  {
+    "source": "S30",
+    "target": "US",
+    "type": "signal",
+    "strength": 6
+  },
+  {
+    "source": "S30",
+    "target": "AI_TECH",
+    "type": "signal",
+    "strength": 4
+  },
+  {
+    "source": "I_OIL",
+    "target": "S22",
+    "type": "structural",
+    "strength": 8
+  },
+  {
+    "source": "I_OIL",
+    "target": "S23",
+    "type": "structural",
+    "strength": 7
+  },
+  {
+    "source": "I_CHIPIDX",
+    "target": "S25",
+    "type": "structural",
+    "strength": 7
+  },
+  {
+    "source": "I_WEALTH",
+    "target": "S30",
+    "type": "structural",
+    "strength": 8
+  }
+]

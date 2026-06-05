@@ -8,6 +8,9 @@ export default function Layout({ children }: { children: ReactNode }) {
            style={{ background: 'rgba(8,8,16,0.92)', borderBottom: '1px solid #1a1a2a', backdropFilter: 'blur(8px)' }}>
         <NavLink to="/" end className={({ isActive }) =>
           `px-3 py-1 rounded transition-colors ${isActive ? 'bg-white/10 text-white' : 'text-gray-400 hover:text-white'}`
+        }>⚖️ Thesis</NavLink>
+        <NavLink to="/graph" className={({ isActive }) =>
+          `px-3 py-1 rounded transition-colors ${isActive ? 'bg-white/10 text-white' : 'text-gray-400 hover:text-white'}`
         }>🎮 Graph</NavLink>
         <NavLink to="/republic-health" className={({ isActive }) =>
           `px-3 py-1 rounded transition-colors ${isActive ? 'bg-white/10 text-white' : 'text-gray-400 hover:text-white'}`

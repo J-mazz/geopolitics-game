@@ -1,0 +1,152 @@
+{
+  "S1": {
+    "sourceId": "NHK",
+    "asOf": "2026-02-08",
+    "quote": "LDP wins 316/465 seats; Takaichi forms supermajority."
+  },
+  "S2": {
+    "sourceId": "DEFENSE_NEWS",
+    "asOf": "2026-02-08",
+    "quote": "First US warship at Chinese-built Cambodia port."
+  },
+  "S3": {
+    "sourceId": "USARPAC",
+    "asOf": "2026-02-08",
+    "quote": "Rotational US Army presence in the Philippines since Jul 2025."
+  },
+  "S4": {
+    "sourceId": "AJ",
+    "asOf": "2026-02-08",
+    "quote": "Indirect US-Iran nuclear talks via Oman; Witkoff and Kushner met envoys."
+  },
+  "S5": {
+    "sourceId": "REUTERS",
+    "asOf": "2026-02-08",
+    "quote": "Jimmy Lai sentenced to 20 years under Hong Kong NSL."
+  },
+  "S6": {
+    "sourceId": "FT",
+    "asOf": "2026-02-08",
+    "quote": "Big Tech's $660B AI capex; Warsh links it to a rate-cut case."
+  },
+  "S7": {
+    "sourceId": "SCMP",
+    "asOf": "2026-02-08",
+    "quote": "First China-Philippines bilateral talks in over a year."
+  },
+  "S8": {
+    "sourceId": "SCMP",
+    "asOf": "2026-02-08",
+    "quote": "CK-300 drone tested; aerodynamic tail nozzle claimed 'edge over F-35s'."
+  },
+  "S9": {
+    "sourceId": "REUTERS",
+    "asOf": "2026-02-08",
+    "quote": "Israel cabinet approves easier West Bank settler land purchases."
+  },
+  "S10": {
+    "sourceId": "AJ",
+    "asOf": "2026-02-08",
+    "quote": "Ethiopia demands Eritrea 'immediately withdraw' troops."
+  },
+  "S11": {
+    "sourceId": "SCMP",
+    "asOf": "2026-02-08",
+    "quote": "China executed Myanmese kingpins running scam centers."
+  },
+  "S12": {
+    "sourceId": "DEFENSE_NEWS",
+    "asOf": "2026-02-08",
+    "quote": "Singapore receives first F-35s; 300+ projected in Asia-Pacific by 2030."
+  },
+  "S13": {
+    "sourceId": "DEFENSE_NEWS",
+    "asOf": "2026-02-08",
+    "quote": "Ukraine's Gripen jets likely to come with Meteor missiles."
+  },
+  "S14": {
+    "sourceId": "REUTERS",
+    "asOf": "2026-02-08",
+    "quote": "Venezuela frees opposition politicians Guanipa, Superlano, lawyer Rocha."
+  },
+  "S15": {
+    "sourceId": "SCMP",
+    "asOf": "2026-02-08",
+    "quote": "Norwegian intelligence labels China a threat."
+  },
+  "S16": {
+    "sourceId": "REUTERS",
+    "asOf": "2026-02-08",
+    "quote": "Norway envoy resigns; UK PM aide quits over Mandelson-Epstein links."
+  },
+  "S17": {
+    "sourceId": "REUTERS",
+    "asOf": "2026-02-08",
+    "quote": "Bhumjaithai wins decisive Thailand election; conservative consolidation."
+  },
+  "S18": {
+    "sourceId": "SCMP",
+    "asOf": "2026-02-08",
+    "quote": "'Very Chinese time' meme trend on Western social media."
+  },
+  "S19": {
+    "sourceId": "FT",
+    "asOf": "2026-02-08",
+    "quote": "Carney leverages submarine contract for Canadian auto investment."
+  },
+  "S20": {
+    "sourceId": "AJ",
+    "asOf": "2026-02-08",
+    "quote": "Iran's Gen. Mousavi: 'entire region engulfed if Iran is attacked'."
+  },
+  "S21": {
+    "sourceId": "CONGRESS_CRS",
+    "asOf": "2026-06-02",
+    "quote": "Jan 3 2026: US special forces capture Maduro; Rodríguez sworn in."
+  },
+  "S22": {
+    "sourceId": "HOC_LIBRARY",
+    "asOf": "2026-06-02",
+    "quote": "Feb 28 2026: US-Israel strikes begin Iran war; Khamenei killed."
+  },
+  "S23": {
+    "sourceId": "CNN",
+    "asOf": "2026-06-02",
+    "quote": "Late May 2026: tentative US-Iran MOU to reopen Hormuz."
+  },
+  "S24": {
+    "sourceId": "GLOBAL_TIMES",
+    "asOf": "2026-06-02",
+    "quote": "May 2026 Trump state visit; framed as 'strategic stability'."
+  },
+  "S25": {
+    "sourceId": "BUILTIN",
+    "asOf": "2026-06-02",
+    "quote": "H200/MI308 cleared for ~10 Chinese firms; May 31 Blackwell controls."
+  },
+  "S26": {
+    "sourceId": "AJ",
+    "asOf": "2026-06-02",
+    "quote": "May 9-11 2026: Trump-brokered 3-day Ukraine truce + prisoner swap."
+  },
+  "S27": {
+    "sourceId": "GLOBAL_TIMES",
+    "asOf": "2026-06-02",
+    "quote": "Shangri-La May 29-31: Hegseth downplays Taiwan; Japan-China friction."
+  },
+  "S28": {
+    "sourceId": "SCMP",
+    "asOf": "2026-06-02",
+    "quote": "Iroquois Reef standoff and Scarborough drills; CoC seen unachievable."
+  },
+  "S29": {
+    "sourceId": "DOJ_EFTA",
+    "asOf": "2026-06-02",
+    "quote": "Jan 30 2026 DOJ releases 3M+ pages under EFTA; Clintons in contempt then testify."
+  },
+  "S30": {
+    "sourceId": "FMP_BIGDATA",
+    "asOf": "2026-06-02",
+    "quote": "Equities at record highs through two regime-change wars; wealth concentration at a record."
+  }
+}
