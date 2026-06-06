@@ -15,6 +15,16 @@ const cohortLabel: Record<SignalCohort, string> = {
   'jun-2026': 'Jun 2026',
 }
 
+// Instruments that a capture edge points into (the BLOC_DEFENSE → INST_F35
+// cross-link). These belong to the incentives layer, but the capture story
+// needs them visible: an arrow into a hidden node reads as a dangling claim.
+// So the Capture lens reveals exactly these, even with the Incentives lens off.
+const captureLinkedInstrumentIds = new Set(
+  captureEdges
+    .map(e => e.target)
+    .filter(id => instruments.some(i => i.id === id))
+)
+
 // Compact "age" string for an ISO date — used to convey indicator freshness
 // alongside the literal asOf. Stops at years; not meant for ancient dates.
 function relativeAge(iso: string): string {
@@ -358,10 +368,15 @@ export default function GeopoliticalGraph() {
     const dur = reducedMotion ? 0 : 300
     const anyLensOn = showIncentives || showCapture
 
+    // Incentives lens shows all instruments; the Capture lens additionally
+    // reveals the specific instruments its edges terminate on, so no capture
+    // arrow points at an invisible node.
+    const instrumentVisible = (d: GraphNode) =>
+      showIncentives || (showCapture && captureLinkedInstrumentIds.has(d.id))
     svg.selectAll<SVGGElement, GraphNode>('g.inst-node-group')
       .transition().duration(dur)
-      .style('opacity', showIncentives ? 1 : 0)
-      .style('pointer-events', showIncentives ? 'all' : 'none')
+      .style('opacity', d => instrumentVisible(d) ? 1 : 0)
+      .style('pointer-events', d => instrumentVisible(d) ? 'all' : 'none')
 
     svg.selectAll<SVGGElement, GraphNode>('g.capture-node-group')
       .transition().duration(dur)

@@ -1,6 +1,7 @@
 import { describe, it, expect } from 'vitest'
 import {
   nodes, edges, instruments, incentiveEdges, sources,
+  captureNodes, captureEdges,
   typeColors, edgeColors, incentiveRelationColors,
   indicatorData, signalProvenance,
 } from '..'
@@ -212,6 +213,86 @@ describe('canonical entity ids', () => {
       .filter(n => n.ids?.ticker !== undefined && !/^\S{1,10}$/.test(n.ids.ticker))
       .map(n => `${n.id}=${n.ids?.ticker}`)
     expect(bad).toEqual([])
+  })
+})
+
+// The capture layer carries the load-bearing claims on the landing page:
+// "no edge without provenance", "every sourceId resolves", and the symmetric
+// spread of blocs ("read the spread, not the single node"). It is rendered the
+// same way as the rest of the graph, so it must clear the same evidentiary bar.
+describe('capture layer', () => {
+  const captureNodeIds = new Set(captureNodes.map(n => n.id))
+  // Capture edges may terminate on a base node, an instrument, or a capture
+  // node (the BLOC_DEFENSE -> INST_F35 cross-link reaches the incentives layer).
+  const captureResolvableIds = new Set([...allIds, ...captureNodeIds])
+
+  it('no duplicate ids in captureNodes[]', () => {
+    expect(captureNodes.length).toBe(captureNodeIds.size)
+  })
+
+  it('capture node ids do not collide with base or instrument ids', () => {
+    const overlap = [...captureNodeIds].filter(id => allIds.has(id))
+    expect(overlap).toEqual([])
+  })
+
+  it('every capture node type has a color in typeColors', () => {
+    const missing = captureNodes.map(n => n.type).filter(t => !(t in typeColors))
+    expect(missing).toEqual([])
+  })
+
+  it('every capture edge endpoint resolves to a base node, instrument, or capture node', () => {
+    const dangling: Array<{ source: string; target: string; missing: string[] }> = []
+    captureEdges.forEach(e => {
+      const missing = [e.source, e.target].filter(id => !captureResolvableIds.has(id))
+      if (missing.length) dangling.push({ source: e.source, target: e.target, missing })
+    })
+    expect(dangling).toEqual([])
+  })
+
+  it('every capture relation has a color in incentiveRelationColors', () => {
+    const missing = captureEdges.map(e => e.relation).filter(r => !(r in incentiveRelationColors))
+    expect(missing).toEqual([])
+  })
+
+  // Landing claim #1: "No edge without provenance."
+  it('every capture provenance.sourceId resolves in sources', () => {
+    const unresolved = captureEdges
+      .map(e => e.provenance.sourceId)
+      .filter(id => !(id in sources))
+    expect(unresolved).toEqual([])
+  })
+
+  it('every capture provenance has a non-empty quote and an ISO asOf', () => {
+    const bad = captureEdges.filter(
+      e => !e.provenance.quote?.trim() || !/^\d{4}-\d{2}-\d{2}$/.test(e.provenance.asOf)
+    )
+    expect(bad.map(e => `${e.source}->${e.target}`)).toEqual([])
+  })
+
+  it('capture edge strength is 1..10 and confidence is 0..1', () => {
+    const oob = captureEdges.filter(
+      e => e.strength < 1 || e.strength > 10 || e.confidence < 0 || e.confidence > 1
+    )
+    expect(oob.map(e => `${e.source}->${e.target}`)).toEqual([])
+  })
+
+  // The symmetry thesis: the contested institution is acted on by a SPREAD of
+  // blocs, not a single designated villain. If this ever collapses to one or two
+  // blocs — by removing some to soften, or adding only to indict — the layer has
+  // failed its own test ("read the spread, not the single node").
+  it('constitutional government is targeted by at least four distinct blocs', () => {
+    const blocIds = new Set(captureNodes.filter(n => n.type === 'bloc').map(n => n.id))
+    const blocsActingOnGov = new Set(
+      captureEdges
+        .filter(e => e.target === 'CONST_GOV' && blocIds.has(e.source))
+        .map(e => e.source)
+    )
+    expect(blocsActingOnGov.size).toBeGreaterThanOrEqual(4)
+  })
+
+  it('the bloc seed spans the spectrum (at least five blocs)', () => {
+    const blocs = captureNodes.filter(n => n.type === 'bloc')
+    expect(blocs.length).toBeGreaterThanOrEqual(5)
   })
 })
 
