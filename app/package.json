@@ -3,12 +3,15 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "engines": { "node": ">=20.19" },
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "test": "vitest run",
     "refresh:indicators": "node scripts/refresh-indicators.mjs",
+    "audit": "npm audit --omit=dev --audit-level=high",
+    "verify": "npm ci && npm run lint && npm test && npm run build",
     "preview": "vite preview"
   },
   "dependencies": {
