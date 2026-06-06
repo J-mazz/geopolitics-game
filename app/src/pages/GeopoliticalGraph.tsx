@@ -25,6 +25,50 @@ const captureLinkedInstrumentIds = new Set(
     .filter(id => instruments.some(i => i.id === id))
 )
 
+// ENH-03: bitemporal range for the time slider. Computed once at module load
+// from every asOf in the data (signal provenance, indicator data, incentive +
+// capture edges) plus any per-signal event date. MAX is "today" (clamps the
+// slider to the present, not to the latest stored asOf — useful as we approach
+// new captures). MIN is the earliest stamped fact in the corpus.
+const _allAsOfStrings: string[] = (() => {
+  const dates: string[] = []
+  for (const p of Object.values(signalProvenance)) dates.push(p.asOf)
+  for (const d of Object.values(indicatorData)) dates.push(d.asOf)
+  for (const e of incentiveEdges) dates.push(e.provenance.asOf)
+  for (const e of captureEdges) dates.push(e.provenance.asOf)
+  for (const n of rawNodes) if (n.date) dates.push(n.date)
+  return dates.sort()
+})()
+const MIN_ASOF = _allAsOfStrings[0] || '2025-01-01'
+const MAX_ASOF = new Date().toISOString().slice(0, 10)
+const TOTAL_DAYS = Math.max(1, Math.floor(
+  (new Date(MAX_ASOF).getTime() - new Date(MIN_ASOF).getTime()) / 86_400_000
+))
+const daysFromMin = (iso: string): number =>
+  Math.floor((new Date(iso).getTime() - new Date(MIN_ASOF).getTime()) / 86_400_000)
+const isoFromDays = (d: number): string =>
+  new Date(new Date(MIN_ASOF).getTime() + d * 86_400_000).toISOString().slice(0, 10)
+
+// ENH-05: parse the URL query string once at module load so the values can be
+// fed straight into `useState` initializers — avoids the React 19 "no setState
+// in mount effect" rule and lets the page render with the right state on the
+// first paint (no flicker).
+const _urlState = (() => {
+  if (typeof window === 'undefined') return null
+  const p = new URLSearchParams(window.location.search)
+  const lens = (p.get('lens') ?? '').split(',').filter(Boolean)
+  const asOf = p.get('asOf') ?? ''
+  return {
+    showIncentives: lens.includes('incentives'),
+    showCapture:    lens.includes('capture'),
+    showSources:    lens.includes('sources'),
+    hiddenNodeTypes: new Set((p.get('hideNodes') ?? '').split(',').filter(Boolean)),
+    hiddenEdgeTypes: new Set((p.get('hideEdges') ?? '').split(',').filter(Boolean)),
+    searchQuery:    p.get('q') ?? '',
+    asOfFilter:     /^\d{4}-\d{2}-\d{2}$/.test(asOf) ? asOf : MAX_ASOF,
+  }
+})()
+
 // Compact "age" string for an ISO date — used to convey indicator freshness
 // alongside the literal asOf. Stops at years; not meant for ancient dates.
 function relativeAge(iso: string): string {
@@ -41,11 +85,34 @@ function relativeAge(iso: string): string {
 
 export default function GeopoliticalGraph() {
   const svgRef = useRef<SVGSVGElement>(null)
-  const [showIncentives, setShowIncentives] = useState(false)
-  const [showCapture, setShowCapture] = useState(false)
-  const [showSources, setShowSources] = useState(false)
+  const [showIncentives, setShowIncentives] = useState(_urlState?.showIncentives ?? false)
+  const [showCapture,    setShowCapture]    = useState(_urlState?.showCapture    ?? false)
+  const [showSources,    setShowSources]    = useState(_urlState?.showSources    ?? false)
   const [tooltip, setTooltip] = useState<{ x: number; y: number; node: GraphNode } | null>(null)
   const [edgeTip, setEdgeTip] = useState<{ x: number; y: number; edge: IncentiveEdge } | null>(null)
+  // ENH-01: filter / search state. Filters hide via display:none (independent
+  // of lens-driven opacity); search highlights matching nodes with a stroke.
+  const [hiddenNodeTypes, setHiddenNodeTypes] = useState<Set<string>>(_urlState?.hiddenNodeTypes ?? new Set())
+  const [hiddenEdgeTypes, setHiddenEdgeTypes] = useState<Set<string>>(_urlState?.hiddenEdgeTypes ?? new Set())
+  const [searchQuery,     setSearchQuery]     = useState(_urlState?.searchQuery ?? '')
+  // ENH-03: as-of cutoff. Items whose stamp is in the future of this date are
+  // hidden — reconstructs the structural picture as it stood on that day.
+  const [asOfFilter,      setAsOfFilter]      = useState<string>(_urlState?.asOfFilter ?? MAX_ASOF)
+
+  const toggleNodeType = useCallback((t: string) => {
+    setHiddenNodeTypes(prev => {
+      const next = new Set(prev)
+      if (next.has(t)) next.delete(t); else next.add(t)
+      return next
+    })
+  }, [])
+  const toggleEdgeType = useCallback((t: string) => {
+    setHiddenEdgeTypes(prev => {
+      const next = new Set(prev)
+      if (next.has(t)) next.delete(t); else next.add(t)
+      return next
+    })
+  }, [])
 
   // ENH-04: export the full graph state as a JSON blob the user can download.
   const exportGraphJson = useCallback(() => {
@@ -401,9 +468,117 @@ export default function GeopoliticalGraph() {
         anyLensOn ? 0.12 : (d.type === 'signal' ? 0.3 : 0.5))
   }, [showIncentives, showCapture])
 
+  // ENH-05: write view state to URL (replace, not push — no history pollution).
+  useEffect(() => {
+    const p = new URLSearchParams()
+    const lens: string[] = []
+    if (showIncentives) lens.push('incentives')
+    if (showCapture)    lens.push('capture')
+    if (showSources)    lens.push('sources')
+    if (lens.length)              p.set('lens', lens.join(','))
+    if (hiddenNodeTypes.size)     p.set('hideNodes', [...hiddenNodeTypes].sort().join(','))
+    if (hiddenEdgeTypes.size)     p.set('hideEdges', [...hiddenEdgeTypes].sort().join(','))
+    if (searchQuery.trim())       p.set('q', searchQuery.trim())
+    if (asOfFilter !== MAX_ASOF)  p.set('asOf', asOfFilter)
+    const qs = p.toString()
+    const url = window.location.pathname + (qs ? `?${qs}` : '') + window.location.hash
+    window.history.replaceState({}, '', url)
+  }, [showIncentives, showCapture, showSources, hiddenNodeTypes, hiddenEdgeTypes, searchQuery, asOfFilter])
+
+  // ENH-01 + ENH-03: combined filter / search / asOf cutoff. All visibility
+  // (display:none) goes through this one effect so the rules compose cleanly:
+  //   - type filter (hiddenNodeTypes / hiddenEdgeTypes)
+  //   - asOf cutoff: signals/indicators with a future-of-filter stamp hide;
+  //     incentive/capture edges whose provenance.asOf is in the future hide
+  //   - edge inherits visibility from its endpoints (cascading)
+  //   - search tags matching nodes via [data-search-match] for the CSS halo
+  useEffect(() => {
+    if (!svgRef.current) return
+    const svg = d3.select(svgRef.current)
+
+    const nodeById = new Map<string, GraphNode>()
+    for (const n of [...rawNodes, ...instruments, ...captureNodes]) nodeById.set(n.id, n)
+
+    const nodeAsOf = (n: GraphNode): string | undefined => {
+      if (n.type === 'signal') return signalProvenance[n.id]?.asOf
+      if (n.type === 'indicator') return indicatorData[n.id]?.asOf
+      return undefined
+    }
+    const isFuture = (a: string | undefined): boolean => !!a && a > asOfFilter
+
+    const nodeHidden = (n: GraphNode): boolean =>
+      hiddenNodeTypes.has(n.type) || isFuture(nodeAsOf(n))
+
+    const endpointHidden = (v: string | GraphNode): boolean => {
+      const n = typeof v === 'string' ? nodeById.get(v) : v
+      return !!n && nodeHidden(n)
+    }
+
+    // Nodes
+    svg.selectAll<SVGCircleElement, GraphNode>('circle.base-node')
+      .style('display', d => nodeHidden(d) ? 'none' : null)
+    svg.selectAll<SVGTextElement, GraphNode>('text.base-label')
+      .style('display', d => nodeHidden(d) ? 'none' : null)
+    svg.selectAll<SVGGElement, GraphNode>('g.inst-node-group')
+      .style('display', d => nodeHidden(d) ? 'none' : null)
+    svg.selectAll<SVGGElement, GraphNode>('g.capture-node-group')
+      .style('display', d => nodeHidden(d) ? 'none' : null)
+
+    // Base edges: hidden if type is filtered OR either endpoint is hidden.
+    svg.selectAll<SVGLineElement, GraphEdge>('line.base-link')
+      .style('display', d =>
+        hiddenEdgeTypes.has(d.type) || endpointHidden(d.source) || endpointHidden(d.target)
+          ? 'none' : null)
+    // Incentive / capture edges: also check their own provenance.asOf.
+    svg.selectAll<SVGLineElement, IncentiveEdge>('line.inc-link, line.cap-link')
+      .style('display', d =>
+        isFuture(d.provenance.asOf) || endpointHidden(d.source) || endpointHidden(d.target)
+          ? 'none' : null)
+
+    // Search highlight
+    const q = searchQuery.trim().toLowerCase()
+    const matches = (n: GraphNode): boolean =>
+      q.length > 0 && (n.id.toLowerCase().includes(q) || n.label.toLowerCase().includes(q))
+    svg.selectAll<SVGCircleElement, GraphNode>('circle.base-node, g.capture-node-group circle')
+      .attr('data-search-match', d => matches(d) ? 'true' : null)
+    svg.selectAll<SVGRectElement, GraphNode>('g.inst-node-group rect')
+      .attr('data-search-match', d => matches(d) ? 'true' : null)
+  }, [hiddenNodeTypes, hiddenEdgeTypes, searchQuery, asOfFilter])
+
   return (
     <div className="relative w-screen" style={{ height: 'calc(100vh - 32px)', overflow: 'hidden' }}>
       <svg ref={svgRef} className="w-full h-full" />
+
+      {/* ENH-03: bitemporal as-of slider */}
+      <div className="absolute top-14 left-1/2 -translate-x-1/2 z-40 flex items-center gap-2 px-3 py-1.5 rounded text-xs"
+        style={{ background: 'rgba(15,15,25,0.9)', border: '1px solid #333' }}>
+        <span className="text-[#aaa]" aria-hidden>🕒</span>
+        <label className="text-[#aaa]" htmlFor="asof-slider">As of</label>
+        <input
+          id="asof-slider"
+          type="range"
+          min={0}
+          max={TOTAL_DAYS}
+          step={1}
+          value={daysFromMin(asOfFilter)}
+          onChange={e => setAsOfFilter(isoFromDays(parseInt(e.target.value, 10)))}
+          className="w-[260px] accent-[#ffcc00]"
+          aria-label={`As-of cutoff: ${asOfFilter}. Range ${MIN_ASOF} to ${MAX_ASOF}.`}
+          aria-valuemin={0}
+          aria-valuemax={TOTAL_DAYS}
+          aria-valuenow={daysFromMin(asOfFilter)}
+          aria-valuetext={asOfFilter}
+        />
+        <span className="font-mono text-[#ccc] min-w-[88px] text-center">{asOfFilter}</span>
+        {asOfFilter !== MAX_ASOF && (
+          <button
+            onClick={() => setAsOfFilter(MAX_ASOF)}
+            className="text-[10.5px] px-2 py-0.5 rounded text-[#aaa] hover:text-white hover:bg-white/10 transition-colors"
+            style={{ border: '1px solid #2a2a3a' }}
+            title="Reset to present (no time filter)"
+          >Now</button>
+        )}
+      </div>
 
       {/* Lens toggles */}
       <div className="absolute top-3 left-1/2 -translate-x-1/2 z-50 flex items-center gap-2">
@@ -541,38 +716,79 @@ export default function GeopoliticalGraph() {
         )
       })()}
 
-      {/* Legend */}
+      {/* Legend + Filters (ENH-01) */}
       <div className="absolute top-3 left-3 z-40 text-xs" style={{
-        background: 'rgba(15,15,25,0.9)', border: '1px solid #333', borderRadius: 8, padding: '12px 16px'
+        background: 'rgba(15,15,25,0.9)', border: '1px solid #333', borderRadius: 8, padding: '12px 16px',
+        maxWidth: 260,
       }}>
         <h2 className="text-white font-bold text-base mb-2">🎮 Geopolitical Graph</h2>
         <div className="text-[11px] text-[#888] mb-2">Feb baseline + Jun refresh — Force-directed model with incentive + capture lenses</div>
-        <div className="font-semibold text-[#aaa] mb-1">Node Types</div>
+
+        {/* Search */}
+        <div className="mb-2 flex items-center gap-1">
+          <input
+            type="search"
+            value={searchQuery}
+            onChange={e => setSearchQuery(e.target.value)}
+            placeholder="🔍 Search id or label…"
+            aria-label="Search graph nodes by id or label"
+            className="flex-1 text-[11px] px-2 py-1 rounded bg-[#0c0c14] text-[#ccc] placeholder-[#555] focus:outline-none focus:border-[#ffcc00]"
+            style={{ border: '1px solid #2a2a3a' }}
+          />
+          {searchQuery && (
+            <button onClick={() => setSearchQuery('')} aria-label="Clear search"
+                    className="text-[#666] hover:text-[#aaa] px-1">×</button>
+          )}
+        </div>
+
+        <div className="font-semibold text-[#aaa] mb-1">Node Types <span className="text-[9px] text-[#666] font-normal">(click to toggle)</span></div>
         {[
-          { color: '#ff4444', label: 'Major Power' },
-          { color: '#44aaff', label: 'Swing Actor' },
-          { color: '#ffaa00', label: 'Signal (event)' },
-          { color: '#aa44ff', label: 'Domain / Theater' },
-          { color: '#44ff88', label: 'Institution / Framework' },
-          { color: '#22d3ee', label: 'Indicator (live market)' },
-          { color: instrumentColor, label: 'Instrument (lens)' },
-          { color: typeColors.bloc, label: 'Bloc (capture)' },
-          { color: typeColors.document, label: 'Document (capture)' },
-        ].map(i => (
-          <div key={i.label} className="flex items-center my-1">
-            <div className="w-3 h-3 rounded-full mr-2 shrink-0" style={{ background: i.color }} />
-            {i.label}
-          </div>
-        ))}
-        <div className="font-semibold text-[#aaa] mt-2 mb-1">Edge Types</div>
-        {[
-          { color: '#22d3ee', label: 'Structural (indicator → domain)' },
-        ].map(e => (
-          <div key={e.label} className="flex items-center my-1">
-            <div className="w-6 h-[2px] rounded mr-2 shrink-0" style={{ background: e.color }} />
-            {e.label}
-          </div>
-        ))}
+          { type: 'major',       color: '#ff4444',         label: 'Major Power' },
+          { type: 'swing',       color: '#44aaff',         label: 'Swing Actor' },
+          { type: 'signal',      color: '#ffaa00',         label: 'Signal (event)' },
+          { type: 'domain',      color: '#aa44ff',         label: 'Domain / Theater' },
+          { type: 'institution', color: '#44ff88',         label: 'Institution / Framework' },
+          { type: 'indicator',   color: '#22d3ee',         label: 'Indicator (live market)' },
+          { type: 'instrument',  color: instrumentColor,   label: 'Instrument (lens)' },
+          { type: 'bloc',        color: typeColors.bloc,   label: 'Bloc (capture)' },
+          { type: 'document',    color: typeColors.document, label: 'Document (capture)' },
+        ].map(i => {
+          const hidden = hiddenNodeTypes.has(i.type)
+          return (
+            <button key={i.type}
+              onClick={() => toggleNodeType(i.type)}
+              aria-pressed={!hidden}
+              className="flex items-center w-full my-1 text-left hover:bg-white/5 px-1 rounded transition-colors"
+              style={{ opacity: hidden ? 0.35 : 1 }}
+              title={hidden ? `Show ${i.label}` : `Hide ${i.label}`}
+            >
+              <div className="w-3 h-3 rounded-full mr-2 shrink-0"
+                style={{ background: i.color, outline: hidden ? '1px dashed #555' : 'none' }} />
+              <span style={{ textDecoration: hidden ? 'line-through' : 'none' }}>{i.label}</span>
+            </button>
+          )
+        })}
+
+        <div className="font-semibold text-[#aaa] mt-2 mb-1">Edge Types <span className="text-[9px] text-[#666] font-normal">(click to toggle)</span></div>
+        <div className="flex flex-wrap gap-1">
+          {(['conflict', 'cooperation', 'economic', 'signal', 'influence', 'structural'] as const).map(et => {
+            const hidden = hiddenEdgeTypes.has(et)
+            return (
+              <button key={et}
+                onClick={() => toggleEdgeType(et)}
+                aria-pressed={!hidden}
+                className="text-[10px] px-1.5 py-0.5 rounded transition-colors"
+                style={{
+                  background: hidden ? 'transparent' : edgeColors[et] + '22',
+                  border: `1px solid ${hidden ? '#333' : edgeColors[et]}`,
+                  color: hidden ? '#555' : '#ccc',
+                  textDecoration: hidden ? 'line-through' : 'none',
+                }}
+              >{et}</button>
+            )
+          })}
+        </div>
+
         {showIncentives && (
           <>
             <div className="font-semibold text-[#aaa] mt-2 mb-1">Incentive Relations</div>

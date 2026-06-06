@@ -41,3 +41,11 @@ svg g[role="button"]:focus-visible rect {
   stroke-width: 3 !important;
   filter: drop-shadow(0 0 4px #ffcc00aa);
 }
+
+/* ENH-01: search-match halo. Applied via [data-search-match="true"] from JS. */
+svg circle[data-search-match="true"],
+svg rect[data-search-match="true"] {
+  stroke: #ffcc00 !important;
+  stroke-width: 4 !important;
+  filter: drop-shadow(0 0 6px #ffcc00cc);
+}
