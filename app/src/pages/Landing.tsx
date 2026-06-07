@@ -26,8 +26,9 @@ const BLOCS: Array<{ label: string; angle: number; subLabel?: string }> = [
 
 function Principle({ label, children }: { label: string; children: React.ReactNode }) {
   return (
-    <div className="border-l-[3px] pl-4 my-4" style={{ borderColor: 'var(--accent-dim)' }}>
-      <div className="font-sans font-bold tracking-wide" style={{ color: 'var(--text-bright)' }}>{label}</div>
+    <div className="my-5">
+      <div className="font-sans font-bold tracking-[0.18em] uppercase text-xs mb-1.5"
+           style={{ color: 'var(--accent)' }}>{label}</div>
       <div className="text-[0.98rem] leading-relaxed" style={{ color: 'var(--text)' }}>{children}</div>
     </div>
   )
@@ -141,7 +142,7 @@ function CaptureTeaser() {
 
 export default function Landing() {
   return (
-    <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 py-8 leading-relaxed"
+    <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 py-8 leading-relaxed text-center"
          style={{ fontFamily: "Georgia, 'Times New Roman', Times, serif", color: 'var(--text)' }}>
 
       {/* HERO — centered text within the page container, larger headline */}
@@ -204,7 +205,9 @@ export default function Landing() {
         </p>
       </section>
 
-      {/* Long-form prose: centered narrow column for readability + justified paragraphs */}
+      {/* Long-form prose: centered narrow column for readability + justified paragraphs.
+          text-center cascades from the outer container; paragraphs override to text-justify
+          so individual lines stretch to both edges while the block stays centered. */}
       <div className="max-w-[74ch] mx-auto mt-12 [&_p]:text-justify [&_p]:hyphens-auto">
 
       {/* Thesis */}
@@ -271,7 +274,7 @@ export default function Landing() {
 
       {/* What it is not */}
       <Section title="What this is not">
-        <ul className="space-y-2 list-disc pl-5" style={{ color: 'var(--text-muted)' }}>
+        <ul className="space-y-2 list-none" style={{ color: 'var(--text-muted)' }}>
           <li>Not a forecast engine. The map asserts only structure it can show.</li>
           <li>Not a vehicle for any party, government, or creed.</li>
           <li>Not a place for unsourced suspicion. Suspicion is a prompt to find the receipt, not a license to draw the edge.</li>
