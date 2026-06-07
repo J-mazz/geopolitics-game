@@ -29,7 +29,8 @@ function Principle({ label, children }: { label: string; children: React.ReactNo
     <div className="my-5">
       <div className="font-sans font-bold tracking-[0.18em] uppercase text-xs mb-1.5"
            style={{ color: 'var(--accent)' }}>{label}</div>
-      <div className="text-[0.98rem] leading-relaxed" style={{ color: 'var(--text)' }}>{children}</div>
+      <div className="text-[0.98rem] leading-relaxed text-justify hyphens-auto"
+           style={{ color: 'var(--text)' }}>{children}</div>
     </div>
   )
 }
@@ -46,7 +47,7 @@ function Section({ id, title, children }: { id?: string; title: string; children
 
 function StatTile({ value, label, sub, src }: typeof STATS[number]) {
   return (
-    <div className="rounded-md border px-4 py-3 text-left"
+    <div className="rounded-md border px-4 py-3 text-center"
       style={{ borderColor: 'var(--border)', background: 'var(--bg-elevated)' }}>
       <div className="font-sans text-2xl md:text-[1.7rem] font-bold leading-tight"
         style={{ color: 'var(--text-bright)' }}>{value}</div>
@@ -160,8 +161,8 @@ export default function Landing() {
           One contested institution.<br />
           A receipt on every edge.
         </h1>
-        <p className="text-lg max-w-[52ch] mx-auto text-center"
-           style={{ color: 'var(--text-muted)', textAlign: 'center', textWrap: 'balance' }}>
+        <p className="text-lg max-w-[58ch] mx-auto text-justify hyphens-auto"
+           style={{ color: 'var(--text-muted)', textAlign: 'justify' }}>
           Constitutional government isn't acted on in the abstract. It is lobbied, donated to,
           and authored at — every day, by organized blocs, in measurable amounts. This map renders
           those edges from public record and refuses to draw the ones it cannot cite.
