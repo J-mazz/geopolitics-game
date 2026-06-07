@@ -141,11 +141,11 @@ function CaptureTeaser() {
 
 export default function Landing() {
   return (
-    <div className="py-8 leading-relaxed"
+    <div className="w-full py-8 leading-relaxed"
          style={{ fontFamily: "Georgia, 'Times New Roman', Times, serif", color: 'var(--text)' }}>
 
-      {/* HERO — slightly wider than reading column so the headline breathes */}
-      <header className="max-w-5xl mx-auto px-6 text-center pt-14 pb-10"
+      {/* HERO — full-bleed, text centered */}
+      <header className="w-full px-4 sm:px-8 lg:px-16 text-center pt-14 pb-10"
               style={{ borderBottom: '1px solid var(--border)' }}>
         <div className="font-sans text-xs uppercase tracking-[0.35em] mb-4" style={{ color: 'var(--accent)' }}>
           A structural map of power
@@ -178,8 +178,8 @@ export default function Landing() {
         </div>
       </header>
 
-      {/* STAT STRIP — wider column so 5 tiles render properly on desktop */}
-      <section className="max-w-6xl mx-auto px-6 mt-10">
+      {/* STAT STRIP — full-bleed, 5 tiles flexed across the viewport */}
+      <section className="w-full px-4 sm:px-8 lg:px-16 mt-10">
         <div className="font-sans text-xs uppercase tracking-[0.25em] text-center mb-3"
           style={{ color: 'var(--text-muted)' }}>
           What the receipts say
@@ -189,8 +189,8 @@ export default function Landing() {
         </div>
       </section>
 
-      {/* CAPTURE TEASER — wide enough for the SVG to read at scale */}
-      <section className="max-w-4xl mx-auto px-6 mt-12">
+      {/* CAPTURE TEASER — full-bleed; SVG scales to viewport */}
+      <section className="w-full px-4 sm:px-8 lg:px-16 mt-12">
         <div className="font-sans text-xs uppercase tracking-[0.25em] text-center mb-3"
           style={{ color: 'var(--text-muted)' }}>
           Who acts on the institution
@@ -202,8 +202,8 @@ export default function Landing() {
         </p>
       </section>
 
-      {/* Long-form prose: reading width */}
-      <div className="max-w-[74ch] mx-auto px-6">
+      {/* Long-form prose: centered narrow column for readability + justified paragraphs */}
+      <div className="max-w-[74ch] mx-auto px-4 sm:px-6 mt-12 [&_p]:text-justify [&_p]:hyphens-auto">
 
       {/* Thesis */}
       <Section id="thesis" title="Thesis">
