@@ -141,11 +141,12 @@ function CaptureTeaser() {
 
 export default function Landing() {
   return (
-    <div className="max-w-[74ch] mx-auto px-6 py-8 leading-relaxed"
+    <div className="py-8 leading-relaxed"
          style={{ fontFamily: "Georgia, 'Times New Roman', Times, serif", color: 'var(--text)' }}>
 
-      {/* HERO */}
-      <header className="text-center pt-14 pb-10" style={{ borderBottom: '1px solid var(--border)' }}>
+      {/* HERO — slightly wider than reading column so the headline breathes */}
+      <header className="max-w-5xl mx-auto px-6 text-center pt-14 pb-10"
+              style={{ borderBottom: '1px solid var(--border)' }}>
         <div className="font-sans text-xs uppercase tracking-[0.35em] mb-4" style={{ color: 'var(--accent)' }}>
           A structural map of power
         </div>
@@ -177,8 +178,8 @@ export default function Landing() {
         </div>
       </header>
 
-      {/* STAT STRIP — the numbers behind the edges */}
-      <section className="mt-10">
+      {/* STAT STRIP — wider column so 5 tiles render properly on desktop */}
+      <section className="max-w-6xl mx-auto px-6 mt-10">
         <div className="font-sans text-xs uppercase tracking-[0.25em] text-center mb-3"
           style={{ color: 'var(--text-muted)' }}>
           What the receipts say
@@ -188,8 +189,8 @@ export default function Landing() {
         </div>
       </section>
 
-      {/* CAPTURE TEASER — live SVG into the actual graph view */}
-      <section className="mt-12">
+      {/* CAPTURE TEASER — wide enough for the SVG to read at scale */}
+      <section className="max-w-4xl mx-auto px-6 mt-12">
         <div className="font-sans text-xs uppercase tracking-[0.25em] text-center mb-3"
           style={{ color: 'var(--text-muted)' }}>
           Who acts on the institution
@@ -200,6 +201,9 @@ export default function Landing() {
           named persons under EFTA disclosure, and the rest of the geopolitical layer.
         </p>
       </section>
+
+      {/* Long-form prose: reading width */}
+      <div className="max-w-[74ch] mx-auto px-6">
 
       {/* Thesis */}
       <Section id="thesis" title="Thesis">
@@ -279,6 +283,8 @@ export default function Landing() {
           See who benefits →
         </Link>
       </div>
+
+      </div>{/* /reading-width wrapper */}
     </div>
   )
 }
