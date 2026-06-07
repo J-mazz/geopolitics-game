@@ -59,8 +59,9 @@ function StatTile({ value, label, sub, src }: typeof STATS[number]) {
 }
 
 function CaptureTeaser() {
-  // 600x420 viewBox; center is the contested institution, ring of blocs around it.
-  const cx = 300, cy = 210
+  // 600x460 viewBox with extra top padding so labels above the topmost bloc
+  // don't crash into the section header.
+  const cx = 300, cy = 230
   const ringR = 155
   const blocR = 38
   return (
@@ -70,7 +71,7 @@ function CaptureTeaser() {
         aria-label="Open the full capture lens in the graph"
         className="block rounded-lg overflow-hidden transition-transform hover:scale-[1.01]"
         style={{ border: '1px solid var(--border)', background: 'var(--bg-elevated)' }}>
-        <svg viewBox="0 0 600 420" className="w-full h-auto block">
+        <svg viewBox="0 0 600 460" className="w-full h-auto block">
           <defs>
             <marker id="teaser-arrow" viewBox="0 -5 10 10" refX="14" refY="0" markerWidth="7" markerHeight="7" orient="auto">
               <path d="M0,-5L10,0L0,5" fill="#f472b6" />
@@ -159,7 +160,8 @@ export default function Landing() {
           One contested institution.<br />
           A receipt on every edge.
         </h1>
-        <p className="text-lg max-w-[60ch] mx-auto" style={{ color: 'var(--text-muted)' }}>
+        <p className="text-lg max-w-[60ch] mx-auto text-center"
+           style={{ color: 'var(--text-muted)', textAlign: 'center' }}>
           Constitutional government isn't acted on in the abstract. It is lobbied, donated to,
           and authored at — every day, by organized blocs, in measurable amounts. This map renders
           those edges from public record and refuses to draw the ones it cannot cite.
@@ -185,7 +187,7 @@ export default function Landing() {
 
       {/* STAT STRIP — fills the page-container width */}
       <section className="mt-10">
-        <div className="font-sans text-xs uppercase tracking-[0.25em] text-center mb-3"
+        <div className="font-sans text-xs uppercase tracking-[0.25em] text-center mb-6"
           style={{ color: 'var(--text-muted)' }}>
           What the receipts say
         </div>
@@ -196,7 +198,7 @@ export default function Landing() {
 
       {/* CAPTURE TEASER — bounded so the SVG keeps its proportions */}
       <section className="mt-12 max-w-3xl mx-auto">
-        <div className="font-sans text-xs uppercase tracking-[0.25em] text-center mb-3"
+        <div className="font-sans text-xs uppercase tracking-[0.25em] text-center mb-6"
           style={{ color: 'var(--text-muted)' }}>
           Who acts on the institution
         </div>
