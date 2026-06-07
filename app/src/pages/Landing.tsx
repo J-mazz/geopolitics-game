@@ -160,8 +160,8 @@ export default function Landing() {
           One contested institution.<br />
           A receipt on every edge.
         </h1>
-        <p className="text-lg max-w-[60ch] mx-auto text-center"
-           style={{ color: 'var(--text-muted)', textAlign: 'center' }}>
+        <p className="text-lg max-w-[52ch] mx-auto text-center"
+           style={{ color: 'var(--text-muted)', textAlign: 'center', textWrap: 'balance' }}>
           Constitutional government isn't acted on in the abstract. It is lobbied, donated to,
           and authored at — every day, by organized blocs, in measurable amounts. This map renders
           those edges from public record and refuses to draw the ones it cannot cite.
@@ -173,13 +173,13 @@ export default function Landing() {
             See who benefits →
           </Link>
           <a href="#thesis"
-            className="px-5 py-2 rounded text-sm font-semibold transition-colors"
-            style={{ border: '1px solid var(--border)', color: 'var(--text-muted)' }}>
+            className="px-5 py-2 rounded text-sm font-semibold transition-colors hover:bg-white/5"
+            style={{ border: '1px solid var(--accent-dim)', color: 'var(--text-bright)' }}>
             Read the thesis ↓
           </a>
           <Link to="/common-sense"
-            className="px-5 py-2 rounded text-sm font-semibold transition-colors"
-            style={{ border: '1px solid var(--border)', color: 'var(--text-muted)' }}>
+            className="px-5 py-2 rounded text-sm font-semibold transition-colors hover:bg-white/5"
+            style={{ border: '1px solid var(--accent-dim)', color: 'var(--text-bright)' }}>
             Common Sense, 2026
           </Link>
         </div>
