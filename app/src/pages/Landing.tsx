@@ -142,7 +142,9 @@ function CaptureTeaser() {
 
 export default function Landing() {
   return (
-    <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 py-8 leading-relaxed text-center"
+    // Parent Layout uses `flex justify-center` to anchor this block — so it's
+    // a flex item bounded by max-w. No w-full / no mx-auto on this side.
+    <div className="max-w-7xl w-full px-4 sm:px-6 lg:px-12 py-8 leading-relaxed text-center"
          style={{ fontFamily: "Georgia, 'Times New Roman', Times, serif", color: 'var(--text)' }}>
 
       {/* HERO — centered text within the page container, larger headline */}
