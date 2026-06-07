@@ -12,9 +12,6 @@ export default function Layout({ children }: { children: ReactNode }) {
         <NavLink to="/graph" className={({ isActive }) =>
           `px-3 py-1 rounded transition-colors ${isActive ? 'bg-white/10 text-white' : 'text-gray-400 hover:text-white'}`
         }>🎮 Graph</NavLink>
-        <NavLink to="/republic-health" className={({ isActive }) =>
-          `px-3 py-1 rounded transition-colors ${isActive ? 'bg-white/10 text-white' : 'text-gray-400 hover:text-white'}`
-        }>🏛️ Republic Health</NavLink>
         <NavLink to="/common-sense" className={({ isActive }) =>
           `px-3 py-1 rounded transition-colors ${isActive ? 'bg-white/10 text-white' : 'text-gray-400 hover:text-white'}`
         }>📜 Common Sense</NavLink>

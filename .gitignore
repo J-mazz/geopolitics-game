@@ -1,3 +1,6 @@
 /notes/
 *.draft.md
 *.local.md
+
+# Wrangler local cache (Cloudflare Pages deploy state)
+.wrangler/

@@ -85,6 +85,7 @@ function relativeAge(iso: string): string {
 
 export default function GeopoliticalGraph() {
   const svgRef = useRef<SVGSVGElement>(null)
+  const minimapRef = useRef<SVGSVGElement>(null)
   const [showIncentives, setShowIncentives] = useState(_urlState?.showIncentives ?? false)
   const [showCapture,    setShowCapture]    = useState(_urlState?.showCapture    ?? false)
   const [showSources,    setShowSources]    = useState(_urlState?.showSources    ?? false)
@@ -168,10 +169,23 @@ export default function GeopoliticalGraph() {
 
     const g = svg.append('g')
 
-    svg.call(d3.zoom<SVGSVGElement, unknown>()
+    // Keep a reference so the node click-to-focus handler can drive the zoom.
+    const zoomBehavior = d3.zoom<SVGSVGElement, unknown>()
       .scaleExtent([0.2, 5])
       .on('zoom', e => g.attr('transform', e.transform))
-    )
+    svg.call(zoomBehavior)
+
+    // Click-to-focus: smooth pan + zoom that centers the clicked node in
+    // the viewport. Uses the same reduced-motion gate as everything else.
+    const focusOnNode = (d: GraphNode) => {
+      if (d.x === undefined || d.y === undefined) return
+      const k = 1.4
+      const target = d3.zoomIdentity
+        .translate(width / 2, height / 2)
+        .scale(k)
+        .translate(-d.x, -d.y)
+      svg.transition().duration(reducedMotion ? 0 : 650).call(zoomBehavior.transform, target)
+    }
 
     const defs = svg.append('defs')
     defs.append('filter').attr('id', 'glow')
@@ -203,19 +217,29 @@ export default function GeopoliticalGraph() {
     const simulation = d3.forceSimulation<GraphNode>(allNodes)
       .force('link', d3.forceLink<GraphNode, GraphEdge | IncentiveEdge>(forceLinks)
         .id(d => d.id)
-        .distance(l => isInc(l) ? 90 : (l.type === 'signal' ? 60 : l.type === 'influence' ? 100 : 120))
+        // Longer links across the board — the viewport has room and the old
+        // distances bunched the graph at higher node counts.
+        .distance(l => isInc(l) ? 140 : (l.type === 'signal' ? 95 : l.type === 'influence' ? 160 : 190))
         .strength(l => isInc(l) ? 0.04 : (l as GraphEdge).strength / 15))
       .force('charge', d3.forceManyBody<GraphNode>()
-        .strength(d => d.type === 'signal' ? -80
-          : d.type === 'instrument' ? -120
-            : d.type === 'document' ? -100
-              : d.type === 'bloc' ? -180
-                : d.type === 'institution' ? -220
-                  : -250))
+        // ~1.7× stronger repulsion to break the cluster; preserves the relative
+        // ordering so signals stay light and majors push hardest.
+        .strength(d => d.type === 'signal' ? -140
+          : d.type === 'instrument' ? -200
+            : d.type === 'document' ? -170
+              : d.type === 'bloc' ? -300
+                : d.type === 'institution' ? -360
+                  : -420)
+        // Cap the long-range repulsion so the layout doesn't blow apart when
+        // a subset is hidden by filters.
+        .distanceMax(700))
       .force('center', d3.forceCenter(width / 2, height / 2))
-      .force('collision', d3.forceCollide<GraphNode>().radius(d => d.r + 5))
-      .force('x', d3.forceX(width / 2).strength(0.03))
-      .force('y', d3.forceY(height / 2).strength(0.03))
+      // More breathing room than r+5 — keeps labels legible at the new spread.
+      .force('collision', d3.forceCollide<GraphNode>().radius(d => d.r + 10))
+      // Halve the centering pull so the layout uses the full viewport instead
+      // of crowding the middle.
+      .force('x', d3.forceX(width / 2).strength(0.015))
+      .force('y', d3.forceY(height / 2).strength(0.015))
 
     // --- base links ---
     const link = g.append('g').selectAll('line')
@@ -283,10 +307,17 @@ export default function GeopoliticalGraph() {
             e.preventDefault()
             const rect = (this as SVGGElement).getBoundingClientRect()
             setTooltip({ x: rect.right + window.scrollX + 5, y: rect.top + window.scrollY, node: d })
+            focusOnNode(d)
           } else if (e.key === 'Escape') {
             setTooltip(null)
             ;(this as SVGGElement).blur()
           }
+        })
+        // Click-to-focus: pan and zoom to center the clicked node. d3.drag's
+        // movement threshold keeps a real drag from triggering this.
+        .on('click', (e, d) => {
+          if ((e as MouseEvent).defaultPrevented) return
+          focusOnNode(d)
         })
     }
 
@@ -382,6 +413,62 @@ export default function GeopoliticalGraph() {
       .text(d => d.label)
     mkNodeTooltip(capNode)
 
+    // --- MINIMAP setup -------------------------------------------------------
+    // Small overview pane: every node as a dot in a fixed extent, plus a
+    // viewport rectangle that reflects the current zoom transform. Click to
+    // pan the main view. World extent is a generous box around the viewport
+    // so dots stay inside the minimap even when the force layout drifts.
+    const miniW = 180, miniH = 130
+    const wx0 = -width * 0.3, wy0 = -height * 0.3
+    const wx1 = width * 1.3,  wy1 = height * 1.3
+    const wW = wx1 - wx0, wH = wy1 - wy0
+    const msx = (x: number) => ((x - wx0) / wW) * miniW
+    const msy = (y: number) => ((y - wy0) / wH) * miniH
+
+    const mini = d3.select(minimapRef.current!)
+    mini.selectAll('*').remove()
+    mini.attr('width', miniW).attr('height', miniH)
+      .attr('viewBox', `0 0 ${miniW} ${miniH}`)
+      .attr('role', 'img')
+      .attr('aria-label', 'Graph overview minimap. Click to pan the main view.')
+
+    const miniDots = mini.append('g').selectAll('circle')
+      .data(allNodes).join('circle')
+      .attr('r', d => Math.max(1.2, d.r / 10))
+      .attr('fill', d => typeColors[d.type] || '#888')
+      .attr('opacity', 0.75)
+
+    const miniRect = mini.append('rect')
+      .attr('fill', '#ffcc0011').attr('stroke', '#ffcc00').attr('stroke-width', 1.25)
+      .attr('vector-effect', 'non-scaling-stroke').attr('pointer-events', 'none')
+
+    const updateMinimap = () => {
+      miniDots
+        .attr('cx', d => msx(d.x ?? width / 2))
+        .attr('cy', d => msy(d.y ?? height / 2))
+      const t = d3.zoomTransform(svgRef.current!)
+      const vx0 = -t.x / t.k, vy0 = -t.y / t.k
+      const vx1 = vx0 + width / t.k, vy1 = vy0 + height / t.k
+      miniRect
+        .attr('x', msx(vx0)).attr('y', msy(vy0))
+        .attr('width',  Math.max(2, msx(vx1) - msx(vx0)))
+        .attr('height', Math.max(2, msy(vy1) - msy(vy0)))
+    }
+
+    mini.style('cursor', 'crosshair').on('click', (e) => {
+      const [mx, my] = d3.pointer(e)
+      const worldX = wx0 + (mx / miniW) * wW
+      const worldY = wy0 + (my / miniH) * wH
+      const t = d3.zoomTransform(svgRef.current!)
+      const target = d3.zoomIdentity
+        .translate(width / 2, height / 2).scale(t.k).translate(-worldX, -worldY)
+      svg.transition().duration(reducedMotion ? 0 : 400).call(zoomBehavior.transform, target)
+    })
+
+    // Pipe zoom into the minimap so the viewport rectangle tracks pan/zoom.
+    zoomBehavior.on('zoom.minimap', () => updateMinimap())
+    // --- end minimap ---------------------------------------------------------
+
     const tick = () => {
       link
         .attr('x1', d => (d.source as GraphNode).x!).attr('y1', d => (d.source as GraphNode).y!)
@@ -395,6 +482,7 @@ export default function GeopoliticalGraph() {
       node.attr('transform', d => `translate(${d.x},${d.y})`)
       instNode.attr('transform', d => `translate(${d.x},${d.y})`)
       capNode.attr('transform', d => `translate(${d.x},${d.y})`)
+      updateMinimap()
     }
     simulation.on('tick', tick)
 
@@ -411,8 +499,8 @@ export default function GeopoliticalGraph() {
       width = window.innerWidth; height = window.innerHeight
       svg.attr('width', width).attr('height', height)
       simulation.force('center', d3.forceCenter(width / 2, height / 2))
-      simulation.force('x', d3.forceX(width / 2).strength(0.03))
-      simulation.force('y', d3.forceY(height / 2).strength(0.03))
+      simulation.force('x', d3.forceX(width / 2).strength(0.015))
+      simulation.force('y', d3.forceY(height / 2).strength(0.015))
       if (reducedMotion) {
         simulation.stop()
         for (let i = 0; i < 100; i++) simulation.tick()
@@ -549,8 +637,18 @@ export default function GeopoliticalGraph() {
     <div className="relative w-screen" style={{ height: 'calc(100vh - 32px)', overflow: 'hidden' }}>
       <svg ref={svgRef} className="w-full h-full" />
 
-      {/* ENH-03: bitemporal as-of slider */}
-      <div className="absolute top-14 left-1/2 -translate-x-1/2 z-40 flex items-center gap-2 px-3 py-1.5 rounded text-xs"
+      {/* Minimap (bottom-left, above the signal panel) — hidden on small viewports */}
+      <svg ref={minimapRef}
+        className="absolute z-30 hidden md:block"
+        style={{
+          bottom: 200, left: 12,
+          background: 'rgba(15,15,25,0.88)',
+          border: '1px solid #333',
+          borderRadius: 4,
+        }} />
+
+      {/* ENH-03: bitemporal as-of slider — narrower on small screens */}
+      <div className="absolute top-14 left-1/2 -translate-x-1/2 z-40 flex items-center gap-2 px-3 py-1.5 rounded text-xs max-w-[calc(100vw-24px)]"
         style={{ background: 'rgba(15,15,25,0.9)', border: '1px solid #333' }}>
         <span className="text-[#aaa]" aria-hidden>🕒</span>
         <label className="text-[#aaa]" htmlFor="asof-slider">As of</label>
@@ -562,7 +660,7 @@ export default function GeopoliticalGraph() {
           step={1}
           value={daysFromMin(asOfFilter)}
           onChange={e => setAsOfFilter(isoFromDays(parseInt(e.target.value, 10)))}
-          className="w-[260px] accent-[#ffcc00]"
+          className="w-[140px] sm:w-[200px] md:w-[260px] accent-[#ffcc00]"
           aria-label={`As-of cutoff: ${asOfFilter}. Range ${MIN_ASOF} to ${MAX_ASOF}.`}
           aria-valuemin={0}
           aria-valuemax={TOTAL_DAYS}
@@ -716,8 +814,8 @@ export default function GeopoliticalGraph() {
         )
       })()}
 
-      {/* Legend + Filters (ENH-01) */}
-      <div className="absolute top-3 left-3 z-40 text-xs" style={{
+      {/* Legend + Filters (ENH-01) — hidden on small viewports */}
+      <div className="absolute top-3 left-3 z-40 text-xs hidden md:block" style={{
         background: 'rgba(15,15,25,0.9)', border: '1px solid #333', borderRadius: 8, padding: '12px 16px',
         maxWidth: 260,
       }}>
@@ -802,8 +900,8 @@ export default function GeopoliticalGraph() {
         )}
       </div>
 
-      {/* Right panel — Market Indicators + Incentive Levers */}
-      <div className="absolute top-3 right-3 z-40 w-[320px] max-h-[calc(100vh-48px)] overflow-y-auto text-xs" style={{
+      {/* Right panel — Market Indicators + Incentive Levers — hidden below lg */}
+      <div className="absolute top-3 right-3 z-40 w-[320px] max-h-[calc(100vh-48px)] overflow-y-auto text-xs hidden lg:block" style={{
         background: 'rgba(15,15,25,0.9)', border: '1px solid #333', borderRadius: 8, padding: '14px 18px'
       }}>
         <section>
@@ -998,8 +1096,8 @@ export default function GeopoliticalGraph() {
         </section>
       </div>
 
-      {/* Signal Panel */}
-      <div className="absolute bottom-3 left-3 right-3 z-40 text-[11px] max-h-[180px] overflow-y-auto" style={{
+      {/* Signal Panel — height capped tighter on small screens */}
+      <div className="absolute bottom-3 left-3 right-3 z-40 text-[11px] max-h-[120px] sm:max-h-[180px] overflow-y-auto" style={{
         background: 'rgba(15,15,25,0.9)', border: '1px solid #333', borderRadius: 8, padding: '12px 16px'
       }}>
         <h3 className="text-white font-bold text-[13px] mb-1.5">📡 Signals — Feb baseline + Jun refresh</h3>

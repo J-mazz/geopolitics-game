@@ -13,6 +13,7 @@ export const typeColors: Record<string, string> = {
   instrument: '#8899bb',
   bloc:       '#e879f9',
   document:   '#cbd5e1',
+  person:     '#fde68a',
 }
 
 export const edgeColors: Record<string, string> = {
@@ -33,6 +34,7 @@ export const incentiveRelationColors: Record<IncentiveRelation, string> = {
   controls:       '#fb923c',
   conflicts_with: '#f87171',
   authored:       '#cbd5e1',
+  named_in:       '#fde68a',
 }
 
 // instrument node color — exported for direct use in the legend; also folded

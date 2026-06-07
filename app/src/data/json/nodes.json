@@ -8,7 +8,7 @@
     "ids": {
       "wikidata": "Q30"
     },
-    "detail": "Levers: Dollar/SWIFT, military forward-deploy, chip controls, LNG, alliance network.\nCosts: Polarization, fiscal deficit, alliance fatigue, hollowed industrial base.\nCurrent posture: Transactional dealmaking, military build-up near Iran, quiet Philippines rotation."
+    "detail": "Levers: Dollar/SWIFT, military forward-deployment, chip export controls, LNG exports, alliance network.\nConstraints: Polarization, fiscal deficit, alliance-management costs, reduced domestic industrial capacity.\nCurrent posture: Bilateral deal-making approach; military reinforcement near Iran; rotational forces in the Philippines."
   },
   {
     "id": "CN",
@@ -96,7 +96,7 @@
     "ids": {
       "wikidata": "Q17"
     },
-    "detail": "PM Takaichi LDP supermajority — 316/465 seats. Stocks soaring to record.\nPromised tax cuts + military spending to counter China. Most hawkish Japanese leader in decades."
+    "detail": "PM Takaichi LDP supermajority — 316/465 seats. Equities at record highs.\nPlatform: tax cuts and increased military spending stated as a response to China. Most security-forward Japanese platform in decades."
   },
   {
     "id": "KH",
@@ -126,7 +126,7 @@
     "type": "domain",
     "group": 4,
     "r": 16,
-    "detail": "Contested by China, Philippines, Vietnam, Malaysia, Brunei, Indonesia.\nUS freedom of navigation ops. Chinese coast guard confrontations.\nKey chokepoint for global trade."
+    "detail": "Contested by China, Philippines, Vietnam, Malaysia, Brunei, Indonesia.\nUS freedom-of-navigation operations. Chinese coast guard incidents documented.\nMajor shipping lane for global trade."
   },
   {
     "id": "TWN",
@@ -158,7 +158,7 @@
     "type": "domain",
     "group": 4,
     "r": 14,
-    "detail": "Thailand: Bhumjaithai party decisive victory, conservative-establishment win.\nCambodia drifting from China. Myanmar scam center crackdown by China."
+    "detail": "Thailand: Bhumjaithai party won decisively; establishment-aligned conservative result.\nCambodia repositioning relative to China. Myanmar scam-center enforcement by China."
   },
   {
     "id": "CHIPS",
@@ -193,7 +193,7 @@
     "ids": {
       "wikidata": "Q7768"
     },
-    "detail": "Central convener for SE Asia. Code of Conduct stalled by Cambodia proxy for China.\nNow Cambodia drifting — could unblock progress."
+    "detail": "Central convener for SE Asia. Code of Conduct progress historically slowed; Cambodia's alignment with China cited as one factor.\nRecent Cambodia repositioning may change consensus dynamics."
   },
   {
     "id": "NATO",
@@ -241,7 +241,7 @@
     "group": 6,
     "r": 10,
     "cohort": "feb-2026",
-    "detail": "First US warship at Chinese-built Cambodia port. Beijing 'quietly displeased'. Cambodia hedging. VALIDATED: Defense News."
+    "detail": "First US warship visit to the Chinese-built Cambodian port. Beijing publicly objected. Cambodia maintaining ties with both sides. VALIDATED: Defense News."
   },
   {
     "id": "S3",
@@ -376,7 +376,7 @@
     "group": 6,
     "r": 10,
     "cohort": "feb-2026",
-    "detail": "Bhumjaithai Party decisive election victory. Conservative-establishment consolidation. Progressive/populist parties routed. VALIDATED: Reuters, AJ."
+    "detail": "Bhumjaithai Party won decisively. Establishment-aligned conservative parties consolidated; progressive and populist parties lost seats. VALIDATED: Reuters, AJ."
   },
   {
     "id": "S18",
@@ -394,7 +394,7 @@
     "group": 6,
     "r": 10,
     "cohort": "feb-2026",
-    "detail": "Carney leverages submarine contract for auto sector investment. Transactional dealmaking between allies. VALIDATED: FT."
+    "detail": "Carney tied a submarine procurement to auto-sector investment commitments. Reciprocal commercial-defense package between allies. VALIDATED: FT."
   },
   {
     "id": "S20",
@@ -411,7 +411,7 @@
     "type": "indicator",
     "group": 8,
     "r": 12,
-    "detail": "WTI ~$95.5/bbl, +66% YTD; Brent ~$97. The Hormuz war premium — the Iran conflict, priced. SOURCE: FMP via Bigdata, Jun 2 2026.",
+    "detail": "WTI ~$95.5/bbl, +66% YTD; Brent ~$97. Risk premium from the Hormuz situation reflected in pricing. SOURCE: FMP via Bigdata, Jun 2 2026.",
     "ids": {
       "ticker": "CL=F"
     }
@@ -425,7 +425,7 @@
     "ids": {
       "ticker": "GC=F"
     },
-    "detail": "Gold ~$4,490/oz, +33% 1Y. Debasement / safe-haven bid beneath the equity calm. SOURCE: FMP via Bigdata, Jun 2 2026."
+    "detail": "Gold ~$4,490/oz, +33% 1Y. Sustained safe-haven and inflation-hedge bid concurrent with equity strength. SOURCE: FMP via Bigdata, Jun 2 2026."
   },
   {
     "id": "I_SILVER",
@@ -436,7 +436,7 @@
     "ids": {
       "ticker": "SI=F"
     },
-    "detail": "Silver ~$74.7/oz, +116% over the year. Monetary-hedge surge outpacing gold. SOURCE: FMP via Bigdata, Jun 2 2026."
+    "detail": "Silver ~$74.7/oz, +116% over the year. Year-over-year price growth outpaced gold. SOURCE: FMP via Bigdata, Jun 2 2026."
   },
   {
     "id": "I_VIX",
@@ -447,7 +447,7 @@
     "ids": {
       "ticker": "^VIX"
     },
-    "detail": "Volatility index ~15.8 — markets calm through two wars. Capital's confidence, or complacency. SOURCE: FMP via Bigdata, Jun 2 2026."
+    "detail": "Volatility index ~15.8 — market-implied near-term volatility low concurrent with two active conflicts. SOURCE: FMP via Bigdata, Jun 2 2026."
   },
   {
     "id": "I_CHIPIDX",
@@ -455,7 +455,7 @@
     "type": "indicator",
     "group": 8,
     "r": 13,
-    "detail": "KOSPI +226% 1Y, Taiwan +120%, Nikkei +83%. The AI-semiconductor supercycle — the world's dominant equity story, and it is geographic. SOURCE: FMP via Bigdata, Jun 2 2026."
+    "detail": "KOSPI +226% 1Y, Taiwan +120%, Nikkei +83%. AI-semiconductor demand cycle: equity gains concentrated geographically in Korea, Taiwan, and Japan. SOURCE: FMP via Bigdata, Jun 2 2026."
   },
   {
     "id": "I_SP500",
@@ -466,7 +466,7 @@
     "ids": {
       "ticker": "^GSPC"
     },
-    "detail": "S&P 500 ~7,610, +11% YTD, +27% 1Y — record highs through Venezuela & Iran wars. Narrow, tech/momentum-led. SOURCE: FMP via Bigdata, Jun 2 2026."
+    "detail": "S&P 500 ~7,610, +11% YTD, +27% 1Y — record highs concurrent with the Venezuela and Iran conflicts. Gains concentrated in technology and momentum sectors. SOURCE: FMP via Bigdata, Jun 2 2026."
   },
   {
     "id": "I_WEALTH",
@@ -474,7 +474,7 @@
     "type": "indicator",
     "group": 8,
     "r": 12,
-    "detail": "Top 1% hold a record 31.7% of US wealth (~$55T ≈ bottom 90% combined); bottom 50% ~2.6%. The richest 1% own ~half of all stocks — the melt-up IS the disparity. SOURCE: Fed DFA / Inequality.org, Q3 2025."
+    "detail": "Top 1% hold a record 31.7% of US wealth (~$55T, comparable to the bottom 90% combined); bottom 50% ~2.6%. The richest 1% own ~half of all equities — equity appreciation accrues disproportionately to that cohort. SOURCE: Fed DFA / Inequality.org, Q3 2025."
   },
   {
     "id": "S21",
@@ -484,7 +484,7 @@
     "r": 10,
     "cohort": "jun-2026",
     "date": "2026-01-03",
-    "detail": "Jan 3 2026: US special forces captured Maduro in Caracas; Delcy Rodríguez sworn in as acting president; US oil sanctions lifted and privatization begun. Regime change plus an energy deal. SOURCE: Congress.gov CRS, Brookings."
+    "detail": "Jan 3 2026: US special forces captured Maduro in Caracas; Delcy Rodríguez sworn in as acting president; US oil sanctions lifted and privatization initiated. Government change in Venezuela accompanied by a bilateral energy arrangement. SOURCE: Congress.gov CRS, Brookings."
   },
   {
     "id": "S22",
@@ -522,7 +522,7 @@
     "r": 10,
     "cohort": "jun-2026",
     "date": "2026-05-31",
-    "detail": "May 2026: H200/MI308 cleared for ~10 Chinese firms (75k cap) — but Beijing blocks imports to push domestic silicon; May 31 new controls on Blackwell/Rubin/MI350X. Chokepoint moved up a tier. SOURCE: BuiltIn, GuruFocus."
+    "detail": "May 2026: H200/MI308 cleared for ~10 Chinese firms (75k cap); Beijing then blocked imports to favor domestic silicon. May 31: new US controls added on Blackwell/Rubin/MI350X. Restricted-technology threshold raised. SOURCE: BuiltIn, GuruFocus."
   },
   {
     "id": "S26",
@@ -561,7 +561,7 @@
     "r": 10,
     "cohort": "jun-2026",
     "date": "2026-01-30",
-    "detail": "Jan 30 2026: DOJ releases 3M+ pages under EFTA (200k+ withheld); Clintons held in contempt then testify; Andrew arrested Feb 18; Commerce Sec Lutnick to testify. An elite incentive network with primary-source provenance. SOURCE: DOJ, Britannica, CBS."
+    "detail": "Jan 30 2026: DOJ releases 3M+ pages under EFTA (200k+ withheld); Clintons held in contempt then testify; Andrew arrested Feb 18; Commerce Sec Lutnick scheduled to testify. Primary-source document set covering associated network. SOURCE: DOJ, Britannica, CBS."
   },
   {
     "id": "S30",
@@ -570,6 +570,6 @@
     "group": 6,
     "r": 10,
     "cohort": "jun-2026",
-    "detail": "Equities at record highs through two regime-change wars while wealth concentration hits a record. Capital's confidence has decoupled from the median household. SOURCE: FMP via Bigdata, Fed DFA."
+    "detail": "Equities at record highs concurrent with two regime-change conflicts; US wealth concentration also at a record. Market performance and median-household financial conditions diverging. SOURCE: FMP via Bigdata, Fed DFA."
   }
 ]

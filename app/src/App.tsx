@@ -3,7 +3,6 @@ import Layout from './components/Layout'
 import ErrorBoundary from './components/ErrorBoundary'
 import Landing from './pages/Landing'
 import GeopoliticalGraph from './pages/GeopoliticalGraph'
-import RepublicHealth from './pages/RepublicHealth'
 import CommonSense from './pages/CommonSense'
 
 export default function App() {
@@ -13,7 +12,6 @@ export default function App() {
         <Routes>
           <Route path="/" element={<Landing />} />
           <Route path="/graph" element={<GeopoliticalGraph />} />
-          <Route path="/republic-health" element={<RepublicHealth />} />
           <Route path="/common-sense" element={<CommonSense />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>

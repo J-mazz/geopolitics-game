@@ -49,3 +49,49 @@ svg rect[data-search-match="true"] {
   stroke-width: 4 !important;
   filter: drop-shadow(0 0 6px #ffcc00cc);
 }
+
+/* Common Sense print stylesheet: hide all app chrome (nav, TOC, progress,
+   footnote popovers); flow the essay column to the page; force a light-on-
+   dark print to light-on-light. Browsers will paginate naturally. */
+@media print {
+  body {
+    background: white !important;
+    color: black !important;
+  }
+  nav,
+  [aria-label="Table of contents"],
+  .print\:hidden {
+    display: none !important;
+  }
+  article,
+  article * {
+    color: black !important;
+    background: transparent !important;
+    border-color: #999 !important;
+  }
+  article {
+    max-width: none !important;
+    padding: 0 !important;
+    font-size: 11pt !important;
+    line-height: 1.5 !important;
+  }
+  article a {
+    color: black !important;
+    text-decoration: underline;
+  }
+  /* Show footnote URLs inline after their anchor — useful on paper */
+  article a[href^="http"]::after {
+    content: " <" attr(href) ">";
+    font-size: 0.85em;
+    color: #444;
+  }
+  article h2 {
+    page-break-after: avoid;
+  }
+  article blockquote,
+  article ul,
+  article ol,
+  article li {
+    page-break-inside: avoid;
+  }
+}

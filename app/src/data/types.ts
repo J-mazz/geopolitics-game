@@ -37,7 +37,7 @@ export interface NodeIds {
 export interface GraphNode {
   id: string
   label: string
-  type: 'major' | 'swing' | 'signal' | 'domain' | 'institution' | 'instrument' | 'indicator' | 'bloc' | 'document'
+  type: 'major' | 'swing' | 'signal' | 'domain' | 'institution' | 'instrument' | 'indicator' | 'bloc' | 'document' | 'person'
   group: number
   r: number
   detail: string
@@ -73,6 +73,7 @@ export type IncentiveRelation =
   | 'controls'      // actor sets/administers the instrument
   | 'conflicts_with'// the instrument cuts against the target's interest
   | 'authored'      // actor authored/published a document (verifiable byline)
+  | 'named_in'      // actor named or subject of an instrument/document — observable, citable
 
 export interface Provenance {
   sourceId: string      // must resolve in the sources registry (enforced by test)

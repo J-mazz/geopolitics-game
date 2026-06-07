@@ -34,7 +34,7 @@ export const IndicatorDatumSchema = z.object({
 
 export const NodeTypeSchema = z.enum([
   'major', 'swing', 'signal', 'domain', 'institution', 'instrument', 'indicator',
-  'bloc', 'document',
+  'bloc', 'document', 'person',
 ])
 
 export const GraphNodeSchema = z.object({
@@ -63,7 +63,7 @@ export const GraphEdgeSchema = z.object({
 
 export const IncentiveRelationSchema = z.enum([
   'holds', 'donates_to', 'lobbies_on', 'sponsors',
-  'benefits_from', 'controls', 'conflicts_with', 'authored',
+  'benefits_from', 'controls', 'conflicts_with', 'authored', 'named_in',
 ])
 
 export const ProvenanceSchema = z.object({

@@ -1,7 +1,112 @@
+import { useEffect, useState } from 'react'
 import { footnotes, resources } from '../data/common-sense'
+import type { Footnote } from '../data/common-sense'
+
+// O(1) footnote lookup so Fn doesn't scan the array on every render.
+const FOOTNOTE_MAP = new Map<number, Footnote>(footnotes.map(f => [f.id, f]))
+
+// slug derived from a section title — kept stable so the URL hash and TOC
+// agree without each call site having to pass an explicit id.
+function slugify(s: string): string {
+  return s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')
+}
 
 function Fn({ n }: { n: number }) {
-  return <sup><a href={`#fn${n}`} id={`r${n}`} className="text-amber-700 hover:text-amber-500 no-underline">{n}</a></sup>
+  const fn = FOOTNOTE_MAP.get(n)
+  return (
+    <sup className="relative group inline-block leading-none align-baseline">
+      <a href={`#fn${n}`} id={`r${n}`}
+         className="text-amber-700 hover:text-amber-500 no-underline px-0.5 focus:outline-none focus:ring-1 focus:ring-amber-600 rounded-sm"
+         aria-label={`Footnote ${n}${fn ? ': ' + fn.text.slice(0, 80) : ''}`}>
+        {n}
+      </a>
+      {fn && (
+        <span role="tooltip"
+          className="invisible opacity-0 group-hover:visible group-hover:opacity-100 focus-within:visible focus-within:opacity-100
+                     absolute left-1/2 -translate-x-1/2 bottom-full mb-2 z-50
+                     w-[320px] max-w-[80vw] text-left text-[12.5px] normal-case font-normal
+                     bg-[var(--bg-elevated)] border border-amber-700/40 rounded-md p-3
+                     text-[var(--text)] shadow-lg
+                     transition-opacity duration-150 print:hidden">
+          <span className="text-amber-700 font-semibold">[{n}]</span>{' '}
+          {fn.text}{' '}
+          {fn.url && <a href={fn.url} target="_blank" rel="noopener noreferrer"
+                        className="text-amber-700 underline break-all">{fn.url}</a>}
+        </span>
+      )}
+    </sup>
+  )
+}
+
+// Scroll-position-driven progress bar at the very top of the viewport.
+function ProgressBar() {
+  const [pct, setPct] = useState(0)
+  useEffect(() => {
+    const onScroll = () => {
+      const max = document.documentElement.scrollHeight - window.innerHeight
+      setPct(max > 0 ? (window.scrollY / max) * 100 : 0)
+    }
+    window.addEventListener('scroll', onScroll, { passive: true })
+    onScroll()
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
+  return (
+    <div className="fixed top-0 left-0 right-0 h-[3px] z-[150] print:hidden pointer-events-none" aria-hidden>
+      <div className="h-full bg-amber-600 transition-[width] duration-150" style={{ width: `${pct}%` }} />
+    </div>
+  )
+}
+
+// TocRail: queries h2[id] in the article after mount, lists them with anchor
+// links, and uses IntersectionObserver to highlight the current section.
+// Fixed left rail at xl+; hidden below to avoid crowding the prose column.
+function TocRail() {
+  const [items, setItems] = useState<{ id: string; title: string }[]>([])
+  const [active, setActive] = useState<string | null>(null)
+
+  useEffect(() => {
+    const h2s = Array.from(document.querySelectorAll<HTMLHeadingElement>('article h2[id]'))
+    // DOM-after-mount lookup; no input source available before render.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setItems(h2s.map(h => ({ id: h.id, title: h.textContent ?? '' })))
+
+    if (h2s.length === 0) return
+    const observer = new IntersectionObserver((entries) => {
+      const visible = entries.filter(e => e.isIntersecting)
+      if (visible.length === 0) return
+      const topmost = visible.reduce((a, b) =>
+        a.boundingClientRect.top < b.boundingClientRect.top ? a : b)
+      setActive(topmost.target.id)
+    }, { rootMargin: '-80px 0px -60% 0px', threshold: 0 })
+    h2s.forEach(h => observer.observe(h))
+    return () => observer.disconnect()
+  }, [])
+
+  if (items.length === 0) return null
+  return (
+    <nav className="hidden xl:block fixed left-6 top-24 w-[220px] text-xs print:hidden"
+         aria-label="Table of contents">
+      <div className="font-sans font-bold text-[var(--text-muted)] uppercase tracking-[0.18em] mb-2 text-[10px]">Contents</div>
+      <ul className="space-y-0.5 border-l border-[var(--border)]">
+        {items.map(item => {
+          const isActive = active === item.id
+          return (
+            <li key={item.id}>
+              <a href={`#${item.id}`}
+                 className={`block pl-3 py-1 -ml-px border-l-2 no-underline transition-colors ${
+                   isActive
+                     ? 'border-amber-600 text-[var(--text-bright)]'
+                     : 'border-transparent text-[var(--text-muted)] hover:text-[var(--text)] hover:border-[var(--border)]'
+                 }`}
+                 style={{ fontWeight: isActive ? 600 : 400 }}>
+                {item.title}
+              </a>
+            </li>
+          )
+        })}
+      </ul>
+    </nav>
+  )
 }
 
 function Epigraph({ children, attribution }: { children: React.ReactNode; attribution: React.ReactNode }) {
@@ -27,9 +132,10 @@ function Divider() {
 }
 
 function Section({ id, title, children }: { id?: string; title: string; children: React.ReactNode }) {
+  const sid = id ?? slugify(title)
   return (
     <>
-      <h2 id={id} className="font-sans text-2xl font-bold text-[var(--text-bright)] mt-12 mb-4 pb-2 border-b border-[var(--border)] tracking-wide">{title}</h2>
+      <h2 id={sid} className="font-sans text-2xl font-bold text-[var(--text-bright)] mt-12 mb-4 pb-2 border-b border-[var(--border)] tracking-wide scroll-mt-24">{title}</h2>
       {children}
       <Divider />
     </>
@@ -38,7 +144,10 @@ function Section({ id, title, children }: { id?: string; title: string; children
 
 export default function CommonSense() {
   return (
-    <div className="max-w-[72ch] mx-auto px-6 py-8 font-serif leading-relaxed text-[var(--text)]" style={{ fontFamily: "Georgia, 'Times New Roman', Times, serif" }}>
+    <>
+      <ProgressBar />
+      <TocRail />
+      <article className="max-w-[72ch] mx-auto px-4 sm:px-6 py-8 font-serif leading-relaxed text-[var(--text)] text-[0.95rem] sm:text-[1rem]" style={{ fontFamily: "Georgia, 'Times New Roman', Times, serif" }}>
 
       {/* HERO: FRANKLIN */}
       <div className="text-center pt-14 pb-10 border-b border-[var(--border)] mb-8">
@@ -294,6 +403,7 @@ export default function CommonSense() {
         <p className="mt-6 text-lg italic text-amber-700 tracking-wide">— Publius</p>
         <p className="mt-4 text-xs text-[var(--text-muted)]">February 2026 · Common Sense, 2026</p>
       </div>
-    </div>
+      </article>
+    </>
   )
 }

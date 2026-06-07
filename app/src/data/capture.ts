@@ -26,6 +26,30 @@ const captureNodesData = [
     detail: 'Heritage Foundation, published Oct 7 2024; credited authors Victoria Coates and Daniel Flesch. “A National Strategy to Combat Antisemitism” that designates a domestic “Hamas Support Network” and proposes dismantling it in 12–24 months. Drafted without major Jewish-organization input; no major Jewish org endorsed it; drew evangelical support. SOURCE: Heritage (primary) / NYT / JTA.' },
   { id: 'DOC_2025', label: '📕 Project 2025', type: 'document', group: 9, r: 12,
     detail: 'Heritage Foundation manuscript: a blueprint for consolidating executive authority and staffing. Included as the same KIND of artifact as Project Esther — a published think-tank strategy document with a verifiable byline. SOURCE: Heritage (primary).' },
+
+  // ---- EFTA disclosure document ----
+  { id: 'DOC_EFTA_RELEASE', label: '🗂️ DOJ EFTA Release (Jan 30 2026)', type: 'document', group: 10, r: 14,
+    detail: 'DOJ disclosure under the Epstein Files Transparency Act (H.R. 4405). Approximately 3M+ pages released; ~200k+ pages withheld. The release is the primary-source substrate for the named-in edges below. Each edge encodes only an observable, documented act (named in the release, arrested, scheduled to testify, resigned over disclosed material) — no imputed intent. SOURCE: DOJ.' },
+
+  // ---- Persons named in the EFTA release or in disclosed correspondence ----
+  // Every person here has at least one published action (arrest, scheduled testimony,
+  // resignation) attributable to disclosed material. Identity claims are limited to
+  // the role at time of action; nothing beyond what the cited source itself states.
+  { id: 'PERSON_LUTNICK', label: '👤 Howard Lutnick', type: 'person', group: 10, r: 11,
+    detail: 'US Commerce Secretary at time of disclosure. Scheduled to testify under EFTA proceedings per S29. Source-stated role and action; no further characterization drawn. SOURCE: DOJ / CBS.',
+    ids: { wikidata: 'Q5917327' } },
+  { id: 'PERSON_ANDREW', label: '👤 Andrew Windsor', type: 'person', group: 10, r: 11,
+    detail: 'Arrested Feb 18 2026 per disclosed material in the EFTA release. Edge encodes the documented arrest only. SOURCE: DOJ / Reuters / Britannica.',
+    ids: { wikidata: 'Q146337' } },
+  { id: 'PERSON_BCLINTON', label: '👤 Bill Clinton', type: 'person', group: 10, r: 11,
+    detail: 'Held in contempt and subsequently testified under EFTA proceedings per S29. Edge encodes the documented procedural acts only. SOURCE: DOJ / CBS.',
+    ids: { wikidata: 'Q1124' } },
+  { id: 'PERSON_HCLINTON', label: '👤 Hillary Clinton', type: 'person', group: 10, r: 11,
+    detail: 'Held in contempt and subsequently testified under EFTA proceedings per S29. Edge encodes the documented procedural acts only. SOURCE: DOJ / CBS.',
+    ids: { wikidata: 'Q6294' } },
+  { id: 'PERSON_MANDELSON', label: '👤 Peter Mandelson', type: 'person', group: 10, r: 11,
+    detail: 'UK PM aide who resigned over disclosed correspondence linking the aide and Mandelson to Epstein per S16. Edge encodes the documented resignation and named connection only. SOURCE: Reuters / FT / AJ.',
+    ids: { wikidata: 'Q314945' } },
 ]
 
 export const captureNodes: GraphNode[] = z.array(GraphNodeSchema).parse(captureNodesData)
@@ -71,6 +95,33 @@ const captureEdgesData = [
   { source: 'BLOC_DEFENSE', target: 'INST_F35', relation: 'benefits_from', strength: 7, confidence: 0.85,
     provenance: { sourceId: 'OPENSECRETS', asOf: '2026-01-01',
       quote: 'Prime contractors are the direct commercial beneficiaries of the F-35 program.' } },
+
+  // ---- EFTA sub-graph: persons named in the disclosed material ------------
+  // Discipline (re-stated): each edge cites a primary or established source
+  // and encodes only a documented act. Nothing is asserted about guilt,
+  // motive, or relationships beyond what the cited source itself states.
+  { source: 'PERSON_LUTNICK', target: 'DOC_EFTA_RELEASE', relation: 'named_in', strength: 6, confidence: 0.9,
+    provenance: { sourceId: 'DOJ_EFTA', asOf: '2026-01-30',
+      quote: 'Scheduled to testify under EFTA disclosure proceedings.' } },
+  { source: 'PERSON_ANDREW', target: 'DOC_EFTA_RELEASE', relation: 'named_in', strength: 8, confidence: 0.95,
+    provenance: { sourceId: 'DOJ_EFTA', asOf: '2026-02-18',
+      quote: 'Arrested Feb 18 2026 in connection with EFTA-disclosed material.' } },
+  { source: 'PERSON_BCLINTON', target: 'DOC_EFTA_RELEASE', relation: 'named_in', strength: 7, confidence: 0.95,
+    provenance: { sourceId: 'DOJ_EFTA', asOf: '2026-01-30',
+      quote: 'Held in contempt then testified under EFTA proceedings.' } },
+  { source: 'PERSON_HCLINTON', target: 'DOC_EFTA_RELEASE', relation: 'named_in', strength: 7, confidence: 0.95,
+    provenance: { sourceId: 'DOJ_EFTA', asOf: '2026-01-30',
+      quote: 'Held in contempt then testified under EFTA proceedings.' } },
+  { source: 'PERSON_MANDELSON', target: 'DOC_EFTA_RELEASE', relation: 'named_in', strength: 6, confidence: 0.85,
+    provenance: { sourceId: 'REUTERS', asOf: '2026-02-01',
+      quote: 'UK PM aide resigned over disclosed correspondence linking the aide and Mandelson to Epstein.' } },
+
+  // Document → contested institution: the EFTA release is itself a public-record event
+  // that bears on constitutional government (subpoena power, executive cooperation,
+  // separation of powers). Modeled as observable parallel, low confidence.
+  { source: 'DOC_EFTA_RELEASE', target: 'CONST_GOV', relation: 'benefits_from', strength: 4, confidence: 0.5,
+    provenance: { sourceId: 'DOJ_EFTA', asOf: '2026-01-30',
+      quote: 'EFTA disclosures invoke congressional and judicial process; outcome bears on inter-branch authority.' } },
 ]
 
 export const captureEdges: IncentiveEdge[] = z.array(IncentiveEdgeSchema).parse(captureEdgesData)
