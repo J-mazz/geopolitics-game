@@ -141,17 +141,19 @@ function CaptureTeaser() {
 
 export default function Landing() {
   return (
-    <div className="w-full py-8 leading-relaxed"
+    <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 py-8 leading-relaxed"
          style={{ fontFamily: "Georgia, 'Times New Roman', Times, serif", color: 'var(--text)' }}>
 
-      {/* HERO — full-bleed, text centered */}
-      <header className="w-full px-4 sm:px-8 lg:px-16 text-center pt-14 pb-10"
+      {/* HERO — centered text within the page container, larger headline */}
+      <header className="text-center pt-12 pb-10"
               style={{ borderBottom: '1px solid var(--border)' }}>
-        <div className="font-sans text-xs uppercase tracking-[0.35em] mb-4" style={{ color: 'var(--accent)' }}>
+        <div className="font-sans text-xs uppercase tracking-[0.35em] mb-5" style={{ color: 'var(--accent)' }}>
           A structural map of power
         </div>
-        <h1 className="font-sans text-4xl md:text-5xl font-bold tracking-tight mb-5" style={{ color: 'var(--text-bright)' }}>
-          Seven blocs. One contested<br className="hidden sm:inline" /> institution.<br />
+        <h1 className="font-sans text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-6 leading-[1.05]"
+            style={{ color: 'var(--text-bright)' }}>
+          Seven blocs.<br />
+          One contested institution.<br />
           A receipt on every edge.
         </h1>
         <p className="text-lg max-w-[60ch] mx-auto" style={{ color: 'var(--text-muted)' }}>
@@ -178,8 +180,8 @@ export default function Landing() {
         </div>
       </header>
 
-      {/* STAT STRIP — full-bleed, 5 tiles flexed across the viewport */}
-      <section className="w-full px-4 sm:px-8 lg:px-16 mt-10">
+      {/* STAT STRIP — fills the page-container width */}
+      <section className="mt-10">
         <div className="font-sans text-xs uppercase tracking-[0.25em] text-center mb-3"
           style={{ color: 'var(--text-muted)' }}>
           What the receipts say
@@ -189,8 +191,8 @@ export default function Landing() {
         </div>
       </section>
 
-      {/* CAPTURE TEASER — full-bleed; SVG scales to viewport */}
-      <section className="w-full px-4 sm:px-8 lg:px-16 mt-12">
+      {/* CAPTURE TEASER — bounded so the SVG keeps its proportions */}
+      <section className="mt-12 max-w-3xl mx-auto">
         <div className="font-sans text-xs uppercase tracking-[0.25em] text-center mb-3"
           style={{ color: 'var(--text-muted)' }}>
           Who acts on the institution
@@ -203,7 +205,7 @@ export default function Landing() {
       </section>
 
       {/* Long-form prose: centered narrow column for readability + justified paragraphs */}
-      <div className="max-w-[74ch] mx-auto px-4 sm:px-6 mt-12 [&_p]:text-justify [&_p]:hyphens-auto">
+      <div className="max-w-[74ch] mx-auto mt-12 [&_p]:text-justify [&_p]:hyphens-auto">
 
       {/* Thesis */}
       <Section id="thesis" title="Thesis">
