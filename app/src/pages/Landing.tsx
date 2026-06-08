@@ -29,7 +29,7 @@ function Principle({ label, children }: { label: string; children: React.ReactNo
     <div className="my-5">
       <div className="font-sans font-bold tracking-[0.18em] uppercase text-xs mb-1.5"
            style={{ color: 'var(--accent)' }}>{label}</div>
-      <div className="text-[0.98rem] leading-relaxed text-justify hyphens-auto"
+      <div className="text-[0.98rem] leading-relaxed"
            style={{ color: 'var(--text)' }}>{children}</div>
     </div>
   )
@@ -60,8 +60,8 @@ function StatTile({ value, label, sub, src }: typeof STATS[number]) {
 }
 
 function CaptureTeaser() {
-  // 600x460 viewBox with extra top padding so labels above the topmost bloc
-  // don't crash into the section header.
+  // viewBox is padded symmetrically about the center node so the longer
+  // left-side labels don't pull the drawing off-center within its box.
   const cx = 300, cy = 230
   const ringR = 155
   const blocR = 38
@@ -72,7 +72,7 @@ function CaptureTeaser() {
         aria-label="Open the full capture lens in the graph"
         className="block rounded-lg overflow-hidden transition-transform hover:scale-[1.01]"
         style={{ border: '1px solid var(--border)', background: 'var(--bg-elevated)' }}>
-        <svg viewBox="0 0 600 460" className="w-full h-auto block">
+        <svg viewBox="-50 0 700 460" className="w-full h-auto block">
           <defs>
             <marker id="teaser-arrow" viewBox="0 -5 10 10" refX="14" refY="0" markerWidth="7" markerHeight="7" orient="auto">
               <path d="M0,-5L10,0L0,5" fill="#f472b6" />
@@ -144,28 +144,42 @@ function CaptureTeaser() {
 
 export default function Landing() {
   return (
-    // Parent Layout uses `flex justify-center` to anchor this block — so it's
-    // a flex item bounded by max-w. No w-full / no mx-auto on this side.
-    <div className="max-w-7xl w-full px-4 sm:px-6 lg:px-12 py-8 leading-relaxed text-center"
+    // Hero, stat strip, and teaser center themselves; the long-form column
+    // below stays left-aligned for readability.
+    <div className="max-w-7xl w-full px-4 sm:px-6 lg:px-12 py-8 leading-relaxed"
          style={{ fontFamily: "Georgia, 'Times New Roman', Times, serif", color: 'var(--text)' }}>
 
-      {/* HERO — centered text within the page container, larger headline */}
+      {/* HERO — Madison quote, thesis line, then the call. Paragraph shares the
+          teaser's max-w-3xl width so the two line up. */}
       <header className="text-center pt-12 pb-10"
               style={{ borderBottom: '1px solid var(--border)' }}>
-        <div className="font-sans text-xs uppercase tracking-[0.35em] mb-5" style={{ color: 'var(--accent)' }}>
+        <div className="font-sans text-xs uppercase tracking-[0.35em] mb-6" style={{ color: 'var(--accent)' }}>
           A structural map of power
         </div>
-        <h1 className="font-sans text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-6 leading-[1.05]"
+        <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold italic tracking-tight mb-4 leading-[1.15] max-w-[20ch] mx-auto"
             style={{ color: 'var(--text-bright)' }}>
-          Seven blocs.<br />
-          One contested institution.<br />
-          A receipt on every edge.
+          “A people who mean to be their own Governors, must arm themselves with
+          the power which knowledge gives.”
         </h1>
-        <p className="text-lg max-w-[58ch] mx-auto text-justify hyphens-auto"
-           style={{ color: 'var(--text-muted)', textAlign: 'justify' }}>
-          Constitutional government isn't acted on in the abstract. It is lobbied, donated to,
-          and authored at — every day, by organized blocs, in measurable amounts. This map renders
-          those edges from public record and refuses to draw the ones it cannot cite.
+        <div className="font-sans text-sm tracking-wide mb-7" style={{ color: 'var(--accent)' }}>
+          — James Madison, 1822
+        </div>
+        <p className="font-sans text-xl md:text-2xl font-bold tracking-tight mb-6"
+           style={{ color: 'var(--text-bright)' }}>
+          The game has changed; pay attention.
+        </p>
+        <p className="text-lg max-w-3xl mx-auto text-center"
+           style={{ color: 'var(--text-muted)' }}>
+          We live in a surveillance state where most of the world's capital has
+          collected in the hands of a vanishing few — and our representatives, and
+          the institutions of the republic itself, increasingly serve those
+          interests rather than the people they were built for. From the Epstein
+          files to the hard actions of leaders today, the pattern is no longer
+          deniable. This project gathers the scattered, deliberately complex
+          record into a single knowledge graph, so citizens of every class and
+          creed can arm themselves with the one power that cannot be bought.
+          Stay informed. Stay vigilant. Stay united — this is our nation to keep,
+          and our duty to the generations who inherit it.
         </p>
         <div className="mt-8 flex flex-wrap items-center justify-center gap-3 font-sans">
           <Link to="/graph?lens=capture"
@@ -210,10 +224,8 @@ export default function Landing() {
         </p>
       </section>
 
-      {/* Long-form prose: centered narrow column for readability + justified paragraphs.
-          text-center cascades from the outer container; paragraphs override to text-justify
-          so individual lines stretch to both edges while the block stays centered. */}
-      <div className="max-w-[74ch] mx-auto mt-12 [&_p]:text-justify [&_p]:hyphens-auto">
+      {/* Long-form reading column: left-aligned body for readability. */}
+      <div className="max-w-[74ch] mx-auto mt-12 text-left">
 
       {/* Thesis */}
       <Section id="thesis" title="Thesis">
